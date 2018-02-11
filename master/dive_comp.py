@@ -275,15 +275,15 @@ class SeismicGUI:
 		self.canvas.draw()
 
 class VideoGUI:
-	def __init__(self, master):
+	def __init__(self, master, cap):
 		self.master = master
+		self.cap = cap
 
 		self.airplanes = ['UH8', 'L6R', 'G7C', 'S1P', 'JW3', 'A2X']
 
 		# set up opencv shit
 		self.lmain = Label(master)
 		self.lmain.pack()
-		self.cap = cv2.VideoCapture(0)
 
 		# close
 		self.close_b = Button(master, text="Close", command=master.quit)
@@ -300,7 +300,7 @@ class VideoGUI:
 
 		# convert to grayscale
 		gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-		gray = cv2.threshold(gray, 255, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
+		_, gray = cv2.threshold(gray, 255, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)
 
 		# OCR
 		text = pytesseract.image_to_string(gray)
@@ -329,6 +329,8 @@ root.resizable(False, False)
 root.title("UT SAE Underwater GUI")
 center(root)
 
+cap = cv2.VideoCapture(0)
+
 # set up notebook
 s = ttk.Style()
 s.configure('TNotebook', tabposition='n')
@@ -351,7 +353,7 @@ n.add(seis, text="Seismic")
 
 # set up video GUI
 vid = ttk.Frame(n)
-vid_gui = VideoGUI(vid)
+vid_gui = VideoGUI(vid, cap)
 n.add(vid, text="Video")
 
 # pack
