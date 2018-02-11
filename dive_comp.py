@@ -1,9 +1,12 @@
 #!/usr/bin/env python3
 
-from tkinter import *
+from PIL import Image
+from PIL import ImageTk
+
+from tkinter import Label, Entry, Tk, Button
 from tkinter.filedialog import askopenfilename
-from tkinter import ttk
-from tkinter import messagebox
+from tkinter import ttk, messagebox
+import tkinter as tk
 
 import matplotlib
 matplotlib.use("TkAgg")
@@ -12,6 +15,11 @@ from matplotlib.figure import Figure
 
 import numpy
 import math
+import cv2
+
+from enum import Enum
+import pytesseract
+import difflib
 
 def center(toplevel):
 	toplevel.update_idletasks()
@@ -266,6 +274,55 @@ class SeismicGUI:
 		self.a.plot(data['x'], data['y'], color='r', label='data')
 		self.canvas.draw()
 
+class VideoGUI:
+	def __init__(self, master):
+		self.master = master
+
+		self.airplanes = ['UH8', 'L6R', 'G7C', 'S1P', 'JW3', 'A2X']
+
+		# set up opencv shit
+		self.lmain = Label(master)
+		self.lmain.pack()
+		self.cap = cv2.VideoCapture(0)
+
+		# close
+		self.close_b = Button(master, text="Close", command=master.quit)
+		self.close_b.pack(side="bottom")
+
+		# take picture
+		self.calc_b = Button(master, text="Screen Grab", command=self.grab)
+		self.calc_b.pack(side="bottom")
+
+		self.show_frame()
+
+	def grab(self):
+		_, frame = self.cap.read()
+
+		# convert to grayscale
+		gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+		gray = cv2.threshold(gray, 255, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
+
+		# OCR
+		text = pytesseract.image_to_string(gray)
+		print('found:', text)
+		poss = difflib.get_close_matches(text, self.airplanes)
+
+		if poss:
+			idx = self.airplanes.index(poss[0])
+			print('Probably plane', chr(ord('A') + idx), 'with ID', poss[0])
+		else:
+			print('No ID found')
+
+	def show_frame(self):
+		_, frame = self.cap.read()
+		oframe = cv2.cvtColor(frame, cv2.COLOR_BGR2RGBA)
+
+		img = Image.fromarray(oframe)
+		imgtk = ImageTk.PhotoImage(image=img)
+		self.lmain.imgtk = imgtk
+		self.lmain.configure(image=imgtk)
+		self.lmain.after(10, self.show_frame)
+
 root = Tk()
 root.geometry('900x700')
 root.resizable(False, False)
@@ -287,13 +344,18 @@ tidal = ttk.Frame(n)
 tidal_gui = TidalGUI(tidal)
 n.add(tidal, text="Tidal")
 
-# seismic graph
+# set up seismic GUI
 seis = ttk.Frame(n)
 seis_gui = SeismicGUI(seis)
 n.add(seis, text="Seismic")
 
+# set up video GUI
+vid = ttk.Frame(n)
+vid_gui = VideoGUI(vid)
+n.add(vid, text="Video")
+
 # pack
-n.pack(fill=BOTH, expand=True)
+n.pack(fill=tk.BOTH, expand=True)
 
 # loop
 root.mainloop()
