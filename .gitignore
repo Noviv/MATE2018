@@ -11,3 +11,5 @@ CTestTestfile.cmake
 *.o
 */bin/*
 xapp
+
+thrust_sim
