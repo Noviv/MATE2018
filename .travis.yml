@@ -1,10 +1,16 @@
+sudo: required
+
 language: cpp
 
+compiler:
+  - gcc
+  - g++
+
 install:
-	- sudo apt-get install libboost-all-dev
-	- sudo apt-get install freeglut3-dev
+  - sudo apt-get install libboost-all-dev
+  - sudo apt-get install freeglut3-dev
 
 script:
-	- cd master
-	- cmake .
-	- make
+  - cd master
+  - cmake .
+  - make
