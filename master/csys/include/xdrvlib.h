@@ -6,17 +6,15 @@
 #define MagellanInputButtonPressEvent 2
 #define MagellanInputButtonReleaseEvent 3
 
-union _MagellanInputEventUnion_ {
+union MagellanIntUnion {
 	int data[7];
 	int button;
 };
-typedef union _MagellanInputEventUnion_ MagellanIntUnion;
 
-struct _MagellanIntEvent_ {
+struct MagellanIntEvent {
 	int type;
 	MagellanIntUnion u;
 };
-typedef struct _MagellanIntEvent_ MagellanIntEvent;
 
 
 /* Data Structure for Pro/ENGINEER implementation */
@@ -29,16 +27,12 @@ enum _MagellanData_ {
 	MagellanC
 };
 
-struct _MagellanFloatEvent_ {
+struct MagellanFloatEvent {
 	int MagellanType;
 	int MagellanButton;
 	double MagellanData[6];
 	int MagellanPeriod;
 };
-
-typedef struct _MagellanFloatEvent_ MagellanFloatEvent;
-
-
 
 bool MagellanInit(Display*, Window);
 
@@ -52,15 +46,11 @@ bool MagellanInputEvent(Display*, XEvent*, MagellanIntEvent*);
 
 int MagellanTranslateEvent(Display*, XEvent*, MagellanFloatEvent*, double, double);
 
-bool MagellanClose(Display*);
+void MagellanClose(Display*);
 
 Bool MagellanCheckMotionEvent(Display*, XEvent*, char*);
 
-bool MagellanRemoveMotionEvents(Display*);
-
-extern Atom MagellanMotionEvent, MagellanButtonPressEvent, MagellanReleaseEvent;
-extern Window MagellanWindow;
-extern bool MagellanExist;
+void MagellanRemoveMotionEvents(Display*);
 
 enum _CommandMessages_ {
 	NoCommandMessage,
@@ -68,12 +58,10 @@ enum _CommandMessages_ {
 	CommandMessageApplicationSensitivity
 };
 
-union _MagellanTypeConversion_ {
+union MagellanTypeConversion {
 	float Float;
 	short Short[2];
 };
-
-typedef union _MagellanTypeConversion_ MagellanTypeConversion;
 
 #define XHigh32(Value) (Value >> 16) & 0xFFFF
 #define XLow32(Value) Value & 0xFFFF

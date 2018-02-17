@@ -10,6 +10,6 @@ CTestTestfile.cmake
 
 *.o
 */bin/*
-xapp
+csys
 
 thrust_sim

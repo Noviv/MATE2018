@@ -7,4 +7,4 @@
 | master/ | master (local) code |
 | slave/ | slave (submarine) code |
 | docs/ | competition documentation |
-| test/ | test programs |
+| test/ | any test code |
