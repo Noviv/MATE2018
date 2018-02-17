@@ -1,3 +1,4 @@
+#include <cmath>
 #include <iostream>
 
 #include <X11/Xlib.h>
@@ -6,9 +7,8 @@
 #include <X11/Xatom.h>
 #include <X11/keysym.h>
 
-#include <boost/version.hpp>
-
 #include "xdrvlib.h"
+#include "xnet.h"
 
 double MagellanSensitivity = 1;
 
@@ -34,6 +34,8 @@ KeySym keysym;
 bool MagellanDemoEnd = false;
 char MagellanBuffer[256];
 
+XNet net;
+
 void magellan() {
 	XNextEvent(display, &report);
 	switch (report.type) {
@@ -58,11 +60,16 @@ void magellan() {
 						MagellanEvent.MagellanData[MagellanB],
 						MagellanEvent.MagellanData[MagellanC]);
 
-						XClearWindow(display, window);
-						XDrawString(display, window, wingc, 10, 40,
-							MagellanBuffer, strlen(MagellanBuffer));
-						XFlush(display);
-						break;
+					net.send_v(MagellanEvent.MagellanData[MagellanX],
+						MagellanEvent.MagellanData[MagellanY],
+						MagellanEvent.MagellanData[MagellanZ],
+						350);
+
+					XClearWindow(display, window);
+					XDrawString(display, window, wingc, 10, 40,
+						MagellanBuffer, strlen(MagellanBuffer));
+					XFlush(display);
+					break;
  
 				case MagellanInputButtonPressEvent:
 					sprintf(MagellanBuffer, "Button pressed [%c]  ",

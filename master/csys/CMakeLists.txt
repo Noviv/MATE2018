@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.1)
-project(csys C CXX)
+project(csys)
 
 set(GCC_CXX_FLAGS "-O3 -Wall -Wpedantic")
 set(CMAKE_CXX_STANDARD 11)
@@ -11,4 +11,4 @@ file(GLOB_RECURSE SRC src/*.c*)
 include_directories(include/ ${Boost_INCLUDE_DIRS})
 
 add_executable(csys ${SRC})
-target_link_libraries(csys ${Boost_LIBRARIES} -lX11)
+target_link_libraries(csys ${Boost_LIBRARIES} -lX11 -lm)
