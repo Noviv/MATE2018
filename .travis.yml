@@ -5,6 +5,8 @@ language: cpp
 compiler:
   - gcc
   - g++
+  - clang
+  - llvm
 
 install:
   - sudo apt-get install libboost-all-dev
