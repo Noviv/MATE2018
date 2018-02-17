@@ -2,12 +2,6 @@ sudo: required
 
 language: cpp
 
-compiler:
-  - gcc
-  - g++
-  - clang
-  - llvm
-
 install:
   - sudo apt-get install libboost-all-dev
   - sudo apt-get install freeglut3-dev
