@@ -7,6 +7,8 @@ find_package(Boost REQUIRED system)
 find_package(PkgConfig REQUIRED)
 pkg_search_module(GLFW REQUIRED glfw3)
 
+message("hi " ${GLEW_LIBRARIES})
+
 include_directories(${OPENGL_INCLUDE_DIRS} ${GLFW_INCLUDE_DIRS} ${GLEW_INCLUDE_DIRS} ${Boost_INCLUDE_DIRS})
 
 add_executable(thrust_sim main.cpp)

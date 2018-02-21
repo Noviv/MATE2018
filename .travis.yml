@@ -3,8 +3,13 @@ sudo: required
 language: cpp
 
 install:
+  - sudo add-apt-repository main
+  - sudo add-apt-repository universe
+  - sudo add-apt-repository restricted
+  - sudo add-apt-repository multiverse
   - sudo apt-get install libboost-all-dev
   - sudo apt-get install libglew-dev
+  - sudo apt-get install libglfw3
   - sudo apt-get install libglfw3-dev
 
 script:
