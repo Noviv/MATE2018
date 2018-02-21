@@ -4,7 +4,7 @@ language: cpp
 
 install:
   - sudo apt-get install libboost-all-dev
-  - sudo apt-get install libXmu-dev libXi-dev libgl-dev dos2unix git wget
+  - sudo apt-get install libglew-dev
 
 script:
   - cd master
