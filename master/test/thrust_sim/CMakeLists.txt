@@ -18,4 +18,6 @@ target_link_libraries(thrust_sim
 	${GLFW_LIBRARIES}
 	${GLEW_LIBRARIES}
 	${Boost_LIBRARIES}
-	-lX11)
+	-lX11
+	-lpthread
+	-lm)
