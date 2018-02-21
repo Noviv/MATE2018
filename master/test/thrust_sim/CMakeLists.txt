@@ -18,4 +18,13 @@ target_link_libraries(thrust_sim
 	${OPENGL_LIBRARIES}
 	${GLFW_LIBRARIES}
 	${GLEW_LIBRARIES}
-	${Boost_LIBRARIES})
+	${Boost_LIBRARIES}
+	-lGL
+	-lGLU
+	-lX11
+	-lXxf86vm
+	-lXrandr
+	-lpthread
+	-lXi
+	-ldl
+	-lm)
