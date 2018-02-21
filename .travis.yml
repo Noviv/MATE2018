@@ -5,6 +5,7 @@ language: cpp
 install:
   - sudo apt-get install libboost-all-dev
   - sudo apt-get install libglew-dev
+  - sudo apt-get install libglfw3 libglfw3-dev
 
 script:
   - cd master
