@@ -13,3 +13,5 @@ csys
 
 thrust_sim
 !thrust_sim/
+
+__pycache__/

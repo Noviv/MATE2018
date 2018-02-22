@@ -20,6 +20,6 @@ install:
   - sudo ldconfig
 
 script:
-  - cd ../../master
+  - cd ../..
   - cmake .
   - make
