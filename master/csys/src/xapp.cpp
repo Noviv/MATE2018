@@ -1,4 +1,3 @@
-#include <cmath>
 #include <iostream>
 
 #include <X11/Xlib.h>
@@ -7,8 +6,10 @@
 #include <X11/Xatom.h>
 #include <X11/keysym.h>
 
+#include <boost/interprocess/shared_memory_object.hpp>
+#include <boost/interprocess/mapped_region.hpp>
+
 #include "xdrvlib.h"
-#include "xnet.h"
 
 double MagellanSensitivity = 1;
 
@@ -34,9 +35,22 @@ KeySym keysym;
 bool MagellanDemoEnd = false;
 char MagellanBuffer[256];
 
-XNet net;
+struct shm_remove {
+	shm_remove() {
+		boost::interprocess::shared_memory_object::remove("SHM");
+	}
+	~shm_remove() {
+		boost::interprocess::shared_memory_object::remove("SHM");
+	}
+};
+
+shared_memory_object shm(
+	boost::interprocess::create_only,
+	"SHM",
+	boost::interprocess::read_write);
 
 void magellan() {
+	static int cnt = 0;
 	XNextEvent(display, &report);
 	switch (report.type) {
 		case KeyRelease:
@@ -45,6 +59,7 @@ void magellan() {
 		case KeyPress:
 			XLookupString((XKeyEvent*) &report, MagellanBuffer, sizeof(MagellanBuffer), &keysym, &compose);
 			MagellanDemoEnd = keysym == XK_Escape;
+			printf("keypress\n");
 			break;
 		
 		case ClientMessage:
@@ -60,11 +75,6 @@ void magellan() {
 						MagellanEvent.MagellanData[MagellanB],
 						MagellanEvent.MagellanData[MagellanC]);
 
-					net.send_v(MagellanEvent.MagellanData[MagellanX],
-						MagellanEvent.MagellanData[MagellanY],
-						MagellanEvent.MagellanData[MagellanZ],
-						350);
-
 					XClearWindow(display, window);
 					XDrawString(display, window, wingc, 10, 40,
 						MagellanBuffer, strlen(MagellanBuffer));
@@ -72,62 +82,14 @@ void magellan() {
 					break;
  
 				case MagellanInputButtonPressEvent:
-					sprintf(MagellanBuffer, "Button pressed [%c]  ",
-						MagellanEvent.MagellanButton ==  9 ? '*' :
-						MagellanEvent.MagellanButton == 10 ? '+' :
-						MagellanEvent.MagellanButton == 11 ? '-' :
-						'0' + MagellanEvent.MagellanButton );
-					XClearWindow(display, window);
-					XDrawString(display, window, wingc, 10,40,
-						MagellanBuffer, strlen(MagellanBuffer));
-					XFlush(display);
-
-					switch (MagellanEvent.MagellanButton) {
-						case 5:
-							MagellanApplicationSensitivity(display, MagellanSensitivity / 2.0);
-							break;
-						case 6:
-							MagellanApplicationSensitivity(display, MagellanSensitivity * 2.0);
-							break;
-						case 7:
-							MagellanApplicationSensitivity(display, 1.0);
-							break;
-					}
-
-					switch (MagellanEvent.MagellanButton) {
-						case 5:
-							MagellanSensitivity = MagellanSensitivity <= 1.0 / 32.0 ? 1.0 / 32.0 : MagellanSensitivity / 2.0;
-							break;
-						case 6:
-							MagellanSensitivity = MagellanSensitivity >= 32.0 ? 32.0 : MagellanSensitivity * 2.0;
-							break;
-						case 7:
-							MagellanSensitivity = 1.0;
-							break;
-					}
-
-					switch (MagellanEvent.MagellanButton) {
-						case 5:
-						case 6:
-						case 7:
-							printf("Application Sensitivity = %f \n", MagellanSensitivity );
-					}
+					printf("Button %d pressed\n", MagellanEvent.MagellanButton);
 					break;
   
 				case MagellanInputButtonReleaseEvent:
-					sprintf(MagellanBuffer, "Button released [%c] ",
-						MagellanEvent.MagellanButton == 9  ? '*' :
-						MagellanEvent.MagellanButton == 10 ? '+' :
-						MagellanEvent.MagellanButton == 11 ? '-' :
-						'0' + MagellanEvent.MagellanButton ); 
-					XClearWindow(display, window);
-					XDrawString(display, window, wingc, 10, 40,
-						MagellanBuffer, strlen(MagellanBuffer));
-					XFlush(display);
 					break;
 
 				default :
-					/* another ClientMessage event */
+					printf("weird ass message\n");
 					break;
 			}
 	}
