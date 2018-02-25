@@ -6,9 +6,6 @@
 #include <X11/Xatom.h>
 #include <X11/keysym.h>
 
-#include <boost/interprocess/shared_memory_object.hpp>
-#include <boost/interprocess/mapped_region.hpp>
-
 #include "xdrvlib.h"
 
 double MagellanSensitivity = 1;
@@ -34,20 +31,6 @@ KeySym keysym;
 
 bool MagellanDemoEnd = false;
 char MagellanBuffer[256];
-
-struct shm_remove {
-	shm_remove() {
-		boost::interprocess::shared_memory_object::remove("SHM");
-	}
-	~shm_remove() {
-		boost::interprocess::shared_memory_object::remove("SHM");
-	}
-};
-
-shared_memory_object shm(
-	boost::interprocess::create_only,
-	"SHM",
-	boost::interprocess::read_write);
 
 void magellan() {
 	static int cnt = 0;

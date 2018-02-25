@@ -1,17 +1,18 @@
+#include <stdio.h>
+#include <cmath>
+
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
-#include <boost/asio.hpp>
+double ftl = 1;
+double fbl = 1;
+double ftr = 1;
+double fbr = 1;
 
-float ftl = 10;
-float fbl = 10;
-float ftr = 10;
-float fbr = 10;
-
-float rtl = 10;
-float rbl = 10;
-float rtr = 10;
-float rbr = 10;
+double rtl = 1;
+double rbl = 1;
+double rtr = 1;
+double rbr = 1;
 
 bool keys[GLFW_KEY_LAST];
 
@@ -95,20 +96,20 @@ void drawCube() {
 	glEnd();
 
 	glLineWidth(5);
-	glColor3f(0, 1, 0);
-	glBegin(GL_LINES);
-	line(1, 1, 1, -1, -1, 1);
-	line(-1, 1, 1, 1, -1, 1);
-	line(-1, -1, 1, 1, 1, 1);
-	line(1, -1, 1, -1, 1, 1);
-	glEnd();
-
 	glColor3f(1, 0, 0);
 	glBegin(GL_LINES);
-	line(1, 1, -1, -1, -1, -1);
-	line(-1, 1, -1, 1, -1, -1);
-	line(-1, -1, -1, 1, 1, -1);
-	line(1, -1, -1, -1, 1, -1);
+	line(1, 1, 1, -rtr, -rtr, rtr);
+	line(-1, 1, 1, rtl, -rtl, rtl);
+	line(-1, -1, 1, rbl, rbl, rbl);
+	line(1, -1, 1, -rbr, rbr, rbr);
+	glEnd();
+
+	glColor3f(0, 1, 0);
+	glBegin(GL_LINES);
+	line(1, 1, -1, -ftr, -ftr, -ftr);
+	line(-1, 1, -1, ftl, -ftl, -ftl);
+	line(-1, -1, -1, fbl, fbl, -fbl);
+	line(1, -1, -1, -fbr, fbr, -fbr);
 	glEnd();
 }
 
