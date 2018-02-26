@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(Boost REQUIRED system)
 
-file(GLOB_RECURSE SRC src/*.c*)
+file(GLOB_RECURSE SRC src/*.cpp)
 include_directories(include/ ${Boost_INCLUDE_DIRS})
 
 add_executable(csys ${SRC})

@@ -7,6 +7,7 @@
 #include <X11/keysym.h>
 
 #include "xdrvlib.h"
+#include "calc.h"
 
 double MagellanSensitivity = 1;
 
