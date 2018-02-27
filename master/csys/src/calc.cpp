@@ -23,7 +23,7 @@ static void mult(R8& mult, double scale) {
     mult.rtr *= scale;
     mult.rbr *= scale;
 }
-static void maxComp(const R8& mult) {
+static double maxComp(const R8& mult) {
     const double* data = (const double*) &mult;
     double max = -1; // should use the limits lib
     for (int i = 0; i < 8; ++i) {
@@ -87,5 +87,7 @@ R8 calc(R3 position, R3 rotation) {
     
     auto totality = add(add(add(add(add(x, y), z), pitch), roll), yaw);
     
-    mult(totality, 1.0 / maxComp(totality))
+    mult(totality, 1.0 / maxComp(totality));
+    
+    return totality;
 }
