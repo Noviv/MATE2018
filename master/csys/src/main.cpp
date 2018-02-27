@@ -12,29 +12,19 @@
 double MagellanSensitivity = 1;
 
 Display* display;
-Window root, window;
-
-int screennumber, width, height;
-XSizeHints* sizehints;
-XWMHints* wmhints;
-XClassHint* classhints;
-
-const char* WinName = "Magellan 3D Controller";
-XTextProperty WindowName;
-GC wingc;
-XGCValues xgcvalues;
-
-XEvent report;
-MagellanFloatEvent MagellanEvent;
-
-XComposeStatus compose;
-KeySym keysym;
+Window window;
 
 bool MagellanDemoEnd = false;
-char MagellanBuffer[256];
+GC wingc;
 
 void magellan() {
-	static int cnt = 0;
+	XEvent report;
+	KeySym keysym;
+	XComposeStatus compose;
+	char MagellanBuffer[256];
+
+	MagellanFloatEvent MagellanEvent;
+
 	XNextEvent(display, &report);
 	switch (report.type) {
 		case KeyRelease:
@@ -80,6 +70,17 @@ void magellan() {
 }
 
 int main(int argc, char** argv) {
+	Window root;
+
+	int screennumber, width, height;
+	XSizeHints* sizehints;
+	XWMHints* wmhints;
+	XClassHint* classhints;
+
+	const char* WinName = "Magellan 3D Controller";
+	XTextProperty WindowName;
+	XGCValues xgcvalues;
+
 	// ALLOCATE X11 WINDOW
 	sizehints = XAllocSizeHints();
 	wmhints = XAllocWMHints();
