@@ -1,3 +1,5 @@
+cmake_minimum_required(VERSION 3.1)
+
 project(GUI)
 
 add_custom_target(GUI ALL DEPENDS GUI COMMAND python3 -m py_compile dive_comp.py)

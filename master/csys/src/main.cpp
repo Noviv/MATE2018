@@ -7,6 +7,7 @@
 #include <X11/keysym.h>
 
 #include "xdrvlib.h"
+#include "xnet.h"
 #include "calc.h"
 
 double MagellanSensitivity = 1;
@@ -16,6 +17,8 @@ Window window;
 
 bool MagellanDemoEnd = false;
 GC wingc;
+
+XNet net;
 
 void magellan() {
 	XEvent report;
@@ -39,6 +42,10 @@ void magellan() {
 		case ClientMessage:
 			switch (MagellanTranslateEvent(display, &report, &MagellanEvent, 1, 1)) {
 				case MagellanInputMotionEvent:
+					net.send_v(MagellanEvent.MagellanData[MagellanX],
+						MagellanEvent.MagellanData[MagellanX],
+						MagellanEvent.MagellanData[MagellanX],
+						350);
 					MagellanRemoveMotionEvents(display);
 					sprintf(MagellanBuffer,
 						"x=%+5.0f y=%+5.0f z=%+5.0f a=%+5.0f b=%+5.0f c=%+5.0f",

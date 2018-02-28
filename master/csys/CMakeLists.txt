@@ -1,3 +1,5 @@
+cmake_minimum_required(VERSION 3.1)
+
 project(csys)
 
 set(GCC_CXX_FLAGS "-O3 -Wall -Wpedantic")
