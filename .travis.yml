@@ -13,6 +13,7 @@ addons:
       - libglu1-mesa-dev
       - python3-pip
       - python-opencv
+      - python-tk
 
 install:
   - sudo pip3 install Pillow
