@@ -23,18 +23,20 @@ addons:
       - libswscale-dev
       - python3-pip
       - python3-tk
+      - python-opencv
 
 install:
   - sudo -H pip3 install numpy
   - sudo -H pip3 install Pillow
   - sudo -H pip3 install pytesseract
-  - git clone https://github.com/Itseez/opencv.git
-  - cd opencv
-  - mkdir release
-  - cd release
-  - cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local ..
-  - make -j4
-  - sudo make install
+  - sudo -H pip install opencv-python
+#  - git clone https://github.com/Itseez/opencv.git
+#  - cd opencv
+#  - mkdir release
+#  - cd release
+#  - cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local ..
+#  - make -j4
+#  - sudo make install
 #  - git clone https://github.com/glfw/glfw.git
 #  - cd glfw
 #  - mkdir build
@@ -44,6 +46,6 @@ install:
 #  - sudo ldconfig
 
 script:
-  - cd ../..
+#  - cd ../..
   - cmake .
   - make
