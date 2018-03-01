@@ -17,6 +17,7 @@ addons:
       - python3-tk
 
 install:
+  - sudo -H pip3 install numpy
   - sudo -H pip3 install Pillow
   - sudo -H pip3 install pytesseract
 #  - git clone https://github.com/glfw/glfw.git
