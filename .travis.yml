@@ -1,3 +1,5 @@
+sudo: required
+
 language: cpp
 
 notifications:
@@ -14,8 +16,8 @@ addons:
       - python3-pip
 
 install:
-  - pip3 install Pillow
-  - pip3 install pytesseract
+  - sudo -H pip3 install Pillow
+  - sudo -H pip3 install pytesseract
 #  - git clone https://github.com/glfw/glfw.git
 #  - cd glfw
 #  - mkdir build
