@@ -3,13 +3,17 @@ sudo: required
 notifications:
   email: false
 
+addons:
+  apt:
+    packages:
+      - libboost-all-dev
+      - libglew-dev
+      - xorg
+      - xorg-dev
+      - libglu1-mesa-dev
+      - python3-pip
+
 install:
-  - sudo apt-get install libboost-all-dev
-  - sudo apt-get install libglew-dev
-  - sudo apt-get install xorg
-  - sudo apt-get install xorg-dev
-  - sudo apt-get install libglu1-mesa-dev
-  - sudo apt-get install python3-pip
   - sudo pip3 install Pillow
   - sudo pip3 install matplotlib
   - sudo pip3 install numpy
