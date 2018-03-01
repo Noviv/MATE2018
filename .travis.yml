@@ -20,6 +20,7 @@ install:
   - sudo -H pip3 install numpy
   - sudo -H pip3 install Pillow
   - sudo -H pip3 install pytesseract
+  - sudo -H pip install opencv-python
 #  - git clone https://github.com/glfw/glfw.git
 #  - cd glfw
 #  - mkdir build
