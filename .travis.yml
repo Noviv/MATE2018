@@ -13,6 +13,14 @@ addons:
 #      - xorg
 #      - xorg-dev
 #      - libglu1-mesa-dev
+      - build-essential
+      - cmake
+      - git
+      - libgtk2.0-dev
+      - pkg-config
+      - libavcodec-dev
+      - libavformat-dev
+      - libswscale-dev
       - python3-pip
       - python3-tk
 
@@ -20,7 +28,13 @@ install:
   - sudo -H pip3 install numpy
   - sudo -H pip3 install Pillow
   - sudo -H pip3 install pytesseract
-  - sudo -H pip install opencv-python
+  - git clone https://github.com/Itseez/opencv.git
+  - cd opencv
+  - mkdir release
+  - cd release
+  - cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local ..
+  - make -j4
+  - sudo make install
 #  - git clone https://github.com/glfw/glfw.git
 #  - cd glfw
 #  - mkdir build
@@ -30,6 +44,6 @@ install:
 #  - sudo ldconfig
 
 script:
-#  - cd ../..
+  - cd ../..
   - cmake .
   - make
