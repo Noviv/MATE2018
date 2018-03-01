@@ -1,6 +1,6 @@
 sudo: required
 
-language: cpp
+language: python3
 
 notifications:
   email: false
@@ -8,11 +8,11 @@ notifications:
 addons:
   apt:
     packages:
-      - libboost-all-dev
-      - libglew-dev
-      - xorg
-      - xorg-dev
-      - libglu1-mesa-dev
+#      - libboost-all-dev
+#      - libglew-dev
+#      - xorg
+#      - xorg-dev
+#      - libglu1-mesa-dev
       - python3-pip
       - python3-tk
       - python-opencv
@@ -22,7 +22,7 @@ install:
   - sudo pip3 install Pillow
   - sudo pip3 install matplotlib
   - sudo pip3 install pytesseract
-  - sudo pip3 install opencv-python
+  - sudo pip install opencv-python
   - git clone https://github.com/glfw/glfw.git
   - cd glfw
   - mkdir build
