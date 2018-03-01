@@ -1,7 +1,5 @@
 sudo: required
 
-language: cpp
-
 notifications:
   email: false
 
@@ -11,6 +9,11 @@ install:
   - sudo apt-get install xorg
   - sudo apt-get install xorg-dev
   - sudo apt-get install libglu1-mesa-dev
+  - sudo pip3 install Pillow
+  - sudo pip3 install matplotlib
+  - sudo pip3 install numpy
+  - sudo pip3 install opencv-python
+  - sudo pip3 install pytesseract
   - git clone https://github.com/glfw/glfw.git
   - cd glfw
   - mkdir build
