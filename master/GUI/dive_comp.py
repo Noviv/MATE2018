@@ -9,7 +9,7 @@ from tkinter import ttk, messagebox
 import tkinter as tk
 
 import matplotlib
-matplotlib.use("TkAgg")
+matplotlib.use("agg")
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2TkAgg
 from matplotlib.figure import Figure
 
