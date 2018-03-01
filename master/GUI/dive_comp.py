@@ -8,11 +8,6 @@ from tkinter.filedialog import askopenfilename
 from tkinter import ttk, messagebox
 import tkinter as tk
 
-import matplotlib
-matplotlib.use("agg")
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2TkAgg
-from matplotlib.figure import Figure
-
 import numpy
 import math
 import cv2
@@ -20,6 +15,11 @@ import cv2
 from enum import Enum
 import pytesseract
 import difflib
+
+import matplotlib
+matplotlib.use("agg")
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2TkAgg
+from matplotlib.figure import Figure
 
 def center(toplevel):
 	toplevel.update_idletasks()
