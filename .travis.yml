@@ -12,7 +12,7 @@ addons:
       - xorg-dev
       - libglu1-mesa-dev
       - python3-pip
-      - opencv-python
+      - python-opencv
 
 install:
   - sudo pip3 install Pillow
