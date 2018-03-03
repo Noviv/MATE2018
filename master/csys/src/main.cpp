@@ -46,16 +46,19 @@ void magellan() {
 			switch (MagellanTranslateEvent(display, &report, &MagellanEvent, 1, 1)) {
 				case MagellanInputMotionEvent:
 					pos = {
-						MagellanEvent.MagellanData[MagellanX],
+						-MagellanEvent.MagellanData[MagellanX],
 						MagellanEvent.MagellanData[MagellanY],
 						MagellanEvent.MagellanData[MagellanZ]
 					};
 					rot = {
-						MagellanEvent.MagellanData[MagellanA],
+						-MagellanEvent.MagellanData[MagellanA],
 						MagellanEvent.MagellanData[MagellanB],
 						MagellanEvent.MagellanData[MagellanC]
 					};
-					net.send_v(calc(pos, rot), 350);
+					net.send_v(
+						pos,
+						calc(pos, rot),
+						450);
 					MagellanRemoveMotionEvents(display);
 					sprintf(MagellanBuffer,
 						"x=%+5.0f y=%+5.0f z=%+5.0f a=%+5.0f b=%+5.0f c=%+5.0f",

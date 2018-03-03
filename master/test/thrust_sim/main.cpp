@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cmath>
+#include <vector>
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
@@ -7,6 +8,12 @@
 #include <boost/asio.hpp>
 #include <boost/bind.hpp>
 #include <boost/array.hpp>
+#include <boost/algorithm/string/split.hpp>
+#include <boost/algorithm/string.hpp>
+
+double d_x = 0;
+double d_y = 0;
+double d_z = 0;
 
 double ftl = 1;
 double fbl = 1;
@@ -65,7 +72,66 @@ public:
 			return;
 		}
 
-		std::cout << std::string(recv_buf.begin(), recv_buf.begin() + bytes) << std::endl;
+		auto str = std::string(recv_buf.begin(), recv_buf.begin() + bytes);
+		str = str.substr(1, str.length() - 2);
+
+		std::vector<std::string> comps;
+		boost::split(comps, str, boost::is_any_of(","));
+
+		auto cvt = ::atof(comps[0].c_str());
+		if (cvt == cvt) {
+			d_x = cvt;
+		}
+
+		cvt = ::atof(comps[1].c_str());
+		if (cvt == cvt) {
+			d_y = cvt;
+		}
+
+		cvt = ::atof(comps[2].c_str());
+		if (cvt == cvt) {
+			d_z = cvt;
+		}
+
+		cvt = ::atof(comps[3].c_str());
+		if (cvt == cvt) {
+			ftl = cvt;
+		}
+
+		cvt = ::atof(comps[4].c_str());
+		if (cvt == cvt) {
+			fbl = cvt;
+		}
+
+		cvt = ::atof(comps[5].c_str());
+		if (cvt == cvt) {
+			ftr = cvt;
+		}
+
+		cvt = ::atof(comps[6].c_str());
+		if (cvt == cvt) {
+			fbr = cvt;
+		}
+
+		cvt = ::atof(comps[7].c_str());
+		if (cvt == cvt) {
+			rtl = cvt;
+		}
+
+		cvt = ::atof(comps[8].c_str());
+		if (cvt == cvt) {
+			rbl = cvt;
+		}
+
+		cvt = ::atof(comps[9].c_str());
+		if (cvt == cvt) {
+			rtr = cvt;
+		}
+
+		cvt = ::atof(comps[10].c_str());
+		if (cvt == cvt) {
+			rbr = cvt;
+		}
 
 		async_bind();
 	}
@@ -76,7 +142,7 @@ public:
 
 void drawCube() {
 	static float xang = 45;
-	static float yang = 45;
+	static float yang = -180;
 	if (keys[GLFW_KEY_A]) {
 		yang--;
 	} else if (keys[GLFW_KEY_D]) {
@@ -87,6 +153,7 @@ void drawCube() {
 	} else if (keys[GLFW_KEY_S]) {
 		xang++;
 	}
+
 	glRotatef(xang, 1, 0, 0);
 	glRotatef(yang, 0, 1, 0);
 
@@ -151,7 +218,7 @@ void drawCube() {
 
 	glEnd();
 
-	glLineWidth(5);
+	glLineWidth(10);
 	glColor3f(1, 0, 0);
 	glBegin(GL_LINES);
 	line(1, 1, 1, -rtr, -rtr, rtr);
@@ -166,6 +233,11 @@ void drawCube() {
 	line(-1, 1, -1, ftl, -ftl, -ftl);
 	line(-1, -1, -1, fbl, fbl, -fbl);
 	line(1, -1, -1, -fbr, fbr, -fbr);
+	glEnd();
+
+	glColor3f(0, 0, 1);
+	glBegin(GL_LINES);
+	line(0, 0, 0, 2 * d_x, 2 * d_y, 2 * d_z);
 	glEnd();
 }
 

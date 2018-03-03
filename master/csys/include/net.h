@@ -15,5 +15,5 @@ public:
 	XNet();
 	~XNet();
 	void send(std::string);
-	void send_v(R8, int);
+	void send_v(R3, R8, int);
 };

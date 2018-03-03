@@ -1,5 +1,7 @@
 #include "calc.h"
 
+#include <stdio.h>
+
 // Could also overload operators
 static R8 add(const R8& alph, const R8& beta) {
     return R8 {
@@ -36,6 +38,46 @@ static double maxComp(const R8& mult) {
 
 // TODO: check if input is correctly formatted
 R8 calc(R3 position, R3 rotation) {
+	R8 ret {
+		0, 0, 0, 0,
+		0, 0, 0, 0
+	};
+
+	ret.ftl = 0.577350269 * position.x
+		+ 0.577350269 * position.y
+		+ 0.577350269 * position.z;
+
+	ret.fbl = 0.577350269 * position.x
+		- 0.577350269 * position.y
+		+ 0.577350269 * position.z;
+
+	ret.ftr = -0.577350269 * position.x
+		+ 0.577350269 * position.y
+		+ 0.577350269 * position.z;
+
+	ret.fbr = -0.577350269 * position.x
+		- 0.577350269 * position.y
+		+ 0.577350269 * position.z;
+
+	ret.rtl = 0.577350269 * position.x
+		+ 0.577350269 * position.y
+		- 0.577350269 * position.z;
+
+	ret.rbl = 0.577350269 * position.x
+		- 0.577350269 * position.y
+		- 0.577350269 * position.z;
+
+	ret.rtr = -0.577350269 * position.x
+		+ 0.577350269 * position.y
+		- 0.577350269 * position.z;
+
+	ret.rbr = -0.577350269 * position.x
+		- 0.577350269 * position.y
+		- 0.577350269 * position.z;
+
+	printf("%f\n", ret.rbr);
+
+	return ret;
     // X -> left, right
     R8 x {
         1.0, 1.0,
