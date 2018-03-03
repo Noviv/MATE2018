@@ -6,9 +6,9 @@
 #include <X11/Xatom.h>
 #include <X11/keysym.h>
 
-#include "xdrvlib.h"
-#include "xnet.h"
+#include "net.h"
 #include "calc.h"
+#include "xdrvlib.h"
 
 double MagellanSensitivity = 1;
 
@@ -28,6 +28,9 @@ void magellan() {
 
 	MagellanFloatEvent MagellanEvent;
 
+	R3 pos;
+	R3 rot;
+
 	XNextEvent(display, &report);
 	switch (report.type) {
 		case KeyRelease:
@@ -38,14 +41,21 @@ void magellan() {
 			MagellanDemoEnd = keysym == XK_Escape;
 			printf("keypress\n");
 			break;
-		
+
 		case ClientMessage:
 			switch (MagellanTranslateEvent(display, &report, &MagellanEvent, 1, 1)) {
 				case MagellanInputMotionEvent:
-					net.send_v(MagellanEvent.MagellanData[MagellanX],
+					pos = {
 						MagellanEvent.MagellanData[MagellanX],
-						MagellanEvent.MagellanData[MagellanX],
-						350);
+						MagellanEvent.MagellanData[MagellanY],
+						MagellanEvent.MagellanData[MagellanZ]
+					};
+					rot = {
+						MagellanEvent.MagellanData[MagellanA],
+						MagellanEvent.MagellanData[MagellanB],
+						MagellanEvent.MagellanData[MagellanC]
+					};
+					net.send_v(calc(pos, rot), 350);
 					MagellanRemoveMotionEvents(display);
 					sprintf(MagellanBuffer,
 						"x=%+5.0f y=%+5.0f z=%+5.0f a=%+5.0f b=%+5.0f c=%+5.0f",
@@ -61,11 +71,11 @@ void magellan() {
 						MagellanBuffer, strlen(MagellanBuffer));
 					XFlush(display);
 					break;
- 
+
 				case MagellanInputButtonPressEvent:
 					printf("Button %d pressed\n", MagellanEvent.MagellanButton);
 					break;
-  
+
 				case MagellanInputButtonReleaseEvent:
 					break;
 

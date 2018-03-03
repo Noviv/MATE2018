@@ -3,6 +3,8 @@
 #include <string>
 #include <boost/asio.hpp>
 
+#include "calc.h"
+
 class XNet {
 private:
 	boost::system::error_code error;
@@ -13,5 +15,5 @@ public:
 	XNet();
 	~XNet();
 	void send(std::string);
-	void send_v(double x, double y, double z, int sens);
+	void send_v(R8, int);
 };

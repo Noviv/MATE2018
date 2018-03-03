@@ -1,8 +1,12 @@
-#include <stdio.h>
+#include <iostream>
 #include <cmath>
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+
+#include <boost/asio.hpp>
+#include <boost/bind.hpp>
+#include <boost/array.hpp>
 
 double ftl = 1;
 double fbl = 1;
@@ -15,6 +19,58 @@ double rtr = 1;
 double rbr = 1;
 
 bool keys[GLFW_KEY_LAST];
+
+class XNetRecv {
+private:
+	boost::array<char, 1024> recv_buf;
+
+	boost::asio::io_service io_serv;
+	boost::asio::ip::udp::socket sock{ io_serv };
+	boost::asio::ip::udp::endpoint endp;
+
+	void async_bind() {
+		auto recv_bind = boost::bind(
+			&XNetRecv::recv,
+			this,
+			boost::asio::placeholders::error,
+			boost::asio::placeholders::bytes_transferred);
+
+		sock.async_receive_from(
+			boost::asio::buffer(recv_buf),
+			endp,
+			recv_bind);
+	}
+
+public:
+	XNetRecv() {
+		sock.open(boost::asio::ip::udp::v4());
+		sock.bind(boost::asio::ip::udp::endpoint(
+			boost::asio::ip::address::from_string("127.0.0.1"),
+			512));
+
+		async_bind();
+	}
+
+	~XNetRecv() {
+		sock.close();
+	}
+
+	void poll() {
+		io_serv.poll();
+	}
+
+	void recv(const boost::system::error_code& error, size_t bytes) {
+		if (error) {
+			std::cout << "UDP error" << std::endl;
+			return;
+		}
+
+		std::cout << std::string(recv_buf.begin(), recv_buf.begin() + bytes) << std::endl;
+
+		async_bind();
+	}
+};
+
 
 #define line(x, y, z, a, b, c) glVertex3f(x, y, z);glVertex3f(x + a, y + b, z + c);
 
@@ -74,7 +130,7 @@ void drawCube() {
 
 	glVertex3f(-1, -1, -1);
 	glVertex3f(1, -1, -1);
-	
+
 	glVertex3f(1, -1, -1);
 	glVertex3f(1, 1, -1);
 
@@ -92,7 +148,7 @@ void drawCube() {
 
 	glVertex3f(-1, -1, 1);
 	glVertex3f(1, -1, 1);
- 
+
 	glEnd();
 
 	glLineWidth(5);
@@ -139,8 +195,10 @@ void keyboard(GLFWwindow* window, int key, int scancode, int action, int mods) {
 }
 
 int main(int argc, char **argv) {
+	XNetRecv net;
+
 	if (!glfwInit()) {
-		printf("no glfw\n");
+		std::cout << "no glfw" << std::endl;
 		return 1;
 	}
 
@@ -149,7 +207,7 @@ int main(int argc, char **argv) {
 	GLFWwindow* window = glfwCreateWindow(1024, 768, "thing", NULL, NULL);
 
 	if (!window) {
-		printf("no window\n");
+		std::cout << "no window" << std::endl;
 		glfwTerminate();
 		return 1;
 	}
@@ -163,10 +221,12 @@ int main(int argc, char **argv) {
 	glCullFace(GL_BACK);
 
 	while (!glfwWindowShouldClose(window)) {
+		net.poll();
 		display(window);
 	}
 
 	glfwDestroyWindow(window);
 	glfwTerminate();
+
 	return 0;
 }
