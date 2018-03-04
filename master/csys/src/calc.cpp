@@ -4,12 +4,11 @@
 #include <cmath>
 #include <iostream>
 
-static double maxComp(const R8& mult) {
-    const double* data = (const double*) &mult;
+static double maxComp(const R8& vec) {
     double max = 0; // something definitely less than the absolute value
     for (int i = 0; i < 8; ++i) {
-        if (std::abs(data[i]) > max) {
-            max = data[i];
+        if (std::abs(vec[i]) > max) {
+            max = std::abs(vec[i]);
         }
     }
     return max == 0 ? 1 : max;
