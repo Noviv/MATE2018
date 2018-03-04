@@ -1,5 +1,7 @@
 #pragma once
 
+#include <iostream>
+
 struct R3 {
     union {
         struct {
@@ -50,7 +52,7 @@ R3 operator* (double const& lhs, R3 const& rhs);
 R3 operator/ (double const& lhs, R3 const& rhs);
 R3 operator% (double const& lhs, R3 const& rhs);
 
-ostream& operator<< (ostream& os, R3 const& x);
+std::ostream& operator<< (std::ostream& os, R3 const& x);
 
 struct R8 {
     union {
@@ -110,4 +112,4 @@ R8 operator* (double const& lhs, R8 const& rhs);
 R8 operator/ (double const& lhs, R8 const& rhs);
 R8 operator% (double const& lhs, R8 const& rhs);
 
-ostream& operator<< (ostream& os, R8 const& x);
+std::ostream& operator<< (std::ostream& os, R8 const& x);

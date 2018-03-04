@@ -1,5 +1,7 @@
 #include "vec.h"
 
+#include <iostream>
+
 R3& R3::operator= (R3 const& rhs) {
     if (this != &rhs) {
         std::memcpy(rhs.v, this->v, 3 * sizeof(double));
@@ -41,10 +43,10 @@ R3& R3::operator%= (R3 const& rhs) {
 }
 
 double& R3::operator[](R3::MEMBERS const& index) {
-    return v[index];
+    return v[(int) index];
 }
 const double& R3::operator[](R3::MEMBERS const& index) const {
-    return v[index];
+    return v[(int) index];
 }
 
 double& R3::operator[](unsigned int const& index) {
@@ -54,16 +56,16 @@ const double& R3::operator[](unsigned int const& index) const {
     return (*this)[std::static_cast<R3::MEMBERS>(index)];
 }
 
-bool operator== (X const& lhs, X const& rhs) {
+bool operator== (R3 const& lhs, R3 const& rhs) {
     return lhs.x == rhs.x && lhs.y == rhs.y && lhs.z == rhs.z;
 }
-bool operator!= (X const& lhs, X const& rhs) {
+bool operator!= (R3 const& lhs, R3 const& rhs) {
     return !(lhs == rhs);
 }
-bool operator== (X const& lhs, double const& rhs) {
+bool operator== (R3 const& lhs, double const& rhs) {
     return lhs.x == rhs && lhs.y == rhs && lhs.z == rhs;
 }
-bool operator!= (X const& lhs, double const& rhs) {
+bool operator!= (R3 const& lhs, double const& rhs) {
     return !(lhs == rhs);
 }
 bool operator== (double const& lhs, R3 const& rhs) {
@@ -149,7 +151,7 @@ R3 operator% (double const& lhs, R3 const& rhs) {
     return tmp;
 }
 
-ostream& operator<< (ostream& os, R3 const& r3) {
+std::ostream& operator<< (std::ostream& os, R3 const& r3) {
     os << "R3 { x: " << r3.z << ", y: " << r3.y << ", z: " << r3.z << " }";
     return os;
 }
@@ -197,10 +199,10 @@ R8& R8::operator%= (R8 const& rhs) {
 }
 
 double& R8::operator[](R8::MEMBERS const& index) {
-    return v[index];
+    return v[(int) index];
 }
 const double& R8::operator[](R8::MEMBERS const& index) const {
-    return v[index];
+    return v[(int) index];
 }
 
 double& R8::operator[](unsigned int const& index) {
@@ -211,13 +213,15 @@ const double& R8::operator[](unsigned int const& index) const {
 }
 
 bool operator== (R8 const& lhs, R8 const& rhs) {
-    return lhs.x == rhs.x && lhs.y == rhs.y && lhs.z == rhs.z;
+    return lhs.ftl == rhs.ftl && lhs.fbl == rhs.fbl && lhs.ftr == rhs.ftr && lhs.fbr == rhs.fbr
+        && lhs.rtl == rhs.rtl && lhs.rbl == rhs.rbl && lhs.rtr == rhs.rtr && lhs.rbr == rhs.rbr;
 }
 bool operator!= (R8 const& lhs, R8 const& rhs) {
     return !(lhs == rhs);
 }
 bool operator== (R8 const& lhs, double const& rhs) {
-    return lhs.x == rhs && lhs.y == rhs && lhs.z == rhs;
+    return lhs.ftl == rhs && lhs.fbl == rhs && lhs.ftr == rhs && lhs.fbr == rhs
+        && lhs.rtl == rhs && lhs.rbl == rhs && lhs.rtr == rhs && lhs.rbr == rhs;
 }
 bool operator!= (R8 const& lhs, double const& rhs) {
     return !(lhs == rhs);
