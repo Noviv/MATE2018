@@ -6,13 +6,13 @@
 
 static double maxComp(const R8& mult) {
     const double* data = (const double*) &mult;
-    double max = -1; // something definitely less than the absolute value
+    double max = 0; // something definitely less than the absolute value
     for (int i = 0; i < 8; ++i) {
         if (std::abs(data[i]) > max) {
             max = data[i];
         }
     }
-    return max;
+    return max == 0 ? 1 : max;
 }
 
 // TODO: check if input is correctly formatted
