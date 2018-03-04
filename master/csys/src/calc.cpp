@@ -1,35 +1,14 @@
+#include "vec.h"
 #include "calc.h"
 
-#include <stdio.h>
+#include <cmath>
+#include <iostream>
 
-// Could also overload operators
-static R8 add(const R8& alph, const R8& beta) {
-    return R8 {
-        alph.ftl + beta.ftl,
-        alph.fbl + beta.fbl,
-        alph.ftr + beta.ftr,
-        alph.fbr + beta.fbr,
-        alph.rtl + beta.rtl,
-        alph.rbl + beta.rbl,
-        alph.rtr + beta.rtr,
-        alph.rbr + beta.rbr
-    };
-}
-static void mult(R8& mult, double scale) {
-    mult.ftl *= scale;
-    mult.fbl *= scale;
-    mult.ftr *= scale;
-    mult.fbr *= scale;
-    mult.rtl *= scale;
-    mult.rbl *= scale;
-    mult.rtr *= scale;
-    mult.rbr *= scale;
-}
 static double maxComp(const R8& mult) {
     const double* data = (const double*) &mult;
-    double max = -1; // should use the limits lib
+    double max = -1; // something definitely less than the absolute value
     for (int i = 0; i < 8; ++i) {
-        if (data[i] > max) {
+        if (std::abs(data[i]) > max) {
             max = data[i];
         }
     }
@@ -42,7 +21,8 @@ R8 calc(R3 position, R3 rotation) {
 		0, 0, 0, 0,
 		0, 0, 0, 0
 	};
-
+#define ONLY_TRANSLATION 1
+#if ONLY_TRANSLATION
 	ret.ftl = 0.577350269 * position.x
 		+ 0.577350269 * position.y
 		+ 0.577350269 * position.z;
@@ -75,61 +55,58 @@ R8 calc(R3 position, R3 rotation) {
 		- 0.577350269 * position.y
 		- 0.577350269 * position.z;
 
-	printf("%f\n", ret.rbr);
+    std::cout << ret << std::endl;
 
 	return ret;
+#endif
+#undef ONLY_TRANSLATION
+
+#define BOTH 0
+#if BOTH    
     // X -> left, right
     R8 x {
         1.0, 1.0,
         -1.0, -1.0,
         1.0, 1.0,
         -1.0, -1.0
-    };
-    mult(x, position.x);
+    } * position.x;
     // Y -> top, bottom
     R8 y {
         1.0, -1.0,
         1.0, -1.0,
         1.0, -1.0,
         1.0, -1.0
-    };
-    mult(y, position.y);
+    } * position.y;
     // Z -> front, back
     R8 z {
         -1.0, -1.0,
         -1.0, -1.0,
         1.0, 1.0,
         1.0, 1.0
-    };
-    mult(z, position.z);
+    } * position.z;
     // pitch -> top front / bottom back - bottom front / top back
     R8 pitch {
         1.0, -1.0,
         1.0, -1.0,
         -1.0, 1.0,
         -1.0, 1.0
-    };
-    mult(pitch, rotation.x);
+    } * rotation.x;
     // roll -> top left / bottom right - bottom left / top right
     R8 roll {
         1.0, -1.0,
         -1.0, 1.0,
         1.0, -1.0,
         -1.0, 1.0
-    };
-    mult(roll, rotation.z);
+    } * rotation.z;
     // yaw -> front left / back right - front right / back left
     R8 yaw {
         1.0, 1.0,
         -1.0, -1.0,
         -1.0, -1.0,
         1.0, 1.0
-    };
-    mult(yaw, rotation.y);
+    } * rotation.y;
     
-    auto totality = add(add(add(add(add(x, y), z), pitch), roll), yaw);
-    
-    mult(totality, 1.0 / maxComp(totality));
-    
-    return totality;
+    return (x + y + z + pitch + roll + yaw) / maxComp(totality);
+#endif
+#undef BOTH
 }

@@ -3,6 +3,7 @@
 #include <string>
 #include <boost/asio.hpp>
 
+#include "vec.h"
 #include "calc.h"
 
 class XNet {

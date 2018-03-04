@@ -6,8 +6,9 @@
 #include <X11/Xatom.h>
 #include <X11/keysym.h>
 
-#include "net.h"
+#include "vec.h"
 #include "calc.h"
+#include "net.h"
 #include "xdrvlib.h"
 
 double MagellanSensitivity = 1;
