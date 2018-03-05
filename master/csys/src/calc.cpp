@@ -61,29 +61,29 @@ R8 calc(R3 position, R3 rotation) {
 #undef ONLY_TRANSLATION
 
 #define BOTH 0
-#if BOTH    
-    // X -> left, right
+#if BOTH
+    // X -> left - right
     R8 x {
         1.0, 1.0,
         -1.0, -1.0,
         1.0, 1.0,
         -1.0, -1.0
     } * position.x;
-    // Y -> top, bottom
+    // Y -> top - bottom
     R8 y {
         1.0, -1.0,
         1.0, -1.0,
         1.0, -1.0,
         1.0, -1.0
     } * position.y;
-    // Z -> front, back
+    // Z -> front - rear
     R8 z {
-        -1.0, -1.0,
-        -1.0, -1.0,
         1.0, 1.0,
-        1.0, 1.0
+        1.0, 1.0,
+        -1.0, -1.0,
+        -1.0, -1.0
     } * position.z;
-    // pitch -> top front / bottom back - bottom front / top back
+    // pitch -> front top / rear bottom - front bottom / rear top
     R8 pitch {
         1.0, -1.0,
         1.0, -1.0,
@@ -97,7 +97,7 @@ R8 calc(R3 position, R3 rotation) {
         1.0, -1.0,
         -1.0, 1.0
     } * rotation.z;
-    // yaw -> front left / back right - front right / back left
+    // yaw -> front left / rear right - front right / rear left
     R8 yaw {
         1.0, 1.0,
         -1.0, -1.0,
