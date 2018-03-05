@@ -5,13 +5,13 @@
 #include <iostream>
 
 static double maxComp(const R8& vec) {
-    double max = 0; // something definitely less than the absolute value
-    for (int i = 0; i < 8; ++i) {
-        if (std::abs(vec[i]) > max) {
-            max = std::abs(vec[i]);
-        }
-    }
-    return max == 0 ? 1 : max;
+	double max = 0; // something definitely less than the absolute value
+	for (int i = 0; i < 8; ++i) {
+		if (std::abs(vec[i]) > max) {
+			max = std::abs(vec[i]);
+		}
+	}
+	return max == 0 ? 1 : max;
 }
 
 // TODO: check if input is correctly formatted
@@ -20,6 +20,7 @@ R8 calc(R3 position, R3 rotation) {
 		0, 0, 0, 0,
 		0, 0, 0, 0
 	};
+
 #define ONLY_TRANSLATION 1
 #if ONLY_TRANSLATION
 	ret.ftl = 0.577350269 * position.x
@@ -54,54 +55,52 @@ R8 calc(R3 position, R3 rotation) {
 		- 0.577350269 * position.y
 		- 0.577350269 * position.z;
 
-    std::cout << ret << std::endl;
-
 	return ret;
 #else
-    // X -> left - right
-    R8 x {
-        1.0, 1.0,
-        -1.0, -1.0,
-        1.0, 1.0,
-        -1.0, -1.0
-    } * position.x;
-    // Y -> top - bottom
-    R8 y {
-        1.0, -1.0,
-        1.0, -1.0,
-        1.0, -1.0,
-        1.0, -1.0
-    } * position.y;
-    // Z -> front - rear
-    R8 z {
-        1.0, 1.0,
-        1.0, 1.0,
-        -1.0, -1.0,
-        -1.0, -1.0
-    } * position.z;
-    // pitch -> front top / rear bottom - front bottom / rear top
-    R8 pitch {
-        1.0, -1.0,
-        1.0, -1.0,
-        -1.0, 1.0,
-        -1.0, 1.0
-    } * rotation.x;
-    // roll -> top left / bottom right - bottom left / top right
-    R8 roll {
-        1.0, -1.0,
-        -1.0, 1.0,
-        1.0, -1.0,
-        -1.0, 1.0
-    } * rotation.z;
-    // yaw -> front left / rear right - front right / rear left
-    R8 yaw {
-        1.0, 1.0,
-        -1.0, -1.0,
-        -1.0, -1.0,
-        1.0, 1.0
-    } * rotation.y;
-    
-    return (x + y + z + pitch + roll + yaw) / maxComp(totality);
+	// X -> left - right
+	R8 x {
+		1.0, 1.0,
+		-1.0, -1.0,
+		1.0, 1.0,
+		-1.0, -1.0
+	} * position.x;
+	// Y -> top - bottom
+	R8 y {
+		1.0, -1.0,
+		1.0, -1.0,
+		1.0, -1.0,
+		1.0, -1.0
+	} * position.y;
+	// Z -> front - rear
+	R8 z {
+		1.0, 1.0,
+		1.0, 1.0,
+		-1.0, -1.0,
+		-1.0, -1.0
+	} * position.z;
+	// pitch -> front top / rear bottom - front bottom / rear top
+	R8 pitch {
+		1.0, -1.0,
+		1.0, -1.0,
+		-1.0, 1.0,
+		-1.0, 1.0
+	} * rotation.x;
+	// roll -> top left / bottom right - bottom left / top right
+	R8 roll {
+		1.0, -1.0,
+		-1.0, 1.0,
+		1.0, -1.0,
+		-1.0, 1.0
+	} * rotation.z;
+	// yaw -> front left / rear right - front right / rear left
+	R8 yaw {
+		1.0, 1.0,
+		-1.0, -1.0,
+		-1.0, -1.0,
+		1.0, 1.0
+	} * rotation.y;
+
+	return (x + y + z + pitch + roll + yaw) / maxComp(totality);
 #endif
 #undef ONLY_TRANSLATION
 }
