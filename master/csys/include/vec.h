@@ -9,9 +9,18 @@ struct R3 {
 			double y;
 			double z;
 		};
+		struct {
+			double pitch;
+			double yaw;
+			double roll;
+		};
 		struct { double v[3]; };
 	};
-    
+	
+	R3();
+	R3(const R3& copy);
+	R3(const R3&& move);
+	
 	R3& operator= (R3 const& rhs);
 	R3& operator= (R3&& rhs);
 
@@ -69,6 +78,10 @@ struct R8 {
 		};
 		struct { double v[8]; };
 	};
+	
+	R8();
+	R8(const R8& copy);
+	R8(const R8&& move);
 
 	R8& operator= (R8 const& rhs);
 	R8& operator= (R8&& rhs);
