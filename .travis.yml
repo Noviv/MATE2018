@@ -1,0 +1,29 @@
+sudo: required
+
+language: cpp
+
+notifications:
+  email: false
+
+addons:
+  apt:
+    packages:
+      - libboost-all-dev
+      - libglew-dev
+      - xorg
+      - xorg-dev
+      - libglu1-mesa-dev
+
+install:
+  - git clone https://github.com/glfw/glfw.git
+  - cd glfw
+  - mkdir build
+  - cd build
+  - cmake ..
+  - sudo make install
+  - sudo ldconfig
+
+script:
+  - cd ../..
+  - cmake .
+  - make
