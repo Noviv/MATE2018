@@ -57,11 +57,7 @@ R8 calc(R3 position, R3 rotation) {
     std::cout << ret << std::endl;
 
 	return ret;
-#endif
-#undef ONLY_TRANSLATION
-
-#define BOTH 0
-#if BOTH
+#else
     // X -> left - right
     R8 x {
         1.0, 1.0,
@@ -107,5 +103,5 @@ R8 calc(R3 position, R3 rotation) {
     
     return (x + y + z + pitch + roll + yaw) / maxComp(totality);
 #endif
-#undef BOTH
+#undef ONLY_TRANSLATION
 }
