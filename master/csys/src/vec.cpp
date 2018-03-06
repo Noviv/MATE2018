@@ -30,6 +30,27 @@ R3& R3::operator%= (R3 const& rhs) {
 	return *this;
 }
 
+R3& R3::operator+= (double const& rhs) {
+	for (int i = 0; i < 3; i++) (*this)[i] += rhs;
+	return *this;
+}
+R3& R3::operator-= (double const& rhs) {
+	for (int i = 0; i < 3; i++) (*this)[i] -= rhs;
+	return *this;
+}
+R3& R3::operator*= (double const& rhs) {
+	for (int i = 0; i < 3; i++) (*this)[i] *= rhs;
+	return *this;
+}
+R3& R3::operator/= (double const& rhs) {
+	for (int i = 0; i < 3; i++) (*this)[i] /= rhs;
+	return *this;
+}
+R3& R3::operator%= (double const& rhs) {
+	for (int i = 0; i < 3; i++) (*this)[i] %= rhs;
+	return *this;
+}
+
 double& R3::operator[](R3::MEMBERS const& index) {
 	return v[(int) index];
 }
@@ -171,6 +192,27 @@ R8& R8::operator/= (R8 const& rhs) {
 }
 R8& R8::operator%= (R8 const& rhs) {
 	for (int i = 0; i < 8; i++) (*this)[i] %= rhs[i];
+	return *this;
+}
+
+R8& R8::operator+= (double const& rhs) {
+	for (int i = 0; i < 3; i++) (*this)[i] += rhs;
+	return *this;
+}
+R8& R8::operator-= (double const& rhs) {
+	for (int i = 0; i < 3; i++) (*this)[i] -= rhs;
+	return *this;
+}
+R8& R8::operator*= (double const& rhs) {
+	for (int i = 0; i < 3; i++) (*this)[i] *= rhs;
+	return *this;
+}
+R8& R8::operator/= (double const& rhs) {
+	for (int i = 0; i < 3; i++) (*this)[i] /= rhs;
+	return *this;
+}
+R8& R8::operator%= (double const& rhs) {
+	for (int i = 0; i < 3; i++) (*this)[i] %= rhs;
 	return *this;
 }
 

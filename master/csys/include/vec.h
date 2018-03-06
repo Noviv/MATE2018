@@ -33,6 +33,12 @@ struct R3 {
 	R3& operator*= (R3 const& rhs);
 	R3& operator/= (R3 const& rhs);
 	R3& operator%= (R3 const& rhs);
+    
+    R3& operator+= (double const& rhs);
+	R3& operator-= (double const& rhs);
+	R3& operator*= (double const& rhs);
+	R3& operator/= (double const& rhs);
+	R3& operator%= (double const& rhs);
 
 	enum class MEMBERS { X = 0, Y = 1, Z = 2 };
 	double& operator[](MEMBERS const& index);
@@ -96,6 +102,12 @@ struct R8 {
 	R8& operator*= (R8 const& rhs);
 	R8& operator/= (R8 const& rhs);
 	R8& operator%= (R8 const& rhs);
+
+	R8& operator+= (double const& rhs);
+	R8& operator-= (double const& rhs);
+	R8& operator*= (double const& rhs);
+	R8& operator/= (double const& rhs);
+	R8& operator%= (double const& rhs);
 
 	enum class MEMBERS { FTL = 0, FBL = 1, FTR = 2, FBR = 3, RTL = 4, RBL = 5, RTR = 6, RBR = 7 };
 	double& operator[](MEMBERS const& index);
