@@ -2,20 +2,6 @@
 
 #include <iostream>
 
-R3(): x(0), y(0), z(0) {}
-R3::R3(const R3& copy): x(copy.x), y(copy.y), z(copy.z) {}
-R3(const R3&& move): x(move.x), y(move.y), z(move.z) {}
-
-R3& R3::operator= (R3 const& rhs) {
-	if (this != &rhs) std::memcpy(rhs.v, this->v, 3 * sizeof(double));
-	return *this;
-}
-R3& R3::operator= (R3&& rhs) {
-	std::memcpy(rhs.v, this->v, 3 * sizeof(double));
-	std::memset(rhs.v, 3, sizeof(double));
-	return *this;
-}
-
 R3 R3::operator- () const {
 	return R3 {-this->R3, -this->y, -this->z};
 }
@@ -159,20 +145,6 @@ std::ostream& operator<< (std::ostream& os, R3 const& r3) {
 }
 
 // Redo the exact same thing for R8
-
-R8::R8(): ftl(0), fbl(0), ftr(0), fbr(0), rtl(0), rbl(0), rtr(0), rbr(0) {}
-R8::R8(const R8& copy): ftl(copy.ftl), fbl(copy.fbl), ftr(copy.ftr), fbr(copy.fbr), rtl(copy.rtl), rbl(copy.rbl), rtr(copy.rtr), rbr(copy.rbr) {}
-R8::R8(const R8&& move): ftl(move.ftl), fbl(move.fbl), ftr(move.ftr), fbr(move.fbr), rtl(move.rtl), rbl(move.rbl), rtr(move.rtr), rbr(move.rbr) {}
-
-R8& R8::operator= (R8 const& rhs) {
-	if (this != &rhs) std::memcpy(rhs.v, this->v, 8 * sizeof(double));
-	return *this;
-}
-R8& R8::operator= (R8&& rhs) {
-	std::memcpy(rhs.v, this->v, 8 * sizeof(double));
-	std::memset(rhs.v, 8, sizeof(double));
-	return *this;
-}
 
 R8 R8::operator- () const {
 	return R8 {-this->R8, -this->y, -this->z};
