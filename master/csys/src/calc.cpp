@@ -99,8 +99,8 @@ R8 calc(R3 position, R3 rotation) {
 		-1.0, -1.0,
 		1.0, 1.0
 	} * rotation.y;
-
-	return (x + y + z + pitch + roll + yaw) / maxComp(totality);
+	auto early_sum = x + y + z + pitch + roll + yaw;
+	return early_sum / maxComp(early_sum);
 #endif
 #undef ONLY_TRANSLATION
 }

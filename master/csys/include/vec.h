@@ -20,7 +20,7 @@ struct R3 {
 	R3() = default;
     ~R3() = default;
 	R3(const R3& copy) = default;
-	R3(const R3&& move) = default;
+	R3(R3&& move) = default;
 	
 	R3& operator= (R3 const& rhs) = default;
 	R3& operator= (R3&& rhs) = default;
@@ -83,7 +83,7 @@ struct R8 {
 	R8() = default;
     ~R8() = default;
 	R8(const R8& copy) = default;
-	R8(const R8&& move) = default;
+	R8(R8&& move) = default;
 
 	R8& operator= (R8 const& rhs) = default;
 	R8& operator= (R8&& rhs) = default;
