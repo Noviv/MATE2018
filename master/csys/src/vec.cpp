@@ -25,10 +25,6 @@ R3& R3::operator/= (R3 const& rhs) {
 	for (int i = 0; i < 3; i++) (*this)[i] /= rhs[i];
 	return *this;
 }
-R3& R3::operator%= (R3 const& rhs) {
-	for (int i = 0; i < 3; i++) (*this)[i] %= rhs[i];
-	return *this;
-}
 
 R3& R3::operator+= (double const& rhs) {
 	for (int i = 0; i < 3; i++) (*this)[i] += rhs;
@@ -44,10 +40,6 @@ R3& R3::operator*= (double const& rhs) {
 }
 R3& R3::operator/= (double const& rhs) {
 	for (int i = 0; i < 3; i++) (*this)[i] /= rhs;
-	return *this;
-}
-R3& R3::operator%= (double const& rhs) {
-	for (int i = 0; i < 3; i++) (*this)[i] %= rhs;
 	return *this;
 }
 
@@ -104,11 +96,6 @@ R3 operator/ (R3 const& lhs, R3 const& rhs) {
 	tmp /= rhs;
 	return tmp;
 }
-R3 operator% (R3 const& lhs, R3 const& rhs) {
-	R3 tmp(lhs);
-	tmp %= rhs;
-	return tmp;
-}
 R3 operator+ (R3 const& lhs, double const& rhs) {
 	R3 tmp(lhs);
 	tmp += rhs;
@@ -129,11 +116,6 @@ R3 operator/ (R3 const& lhs, double const& rhs) {
 	tmp /= rhs;
 	return tmp;
 }
-R3 operator% (R3 const& lhs, double const& rhs) {
-	R3 tmp(lhs);
-	tmp %= rhs;
-	return tmp;
-}
 R3 operator+ (double const& lhs, R3 const& rhs) {
 	R3 tmp(rhs);
 	tmp += lhs;
@@ -152,11 +134,6 @@ R3 operator* (double const& lhs, R3 const& rhs) {
 R3 operator/ (double const& lhs, R3 const& rhs) {
 	R3 tmp(rhs);
 	tmp /= lhs;
-	return tmp;
-}
-R3 operator% (double const& lhs, R3 const& rhs) {
-	R3 tmp(rhs);
-	tmp %= lhs;
 	return tmp;
 }
 
@@ -190,10 +167,6 @@ R8& R8::operator/= (R8 const& rhs) {
 	for (int i = 0; i < 8; i++) (*this)[i] /= rhs[i];
 	return *this;
 }
-R8& R8::operator%= (R8 const& rhs) {
-	for (int i = 0; i < 8; i++) (*this)[i] %= rhs[i];
-	return *this;
-}
 
 R8& R8::operator+= (double const& rhs) {
 	for (int i = 0; i < 3; i++) (*this)[i] += rhs;
@@ -209,10 +182,6 @@ R8& R8::operator*= (double const& rhs) {
 }
 R8& R8::operator/= (double const& rhs) {
 	for (int i = 0; i < 3; i++) (*this)[i] /= rhs;
-	return *this;
-}
-R8& R8::operator%= (double const& rhs) {
-	for (int i = 0; i < 3; i++) (*this)[i] %= rhs;
 	return *this;
 }
 
@@ -271,11 +240,6 @@ R8 operator/ (R8 const& lhs, R8 const& rhs) {
 	tmp /= rhs;
 	return tmp;
 }
-R8 operator% (R8 const& lhs, R8 const& rhs) {
-	R8 tmp(lhs);
-	tmp %= rhs;
-	return tmp;
-}
 R8 operator+ (R8 const& lhs, double const& rhs) {
 	R8 tmp(lhs);
 	tmp += rhs;
@@ -294,11 +258,6 @@ R8 operator* (R8 const& lhs, double const& rhs) {
 R8 operator/ (R8 const& lhs, double const& rhs) {
 	R8 tmp(lhs);
 	tmp /= rhs;
-	return tmp;
-}
-R8 operator% (R8 const& lhs, double const& rhs) {
-	R8 tmp(lhs);
-	tmp %= rhs;
 	return tmp;
 }
 R8 operator+ (double const& lhs, R8 const& rhs) {
@@ -321,14 +280,9 @@ R8 operator/ (double const& lhs, R8 const& rhs) {
 	tmp /= lhs;
 	return tmp;
 }
-R8 operator% (double const& lhs, R8 const& rhs) {
-	R8 tmp(rhs);
-	tmp %= lhs;
-	return tmp;
-}
 
 std::ostream& operator<< (std::ostream& os, R8 const& r8) {
-	os << "R8 { ftl: " << r8.ftl << ", fbl: " << r8.fbl << ", ftr: " << r8.ftr << ", fbr: " << r3.fbr
-		<< ", rtl: " << r3.rtl << ", rbr: " << r3.rbr << ", rtr: " << r3.rtr << ", rbr: " << r3.rbr << " }";
+	os << "R8 { ftl: " << r8.ftl << ", fbl: " << r8.fbl << ", ftr: " << r8.ftr << ", fbr: " << r8.fbr
+		<< ", rtl: " << r8.rtl << ", rbr: " << r8.rbr << ", rtr: " << r8.rtr << ", rbr: " << r8.rbr << " }";
 	return os;
 }
