@@ -63,42 +63,42 @@ R8 calc(R3 position, R3 rotation) {
 		-1.0, -1.0,
 		1.0, 1.0,
 		-1.0, -1.0
-	} * position.x;
+	} *= position.x;
 	// Y -> top - bottom
 	R8 y {
 		1.0, -1.0,
 		1.0, -1.0,
 		1.0, -1.0,
 		1.0, -1.0
-	} * position.y;
+	} *= position.y;
 	// Z -> front - rear
 	R8 z {
 		1.0, 1.0,
 		1.0, 1.0,
 		-1.0, -1.0,
 		-1.0, -1.0
-	} * position.z;
+	} *= position.z;
 	// pitch -> front top / rear bottom - front bottom / rear top
 	R8 pitch {
 		1.0, -1.0,
 		1.0, -1.0,
 		-1.0, 1.0,
 		-1.0, 1.0
-	} * rotation.x;
+	} *= rotation.pitch;
 	// roll -> top left / bottom right - bottom left / top right
 	R8 roll {
 		1.0, -1.0,
 		-1.0, 1.0,
 		1.0, -1.0,
 		-1.0, 1.0
-	} * rotation.z;
+	} *= rotation.roll;
 	// yaw -> front left / rear right - front right / rear left
 	R8 yaw {
 		1.0, 1.0,
 		-1.0, -1.0,
 		-1.0, -1.0,
 		1.0, 1.0
-	} * rotation.y;
+	} *= rotation.yaw;
 	auto early_sum = x + y + z + pitch + roll + yaw;
 	return early_sum / maxComp(early_sum);
 #endif
