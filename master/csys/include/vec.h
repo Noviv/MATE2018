@@ -43,6 +43,8 @@ struct R3 {
 	enum class MEMBERS { X = 0, Y = 1, Z = 2 };
 	double& operator[](MEMBERS const& index);
 	const double& operator[](MEMBERS const& index) const;
+	double& operator[](int const& index);
+	const double& operator[](int const& index) const;
 };
 
 bool operator== (R3 const& lhs, R3 const& rhs);
@@ -112,8 +114,8 @@ struct R8 {
 	enum class MEMBERS { FTL = 0, FBL = 1, FTR = 2, FBR = 3, RTL = 4, RBL = 5, RTR = 6, RBR = 7 };
 	double& operator[](MEMBERS const& index);
 	const double& operator[](MEMBERS const& index) const;
-	double& operator[](unsigned int const& index);
-	const double& operator[](unsigned int const& index) const;
+	double& operator[](int const& index);
+	const double& operator[](int const& index) const;
 };
 
 bool operator== (R8 const& lhs, R8 const& rhs);

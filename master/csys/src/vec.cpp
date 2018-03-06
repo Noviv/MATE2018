@@ -3,7 +3,7 @@
 #include <iostream>
 
 R3 R3::operator- () const {
-	return R3 {-this->R3, -this->y, -this->z};
+	return R3(*this) * -1;
 }
 R3 R3::operator+ () const {
 	return *this;
@@ -58,11 +58,11 @@ const double& R3::operator[](R3::MEMBERS const& index) const {
 	return v[(int) index];
 }
 
-double& R3::operator[](unsigned int const& index) {
-	return (*this)[std::static_cast<R3::MEMBERS>(index)];
+double& R3::operator[](int const& index) {
+	return (*this)[static_cast<R3::MEMBERS>(index)];
 }
-const double& R3::operator[](unsigned int const& index) const {
-	return (*this)[std::static_cast<R3::MEMBERS>(index)];
+const double& R3::operator[](int const& index) const {
+	return (*this)[static_cast<R3::MEMBERS>(index)];
 }
 
 bool operator== (R3 const& lhs, R3 const& rhs) {
@@ -168,7 +168,7 @@ std::ostream& operator<< (std::ostream& os, R3 const& r3) {
 // Redo the exact same thing for R8
 
 R8 R8::operator- () const {
-	return R8 {-this->R8, -this->y, -this->z};
+	return R8(*this) * -1;
 }
 R8 R8::operator+ () const {
 	return *this;
@@ -223,11 +223,11 @@ const double& R8::operator[](R8::MEMBERS const& index) const {
 	return v[(int) index];
 }
 
-double& R8::operator[](unsigned int const& index) {
-	return (*this)[std::static_cast<R8::MEMBERS>(index)];
+double& R8::operator[](int const& index) {
+	return (*this)[static_cast<R8::MEMBERS>(index)];
 }
-const double& R8::operator[](unsigned int const& index) const {
-	return (*this)[std::static_cast<R8::MEMBERS>(index)];
+const double& R8::operator[](int const& index) const {
+	return (*this)[static_cast<R8::MEMBERS>(index)];
 }
 
 bool operator== (R8 const& lhs, R8 const& rhs) {
@@ -327,7 +327,7 @@ R8 operator% (double const& lhs, R8 const& rhs) {
 	return tmp;
 }
 
-ostream& operator<< (ostream& os, R8 const& r8) {
+std::ostream& operator<< (std::ostream& os, R8 const& r8) {
 	os << "R8 { ftl: " << r8.ftl << ", fbl: " << r8.fbl << ", ftr: " << r8.ftr << ", fbr: " << r3.fbr
 		<< ", rtl: " << r3.rtl << ", rbr: " << r3.rbr << ", rtr: " << r3.rtr << ", rbr: " << r3.rbr << " }";
 	return os;
