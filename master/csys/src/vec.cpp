@@ -169,19 +169,19 @@ R8& R8::operator/= (R8 const& rhs) {
 }
 
 R8& R8::operator+= (double const& rhs) {
-	for (int i = 0; i < 3; i++) (*this)[i] += rhs;
+	for (int i = 0; i < 8; i++) (*this)[i] += rhs;
 	return *this;
 }
 R8& R8::operator-= (double const& rhs) {
-	for (int i = 0; i < 3; i++) (*this)[i] -= rhs;
+	for (int i = 0; i < 8; i++) (*this)[i] -= rhs;
 	return *this;
 }
 R8& R8::operator*= (double const& rhs) {
-	for (int i = 0; i < 3; i++) (*this)[i] *= rhs;
+	for (int i = 0; i < 8; i++) (*this)[i] *= rhs;
 	return *this;
 }
 R8& R8::operator/= (double const& rhs) {
-	for (int i = 0; i < 3; i++) (*this)[i] /= rhs;
+	for (int i = 0; i < 8; i++) (*this)[i] /= rhs;
 	return *this;
 }
 
