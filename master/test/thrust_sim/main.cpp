@@ -133,6 +133,8 @@ public:
 			rbr = cvt;
 		}
 
+		std::cout << str << std::endl;
+
 		async_bind();
 	}
 };
