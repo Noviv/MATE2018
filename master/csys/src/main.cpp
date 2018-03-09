@@ -59,7 +59,7 @@ void magellan() {
 					net.send_v(
 						pos,
 						calc(pos, rot),
-						1);
+						450);
 					MagellanRemoveMotionEvents(display);
 					sprintf(MagellanBuffer,
 						"x=%+5.0f y=%+5.0f z=%+5.0f a=%+5.0f b=%+5.0f c=%+5.0f",

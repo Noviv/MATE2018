@@ -22,14 +22,14 @@ void XNet::send_v(R3 d, R8 thrusts, int sens) {
 	strstream << d.x / sens << ",";
 	strstream << d.y / sens << ",";
 	strstream << d.z / sens << ",";
-	strstream << thrusts.ftl / sens << ",";
-	strstream << thrusts.fbl / sens << ",";
-	strstream << thrusts.ftr / sens << ",";
-	strstream << thrusts.fbr / sens << ",";
-	strstream << thrusts.rtl / sens << ",";
-	strstream << thrusts.rbl / sens << ",";
-	strstream << thrusts.rtr / sens << ",";
-	strstream << thrusts.rbr / sens;
+	strstream << thrusts.ftl << ",";
+	strstream << thrusts.fbl << ",";
+	strstream << thrusts.ftr << ",";
+	strstream << thrusts.fbr << ",";
+	strstream << thrusts.rtl << ",";
+	strstream << thrusts.rbl << ",";
+	strstream << thrusts.rtr << ",";
+	strstream << thrusts.rbr;
 	strstream << "]";
 
 	send(strstream.str());
