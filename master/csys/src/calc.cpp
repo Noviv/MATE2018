@@ -108,4 +108,5 @@ R8 calc(R3 position, R3 rotation) {
 	auto early_trans_sum = x + y + z;
     auto early_rot_sum = pitch + roll + yaw;
     return (early_trans_sum + early_rot_sum) / 6;
+#endif
 }
