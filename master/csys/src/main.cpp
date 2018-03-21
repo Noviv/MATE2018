@@ -1,4 +1,5 @@
 #include <iostream>
+#include <algorithm>
 
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
@@ -21,6 +22,10 @@ GC wingc;
 
 XNet net;
 
+double clamp(double d, double lo = -1, double hi = -1) {
+	return std::max(lo, std::min(d, hi));
+}
+
 void magellan() {
 	XEvent report;
 	KeySym keysym;
@@ -29,8 +34,7 @@ void magellan() {
 
 	MagellanFloatEvent MagellanEvent;
 
-	R3 pos;
-	R3 rot;
+	R3 dir, pos, rot;
 
 	XNextEvent(display, &report);
 	switch (report.type) {
@@ -46,20 +50,24 @@ void magellan() {
 		case ClientMessage:
 			switch (MagellanTranslateEvent(display, &report, &MagellanEvent, 1, 1)) {
 				case MagellanInputMotionEvent:
+					dir = {
+						-MagellanEvent.MagellanData[MagellanX] / 450,
+						MagellanEvent.MagellanData[MagellanY] / 450,
+						MagellanEvent.MagellanData[MagellanZ] / 450
+					};
 					pos = {
-						-MagellanEvent.MagellanData[MagellanX],
-						MagellanEvent.MagellanData[MagellanY],
-						MagellanEvent.MagellanData[MagellanZ]
+						-MagellanEvent.MagellanData[MagellanX] / 450,
+						MagellanEvent.MagellanData[MagellanY] / 450,
+						MagellanEvent.MagellanData[MagellanZ] / 450
 					};
 					rot = {
-						-MagellanEvent.MagellanData[MagellanA],
-						MagellanEvent.MagellanData[MagellanB],
-						MagellanEvent.MagellanData[MagellanC]
+						-MagellanEvent.MagellanData[MagellanA] / 450,
+						MagellanEvent.MagellanData[MagellanB] / 450,
+						MagellanEvent.MagellanData[MagellanC] / 450
 					};
 					net.send_v(
-						pos,
-						calc(pos, rot),
-						450);
+						dir,
+						calc(pos, rot));
 					MagellanRemoveMotionEvents(display);
 					sprintf(MagellanBuffer,
 						"x=%+5.0f y=%+5.0f z=%+5.0f a=%+5.0f b=%+5.0f c=%+5.0f",

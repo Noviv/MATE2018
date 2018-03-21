@@ -21,8 +21,8 @@ R8 calc(R3 position, R3 rotation) {
 		0, 0, 0, 0
 	};
 
-#define ONLY_TRANSLATION 0
-#if ONLY_TRANSLATION
+//#define ONLY_TRANSLATION
+#ifdef ONLY_TRANSLATION
 	ret.ftl = 0.577350269 * position.x
 		+ 0.577350269 * position.y
 		+ 0.577350269 * position.z;

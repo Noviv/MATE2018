@@ -16,12 +16,12 @@ void XNet::send(std::string data) {
 }
 
 
-void XNet::send_v(R3 d, R8 thrusts, int sens) {
+void XNet::send_v(R3 d, R8 thrusts) {
 	std::ostringstream strstream;
 	strstream << "[";
-	strstream << d.x / sens << ",";
-	strstream << d.y / sens << ",";
-	strstream << d.z / sens << ",";
+	strstream << d.x << ",";
+	strstream << d.y << ",";
+	strstream << d.z << ",";
 	strstream << thrusts.ftl << ",";
 	strstream << thrusts.fbl << ",";
 	strstream << thrusts.ftr << ",";
