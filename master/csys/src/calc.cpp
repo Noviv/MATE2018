@@ -21,42 +21,6 @@ R8 calc(R3 position, R3 rotation) {
 		0, 0, 0, 0
 	};
 
-//#define ONLY_TRANSLATION
-#ifdef ONLY_TRANSLATION
-	ret.ftl = 0.577350269 * position.x
-		+ 0.577350269 * position.y
-		+ 0.577350269 * position.z;
-
-	ret.fbl = 0.577350269 * position.x
-		- 0.577350269 * position.y
-		+ 0.577350269 * position.z;
-
-	ret.ftr = -0.577350269 * position.x
-		+ 0.577350269 * position.y
-		+ 0.577350269 * position.z;
-
-	ret.fbr = -0.577350269 * position.x
-		- 0.577350269 * position.y
-		+ 0.577350269 * position.z;
-
-	ret.rtl = 0.577350269 * position.x
-		+ 0.577350269 * position.y
-		- 0.577350269 * position.z;
-
-	ret.rbl = 0.577350269 * position.x
-		- 0.577350269 * position.y
-		- 0.577350269 * position.z;
-
-	ret.rtr = -0.577350269 * position.x
-		+ 0.577350269 * position.y
-		- 0.577350269 * position.z;
-
-	ret.rbr = -0.577350269 * position.x
-		- 0.577350269 * position.y
-		- 0.577350269 * position.z;
-
-	return ret;
-#else
 	// X -> left - right
 	R8 x {
 		1.0, 1.0,
@@ -107,6 +71,5 @@ R8 calc(R3 position, R3 rotation) {
 	yaw *= rotation.yaw;
 	auto early_trans_sum = x + y + z;
     auto early_rot_sum = pitch + roll + yaw;
-    return (early_trans_sum + early_rot_sum) / 6;
-#endif
+    return (early_trans_sum + early_rot_sum);
 }

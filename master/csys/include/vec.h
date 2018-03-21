@@ -15,10 +15,11 @@ struct R3 {
 			double roll;
 		};
 		struct { double v[3]; };
+		unsigned sz = 3;
 	};
 	
 	R3() = default;
-    ~R3() = default;
+    	~R3() = default;
 	R3(const R3& copy) = default;
 	R3(R3&& move) = default;
 	
@@ -33,7 +34,7 @@ struct R3 {
 	R3& operator*= (R3 const& rhs);
 	R3& operator/= (R3 const& rhs);
     
-    R3& operator+= (double const& rhs);
+    	R3& operator+= (double const& rhs);
 	R3& operator-= (double const& rhs);
 	R3& operator*= (double const& rhs);
 	R3& operator/= (double const& rhs);
@@ -81,10 +82,11 @@ struct R8 {
 			double rbr;
 		};
 		struct { double v[8]; };
+		unsigned sz = 8;
 	};
 	
 	R8() = default;
-    ~R8() = default;
+    	~R8() = default;
 	R8(const R8& copy) = default;
 	R8(R8&& move) = default;
 

@@ -22,8 +22,20 @@ GC wingc;
 
 XNet net;
 
-double clamp(double d, double lo = -1, double hi = -1) {
-	return std::max(lo, std::min(d, hi));
+constexpr void clamp(double& d, int sens, double lo, double hi) {
+	d = std::max(lo, std::min(d / sens, hi));
+}
+
+constexpr void clamp(R3& d, int sens = 450, double lo = -1, double hi = 1) {
+	for (auto& v : d.v) {
+		clamp(v, sens, lo, hi);
+	}
+}
+
+constexpr void clamp(R8& d, int sens = 450, double lo = -1, double hi = 1) {
+	for (auto& v : d.v) {
+		clamp(v, sens, lo, hi);
+	}
 }
 
 void magellan() {
@@ -34,7 +46,8 @@ void magellan() {
 
 	MagellanFloatEvent MagellanEvent;
 
-	R3 dir, pos, rot;
+	R3 pos, rot;
+	R8 thrusts;
 
 	XNextEvent(display, &report);
 	switch (report.type) {
@@ -50,24 +63,22 @@ void magellan() {
 		case ClientMessage:
 			switch (MagellanTranslateEvent(display, &report, &MagellanEvent, 1, 1)) {
 				case MagellanInputMotionEvent:
-					dir = {
-						-MagellanEvent.MagellanData[MagellanX] / 450,
-						MagellanEvent.MagellanData[MagellanY] / 450,
-						MagellanEvent.MagellanData[MagellanZ] / 450
-					};
 					pos = {
-						-MagellanEvent.MagellanData[MagellanX] / 450,
-						MagellanEvent.MagellanData[MagellanY] / 450,
-						MagellanEvent.MagellanData[MagellanZ] / 450
+						-MagellanEvent.MagellanData[MagellanX],
+						MagellanEvent.MagellanData[MagellanY],
+						MagellanEvent.MagellanData[MagellanZ]
 					};
+					clamp(pos);
 					rot = {
-						-MagellanEvent.MagellanData[MagellanA] / 450,
-						MagellanEvent.MagellanData[MagellanB] / 450,
-						MagellanEvent.MagellanData[MagellanC] / 450
+						-MagellanEvent.MagellanData[MagellanA],
+						MagellanEvent.MagellanData[MagellanB],
+						MagellanEvent.MagellanData[MagellanC]
 					};
-					net.send_v(
-						dir,
-						calc(pos, rot));
+					clamp(rot);
+					thrusts = calc(pos, rot);
+					clamp(thrusts, 1);
+					net.send_v(pos, thrusts);
+
 					MagellanRemoveMotionEvents(display);
 					sprintf(MagellanBuffer,
 						"x=%+5.0f y=%+5.0f z=%+5.0f a=%+5.0f b=%+5.0f c=%+5.0f",
