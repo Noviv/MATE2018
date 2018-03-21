@@ -21,8 +21,8 @@ R8 calc(R3 position, R3 rotation) {
 		0, 0, 0, 0
 	};
 
-//#define ONLY_TRANSLATION
-#ifdef ONLY_TRANSLATION
+#define ONLY_TRANSLATION 0
+#if ONLY_TRANSLATION
 	ret.ftl = 0.577350269 * position.x
 		+ 0.577350269 * position.y
 		+ 0.577350269 * position.z;
@@ -105,11 +105,7 @@ R8 calc(R3 position, R3 rotation) {
 		1.0, 1.0
 	};
 	yaw *= rotation.yaw;
-	auto early_sum = x + y + z + pitch + roll + yaw;
-	auto thing = early_sum / maxComp(early_sum);
-	std::cout << thing << std::endl;
-	std::cout << thing.ftl << std::endl;
-	return thing;
-#endif
-#undef ONLY_TRANSLATION
+	auto early_trans_sum = x + y + z;
+    auto early_rot_sum = pitch + roll + yaw;
+    return (early_trans_sum + early_rot_sum) / 6;
 }
