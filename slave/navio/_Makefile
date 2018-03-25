@@ -1,0 +1,7 @@
+all:
+	make -C Navio all
+	g++ -std=c++11 -I Navio main.cpp -LNavio -lnavio -o navio
+
+clean:
+	make -C Navio clean
+	rm -f navio

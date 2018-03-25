@@ -7,11 +7,3 @@ cmake_install.cmake
 install_manifest.txt
 compile_commands.json
 CTestTestfile.cmake
-
-csys
-!csys/
-
-thrust_sim
-!thrust_sim/
-
-__pycache__/
