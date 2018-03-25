@@ -352,9 +352,9 @@ seis_gui = SeismicGUI(seis)
 n.add(seis, text="Seismic")
 
 # set up video GUI
-vid = ttk.Frame(n)
-vid_gui = VideoGUI(vid, cap)
-n.add(vid, text="Video")
+#vid = ttk.Frame(n)
+#vid_gui = VideoGUI(vid, cap)
+#n.add(vid, text="Video")
 
 # pack
 n.pack(fill=tk.BOTH, expand=True)

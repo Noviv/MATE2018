@@ -5,7 +5,7 @@
 XNet::XNet() {
 	sock = new boost::asio::ip::udp::socket(io_serv);
 	endp = new boost::asio::ip::udp::endpoint(
-		boost::asio::ip::address::from_string("127.0.0.1"),
+		boost::asio::ip::address::from_string("10.42.0.58"),
 		512);
 
 	sock->open(boost::asio::ip::udp::v4());
