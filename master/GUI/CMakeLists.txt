@@ -2,11 +2,9 @@ cmake_minimum_required(VERSION 3.1)
 
 project(GUI)
 
-file(GLOB GUI_src
-	"*.py"
-)
-
-add_custom_target(GUI
-	COMMAND python3 -m py_compile ${GUI_src}
-	OUTPUT dive_comp.pyc __pycache__
+add_custom_target(GUI ALL
+	WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+	COMMAND python3 -m py_compile dive_comp.py
+	COMMAND rm -rf __pycache__
+	COMMAND rm -rf dive_comp.pyc
 )
