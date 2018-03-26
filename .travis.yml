@@ -18,6 +18,48 @@ matrix:
             - libglu1-mesa-dev
       env:
         - MATRIX_EVAL="CC=gcc-5 && CXX=g++-5"
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-7
+            - libboost-all-dev
+            - libglew-dev
+            - xorg
+            - xorg-dev
+            - libglu1-mesa-dev
+      env:
+        - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - clang++-3.8
+            - libboost-all-dev
+            - libglew-dev
+            - xorg
+            - xorg-dev
+            - libglu1-mesa-dev
+      env:
+        - MATRIX_EVAL="CC=clang-3.8 && CXX=clang++-3.8"
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - clang++-5.0
+            - libboost-all-dev
+            - libglew-dev
+            - xorg
+            - xorg-dev
+            - libglu1-mesa-dev
+      env:
+        - MATRIX_EVAL="CC=clang-5.0 && CXX=clang++-5.0"
 
 notifications:
   email: false
