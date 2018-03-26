@@ -88,8 +88,8 @@ constexpr unsigned int get_servo_range(double mag) {
 	return SERVO_STOP + mag * SERVO_MAG;
 }
 
-inline std::unique_ptr<PCA9685> get_rcout() {
-	return std::unique_ptr <PCA9685> { new PCA9685() };
+inline std::unique_ptr<RCOutput> get_rcout() {
+	return std::unique_ptr <RCOutput> { new RCOutput_Navio2() };
 }
 
 int main() {
@@ -110,7 +110,6 @@ int main() {
 
 	auto pwm = get_rcout();
 
-/*
 	if (!(pwm->initialize(PWM_OUTPUT))) {
 		std::cout << "could not init pwm" << std::endl;
 		return 1;
@@ -122,17 +121,12 @@ int main() {
 		std::cout << "could not enable" << std::endl;
 		return 1;
 	}
-*/
-
-	pwm->initialize();
-	pwm->setFrequency(50);
 
 	XNetRecv net;
 
 	while (true) {
 		net.poll();
-		pwm->setPWMuS(PWM_OUTPUT, get_servo_range(ftl));
-		//pwm->set_duty_cycle(PWM_OUTPUT, get_servo_range(ftl));
+		pwm->set_duty_cycle(PWM_OUTPUT, get_servo_range(ftl));
 		std::cout << get_servo_range(ftl) << std::endl;
 	}
 
