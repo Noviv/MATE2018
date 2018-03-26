@@ -11,21 +11,16 @@ matrix:
             - ubuntu-toolchain-r-test
           packages:
             - g++-5
+            - libboost-all-dev
+            - libglew-dev
+            - xorg
+            - xorg-dev
+            - libglu1-mesa-dev
       env:
         - MATRIX_EVAL="CC=gcc-5 && CXX=g++-5"
 
 notifications:
   email: false
-
-addons:
-  apt:
-    packages:
-      - libboost-all-dev
-      - libglew-dev
-      - x11-xserver-utils
-      - xorg
-      - xorg-dev
-      - libglu1-mesa-dev
 
 before_install:
   - eval "${MATRIX_EVAL}"
