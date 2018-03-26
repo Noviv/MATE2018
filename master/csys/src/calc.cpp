@@ -16,13 +16,13 @@ static double maxComp(const R8& vec) {
 
 // TODO: check if input is correctly formatted
 R8 calc(R3 position, R3 rotation) {
-	R8 ret = {
+	R8 ret {
 		0, 0, 0, 0,
 		0, 0, 0, 0
 	};
 
 	// X -> left - right
-	R8 x = {
+	R8 x {
 		1.0, 1.0,
 		-1.0, -1.0,
 		1.0, 1.0,
@@ -30,7 +30,7 @@ R8 calc(R3 position, R3 rotation) {
 	};
 	x *= position.x;
 	// Y -> top - bottom
-	R8 y = {
+	R8 y {
 		1.0, -1.0,
 		1.0, -1.0,
 		1.0, -1.0,
@@ -38,7 +38,7 @@ R8 calc(R3 position, R3 rotation) {
 	};
 	y *= position.y;
 	// Z -> front - rear
-	R8 z = {
+	R8 z {
 		1.0, 1.0,
 		1.0, 1.0,
 		-1.0, -1.0,
@@ -46,7 +46,7 @@ R8 calc(R3 position, R3 rotation) {
 	};
 	z *= position.z;
 	// pitch -> front top / rear bottom - front bottom / rear top
-	R8 pitch = {
+	R8 pitch {
 		1.0, -1.0,
 		1.0, -1.0,
 		-1.0, 1.0,
@@ -54,7 +54,7 @@ R8 calc(R3 position, R3 rotation) {
 	};
 	pitch *= rotation.pitch;
 	// roll -> top left / bottom right - bottom left / top right
-	R8 roll = {
+	R8 roll {
 		1.0, -1.0,
 		-1.0, 1.0,
 		1.0, -1.0,
@@ -62,7 +62,7 @@ R8 calc(R3 position, R3 rotation) {
 	};
 	roll *= rotation.roll;
 	// yaw -> front left / rear right - front right / rear left
-	R8 yaw = {
+	R8 yaw {
 		1.0, 1.0,
 		-1.0, -1.0,
 		-1.0, -1.0,

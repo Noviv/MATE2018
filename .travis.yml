@@ -13,6 +13,8 @@ addons:
       - xorg
       - xorg-dev
       - libglu1-mesa-dev
+      - gcc-5
+      - g++-5
 
 install:
   - git clone https://github.com/glfw/glfw.git
