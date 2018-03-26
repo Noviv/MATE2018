@@ -22,17 +22,17 @@ GC wingc;
 
 XNet net;
 
-constexpr void clamp(double& d, int sens, double lo, double hi) {
+void clamp(double& d, int sens, double lo, double hi) {
 	d = std::max(lo, std::min(d / sens, hi));
 }
 
-constexpr void clamp(R3& d, int sens = 450, double lo = -1, double hi = 1) {
+void clamp(R3& d, int sens = 450, double lo = -1, double hi = 1) {
 	for (auto& v : d.v) {
 		clamp(v, sens, lo, hi);
 	}
 }
 
-constexpr void clamp(R8& d, int sens = 450, double lo = -1, double hi = 1) {
+void clamp(R8& d, int sens = 450, double lo = -1, double hi = 1) {
 	for (auto& v : d.v) {
 		clamp(v, sens, lo, hi);
 	}
