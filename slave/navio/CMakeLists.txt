@@ -7,12 +7,11 @@ find_package(Boost REQUIRED system)
 
 add_custom_target(pigpio
 	COMMAND make
-	WORKING_DIRECTORY pigpio
+	WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/pigpio
 )
 
-add_custom_target(cleanfull
-	COMMAND make clean
-	COMMAND cd pigpio && make clean
+add_custom_target(cleanfull DEPENDS clean
+	COMMAND cd ${CMAKE_CURRENT_SOURCE_DIR}pigpio && make clean
 )
 
 file(GLOB NavioLib_SRC
