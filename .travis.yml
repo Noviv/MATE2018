@@ -16,6 +16,7 @@ matrix:
             - xorg
             - xorg-dev
             - libglu1-mesa-dev
+            - libglfw3-dev
       env:
         - MATRIX_EVAL="CC=gcc-5 && CXX=g++-5"
     - os: linux
@@ -30,6 +31,7 @@ matrix:
             - xorg
             - xorg-dev
             - libglu1-mesa-dev
+            - libglfw3-dev
       env:
         - MATRIX_EVAL="CC=clang-3.8 && CXX=clang++-3.8"
 
@@ -39,15 +41,6 @@ notifications:
 before_install:
   - git submodule update --init --recursive
   - eval "${MATRIX_EVAL}"
-
-install:
-  - git clone https://github.com/glfw/glfw.git
-  - cd glfw
-  - mkdir build
-  - cd build
-  - cmake ..
-  - sudo make install
-  - sudo ldconfig
 
 script:
   - cd ../..
