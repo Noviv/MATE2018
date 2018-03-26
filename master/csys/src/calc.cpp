@@ -4,23 +4,8 @@
 #include <cmath>
 #include <iostream>
 
-static double maxComp(const R8& vec) {
-	double max = 0; // something definitely less than the absolute value
-	for (int i = 0; i < 8; ++i) {
-		if (std::abs(vec[i]) > max) {
-			max = std::abs(vec[i]);
-		}
-	}
-	return max == 0 ? 1 : max;
-}
-
 // TODO: check if input is correctly formatted
 R8 calc(R3 position, R3 rotation) {
-	R8 ret {
-		0, 0, 0, 0,
-		0, 0, 0, 0
-	};
-
 	// X -> left - right
 	R8 x {
 		1.0, 1.0,

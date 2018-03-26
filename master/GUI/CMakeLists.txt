@@ -8,8 +8,5 @@ file(GLOB GUI_src
 
 add_custom_target(GUI
 	COMMAND python3 -m py_compile ${GUI_src}
+	OUTPUT dive_comp.pyc __pycache__
 )
-
-get_directory_property(clean_files ADDITIONAL_MAKE_CLEAN_FILES)
-set_directory_properties(PROPERTIES ADDITIONAL_MAKE_CLEAN_FILES
-	"${clean_files};dive_comp.pyc;__pycache__")
