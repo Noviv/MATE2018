@@ -126,10 +126,6 @@ int main() {
 
 	pwm->initialize();
 	pwm->setFrequency(50);
-	if (!(pwm->testConnection()) {
-		
-	}
-	pwm->testConnection();
 
 	XNetRecv net;
 
