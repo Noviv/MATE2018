@@ -23,15 +23,15 @@ file(GLOB NavioLib_SRC
 	"Navio2/C++/Navio/Navio2/*.cpp"
 )
 
-add_library(Navio2 SHARED
+add_library(NavioLib SHARED
 	${NavioLib_SRC}
 )
 
-add_executable(navio ${Navio_SRC})
-target_link_libraries(navio
+add_executable(navio_main ${Navio_SRC})
+target_link_libraries(navio_main
 	${Boost_LIBRARIES}
-	Navio2
+	NavioLib
 	-LNavio2/C++/Navio/
 	-lpthread
 )
-add_dependencies(navio pigpio)
+add_dependencies(navio_main pigpio)

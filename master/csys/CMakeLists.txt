@@ -11,5 +11,5 @@ find_package(Boost REQUIRED system)
 file(GLOB_RECURSE SRC src/*.cpp)
 include_directories(include/ ${Boost_INCLUDE_DIRS})
 
-add_executable(csys ${SRC})
-target_link_libraries(csys ${Boost_LIBRARIES} -lX11 -lm)
+add_executable(csys_main ${SRC})
+target_link_libraries(csys_main ${Boost_LIBRARIES} -lX11 -lm)

@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.1)
 set(CMAKE_CXX_STANDARD 11)
 
 project(thrust_sim)
+
 find_package(OpenGL REQUIRED)
 find_package(GLEW REQUIRED)
 find_package(Boost REQUIRED system)
@@ -15,8 +16,8 @@ include_directories(${OPENGL_INCLUDE_DIRS}
 	${Boost_INCLUDE_DIRS})
 
 link_libraries(${GLEW_LIBRARIES})
-add_executable(thrust_sim main.cpp)
-target_link_libraries(thrust_sim
+add_executable(thrust_sim_main main.cpp)
+target_link_libraries(thrust_sim_main
 	${OPENGL_LIBRARIES}
 	${GLFW_LIBRARIES}
 	${GLEW_LIBRARIES}

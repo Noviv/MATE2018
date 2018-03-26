@@ -9,6 +9,7 @@ compile_commands.json
 CTestTestfile.cmake
 
 __pycache__
-csys
-thrust_sim
-navio
+csys_main
+thrust_sim_main
+navio_main
+libNavioLib.so
