@@ -15,7 +15,6 @@ struct R3 {
 			double roll;
 		};
 		struct { double v[3]; };
-		unsigned sz = 3;
 	};
 	
 	R3() = default;
@@ -82,7 +81,6 @@ struct R8 {
 			double rbr;
 		};
 		struct { double v[8]; };
-		unsigned sz = 8;
 	};
 	
 	R8() = default;
