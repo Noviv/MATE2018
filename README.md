@@ -1,6 +1,6 @@
 # MATE2018 Competition Code
 | File | Description |
-| ---- | --------- |
+| ---- | ----------- |
 | master/ | master (local) code |
 | slave/ | slave (submarine) code |
 | docs/ | competition documentation |
