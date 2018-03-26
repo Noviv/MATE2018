@@ -13,3 +13,5 @@ csys_main
 thrust_sim_main
 navio_main
 libNavioLib.so
+bin/
+build/
