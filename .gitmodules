@@ -1,0 +1,3 @@
+[submodule "slave/navio/Navio2"]
+	path = slave/navio/Navio2
+	url = https://github.com/emlid/Navio2.git

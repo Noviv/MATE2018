@@ -4,11 +4,11 @@ project(navio)
 
 set(CMAKE_CXX_STANDARD 11)
 find_package(Boost REQUIRED system)
-include_directories(${Boost_INCLUDE_DIRS} NavioLib)
+include_directories(${Boost_INCLUDE_DIRS} Navio2/C++/Navio)
 
 add_executable(navio main.cpp)
 target_link_libraries(navio
 	${Boost_LIBRARIES}
-	-LNavioLib
+	-LNavio2/C++/Navio/
 	-lnavio
 	-lpthread)
