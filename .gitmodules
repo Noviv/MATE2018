@@ -1,3 +1,6 @@
 [submodule "slave/navio/Navio2"]
 	path = slave/navio/Navio2
 	url = https://github.com/emlid/Navio2.git
+[submodule "slave/navio/pigpio"]
+	path = slave/navio/pigpio
+	url = https://github.com/joan2937/pigpio.git
