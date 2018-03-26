@@ -1,4 +1,4 @@
-# MATE2018 Competition Code
+# MATE2018 Competition Code [![Build Status](https://travis-ci.org/Noviv/MATE2018.svg?branch=master)](https://travis-ci.org/Noviv/MATE2018)
 | File | Description |
 | ---- | ----------- |
 | master/ | master (local) code |
@@ -11,5 +11,3 @@
  - mkdir build && cd build
  - cmake ..
  - make
-
-[![Build Status](https://travis-ci.org/Noviv/MATE2018.svg?branch=master)](https://travis-ci.org/Noviv/MATE2018)
