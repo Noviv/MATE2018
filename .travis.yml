@@ -22,6 +22,7 @@ addons:
     packages:
       - libboost-all-dev
       - libglew-dev
+      - x11-xserver-utils
       - xorg
       - xorg-dev
       - libglu1-mesa-dev
