@@ -4,30 +4,38 @@ project(navio)
 
 set(CMAKE_CXX_STANDARD 11)
 find_package(Boost REQUIRED system)
-include_directories(${Boost_INCLUDE_DIRS} Navio2/C++/Navio pigpio include)
 
-add_custom_target(
-	pigpio
+add_custom_target(pigpio
 	COMMAND make
 	WORKING_DIRECTORY pigpio
+)
+
+add_custom_target(cleanfull
+	COMMAND make clean
+	COMMAND cd pigpio && make clean
+)
+
+file(GLOB NavioLib_SRC
+	"Navio2/C++/Navio/Common/*.cpp"
+	"Navio2/C++/Navio/Navio2/*.cpp"
+)
+add_library(NavioLib SHARED
+	${NavioLib_SRC}
+)
+target_include_directories(NavioLib PUBLIC
+	Navio2/C++/Navio/
+	pigpio
 )
 
 file(GLOB Navio_SRC
 	"src/*.cpp"
 )
-
-file(GLOB NavioLib_SRC
-	"Navio2/C++/Navio/Common/*.c"
-	"Navio2/C++/Navio/Navio2/*.c"
-	"Navio2/C++/Navio/Common/*.cpp"
-	"Navio2/C++/Navio/Navio2/*.cpp"
-)
-
-add_library(NavioLib SHARED
-	${NavioLib_SRC}
-)
-
 add_executable(navio_main ${Navio_SRC})
+target_include_directories(navio_main PUBLIC
+	include
+	${Boost_INCLUDE_DIRS}
+	Navio2/C++/Navio
+)
 target_link_libraries(navio_main
 	${Boost_LIBRARIES}
 	NavioLib
