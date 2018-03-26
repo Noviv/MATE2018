@@ -262,11 +262,11 @@ void display(GLFWwindow* window) {
 	glfwPollEvents();
 }
 
-void keyboard(GLFWwindow* window, int key, int scancode, int action, int mods) {
+void keyboard(GLFWwindow*, int key, int, int action, int) {
 	keys[key] = action == GLFW_PRESS || action == GLFW_REPEAT;
 }
 
-int main(int argc, char **argv) {
+int main() {
 	XNetRecv net;
 
 	if (!glfwInit()) {
@@ -276,7 +276,7 @@ int main(int argc, char **argv) {
 
 	glfwWindowHint(GLFW_SAMPLES, 4);
 
-	GLFWwindow* window = glfwCreateWindow(1024, 768, "thing", NULL, NULL);
+	GLFWwindow* window = glfwCreateWindow(1024, 768, "UDP Thrust Simulator", NULL, NULL);
 
 	if (!window) {
 		std::cout << "no window" << std::endl;

@@ -226,7 +226,7 @@ int MagellanTranslateEvent(Display* display, XEvent* Event, MagellanFloatEvent* 
 	return display == NULL;
 }
 
-Bool MagellanCheckMotionEvent(Display* display, XEvent* event, char* arg) {
+Bool MagellanCheckMotionEvent(Display*, XEvent* event, char*) {
 	if (event->type == ClientMessage)
 		if (event->xclient.message_type == MagellanMotionEvent)
 			return True;

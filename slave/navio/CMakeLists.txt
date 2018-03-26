@@ -6,14 +6,20 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
 
 find_package(Boost REQUIRED system)
 
-add_custom_target(pigpio
-	COMMAND make
-	WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/pigpio
+file(GLOB pigpio_SRC
+	"pigpio/pigpio.c"
+	"pigpio/custom.cext"
+	"pigpio/command.c"
 )
-
-add_custom_target(cleanfull
-	COMMAND cd ${CMAKE_CURRENT_BINARY_DIR} && make clean
-	COMMAND cd ${CMAKE_CURRENT_SOURCE_DIR}/pigpio && make clean
+add_library(pigpio SHARED
+	${pigpio_SRC}
+)
+target_link_libraries(pigpio PUBLIC
+	-lpthread
+	-fpic
+)
+target_include_directories(pigpio PUBLIC
+	pigpio
 )
 
 file(GLOB NavioLib_SRC
@@ -39,8 +45,7 @@ target_include_directories(navio_main PUBLIC
 )
 target_link_libraries(navio_main
 	${Boost_LIBRARIES}
+	pigpio
 	NavioLib
-	-LNavio2/C++/Navio/
 	-lpthread
 )
-add_dependencies(navio_main pigpio)
