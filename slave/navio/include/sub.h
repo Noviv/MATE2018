@@ -4,26 +4,19 @@
 #include <memory>
 #include <iostream>
 #include <exception>
-#include <unordered_map>
+#include <algorithm>
 
 #include "Navio2/PWM.h"
 #include "Navio2/RCOutput_Navio2.h"
 #include "Common/Util.h"
+
+#include "ports.h"
 
 #define SERVO_STOP 1500
 #define SERVO_MAG 600
 #define SERVO_FREQ 50
 
 namespace Sub {
-
-static int FTL = 0; // front top left
-static int FBL = 1; // front bottom left
-static int FTR = 2; // front top right
-static int FBR = 3;
-static int RTL = 4; // rear top left
-static int RBL = 5;
-static int RTR = 6;
-static int RBR = 7;
 
 class Thruster {
 private:
@@ -59,11 +52,6 @@ class Sub {
 private:
 	std::unordered_map<int, Thruster> thrusters;
 
-	const std::array<int, 8> PORTS {{
-		13, -1, -1, -1,
-		-1, -1, -1, -1
-	}};
-
 	std::unique_ptr<RCOutput> pwm;
 
 	Sub() {
@@ -73,7 +61,6 @@ private:
 
 		if (check_apm()) {
 			throw std::runtime_error("check_apm() test failed");
-
 		}
 
 		if  (getuid()) {
@@ -82,9 +69,22 @@ private:
 
 		pwm = std::unique_ptr<RCOutput>{ new RCOutput_Navio2() };
 
-		for (int i = 0; i < 8; ++i) {
-			thrusters.insert({ i, Thruster(i, pwm) });
+		auto make_t = [this](int p) { return std::make_pair(p, Thruster(p, pwm)); };
+
+		for (auto& p : ports) {
+			thrusters.insert(make_t(p.second));
 		}
+
+/*
+		thrusters.insert({ Ports::FTL, Thruster(FTL, pwm) });
+		thrusters.insert({ FTL, Thruster(FTL, pwm) });
+		thrusters.insert({ FTL, Thruster(FTL, pwm) });
+		thrusters.insert({ FTL, Thruster(FTL, pwm) });
+		thrusters.insert({ FTL, Thruster(FTL, pwm) });
+		thrusters.insert({ FTL, Thruster(FTL, pwm) });
+		thrusters.insert({ FTL, Thruster(FTL, pwm) });
+		thrusters.insert({ FTL, Thruster(FTL, pwm) });
+*/
 	}
 
 public:

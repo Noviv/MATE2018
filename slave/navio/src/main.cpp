@@ -9,6 +9,7 @@
 #include <boost/algorithm/string.hpp>
 
 #include "sub.h"
+#include "ports.h"
 
 class XNetRecv {
 private:
@@ -63,42 +64,42 @@ public:
 
 		auto cvt = ::atof(comps[3].c_str());
 		if (cvt == cvt) {
-			sub.set_thrust(Sub::FTL, cvt);
+			sub.set_thrust(ports.at("FTL"), cvt);
 		}
 
 		cvt = ::atof(comps[4].c_str());
 		if (cvt == cvt) {
-			sub.set_thrust(Sub::FBL, cvt);
+			sub.set_thrust(ports.at("FBL"), cvt);
 		}
 
 		cvt = ::atof(comps[5].c_str());
 		if (cvt == cvt) {
-			sub.set_thrust(Sub::FTR, cvt);
+			sub.set_thrust(ports.at("FTR"), cvt);
 		}
 
 		cvt = ::atof(comps[6].c_str());
 		if (cvt == cvt) {
-			sub.set_thrust(Sub::FBR, cvt);
+			sub.set_thrust(ports.at("FBR"), cvt);
 		}
 
-		cvt = ::atof(comps[3].c_str());
+		cvt = ::atof(comps[7].c_str());
 		if (cvt == cvt) {
-			sub.set_thrust(Sub::RTL, cvt);
+			sub.set_thrust(ports.at("RTL"), cvt);
 		}
 
-		cvt = ::atof(comps[4].c_str());
+		cvt = ::atof(comps[8].c_str());
 		if (cvt == cvt) {
-			sub.set_thrust(Sub::RBL, cvt);
+			sub.set_thrust(ports.at("RBL"), cvt);
 		}
 
-		cvt = ::atof(comps[5].c_str());
+		cvt = ::atof(comps[9].c_str());
 		if (cvt == cvt) {
-			sub.set_thrust(Sub::RTR, cvt);
+			sub.set_thrust(ports.at("RTR"), cvt);
 		}
 
-		cvt = ::atof(comps[6].c_str());
+		cvt = ::atof(comps[10].c_str());
 		if (cvt == cvt) {
-			sub.set_thrust(Sub::RBR, cvt);
+			sub.set_thrust(ports.at("RBR"), cvt);
 		}
 
 		async_bind();
