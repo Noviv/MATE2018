@@ -2,10 +2,6 @@
 #include <iostream>
 #include <unistd.h>
 
-#include "Navio2/PWM.h"
-#include "Navio2/RCOutput_Navio2.h"
-#include "Common/Util.h"
-
 #include <boost/asio.hpp>
 #include <boost/bind.hpp>
 #include <boost/array.hpp>
@@ -16,6 +12,7 @@
 
 class XNetRecv {
 private:
+	Sub::Sub& sub;
 	boost::array<char, 1024> recv_buf;
 	boost::asio::io_service io_serv;
 	boost::asio::ip::udp::socket sock{ io_serv };
@@ -35,7 +32,7 @@ private:
 	}
 
 public:
-	XNetRecv() {
+	XNetRecv(Sub::Sub& s) : sub(s) {
 		sock.open(boost::asio::ip::udp::v4());
 		sock.bind(boost::asio::ip::udp::endpoint(
 			boost::asio::ip::address::from_string("10.42.0.58"),
@@ -66,45 +63,56 @@ public:
 
 		auto cvt = ::atof(comps[3].c_str());
 		if (cvt == cvt) {
-			//ftl = cvt;
+			sub.set_thrust(Sub::FTL, cvt);
+		}
+
+		cvt = ::atof(comps[4].c_str());
+		if (cvt == cvt) {
+			sub.set_thrust(Sub::FBL, cvt);
+		}
+
+		cvt = ::atof(comps[5].c_str());
+		if (cvt == cvt) {
+			sub.set_thrust(Sub::FTR, cvt);
+		}
+
+		cvt = ::atof(comps[6].c_str());
+		if (cvt == cvt) {
+			sub.set_thrust(Sub::FBR, cvt);
+		}
+
+		cvt = ::atof(comps[3].c_str());
+		if (cvt == cvt) {
+			sub.set_thrust(Sub::RTL, cvt);
+		}
+
+		cvt = ::atof(comps[4].c_str());
+		if (cvt == cvt) {
+			sub.set_thrust(Sub::RBL, cvt);
+		}
+
+		cvt = ::atof(comps[5].c_str());
+		if (cvt == cvt) {
+			sub.set_thrust(Sub::RTR, cvt);
+		}
+
+		cvt = ::atof(comps[6].c_str());
+		if (cvt == cvt) {
+			sub.set_thrust(Sub::RBR, cvt);
 		}
 
 		async_bind();
 	}
 };
 
-constexpr unsigned int get_servo_range(double mag) {
-	return SERVO_STOP + mag * SERVO_MAG;
-}
-
-inline std::unique_ptr<RCOutput> get_rcout() {
-	return std::unique_ptr <RCOutput> { new RCOutput_Navio2() };
-}
-
 int main() {
-/*
-	auto pwm = get_rcout();
-
-	if (!(pwm->initialize(PWM_OUTPUT))) {
-		std::cout << "could not init pwm" << std::endl;
-		return 1;
-	}
-
-	pwm->set_frequency(PWM_OUTPUT, 50);
-
-	if (!(pwm->enable(PWM_OUTPUT))) {
-		std::cout << "could not enable" << std::endl;
-		return 1;
-	}
-
-	XNetRecv net;
+	Sub::Sub& s = Sub::Sub::instance();
+	XNetRecv net(s);
 
 	while (true) {
 		net.poll();
-		//pwm->set_duty_cycle(PWM_OUTPUT, get_servo_range(ftl));
-		//std::cout << get_servo_range(ftl) << std::endl;
+		s.update();
 	}
-*/
 
 	return 0;
 }

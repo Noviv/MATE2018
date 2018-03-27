@@ -13,5 +13,6 @@ csys_main
 thrust_sim_main
 navio_main
 libNavioLib.so
+libpigpio.so
 bin/
 build/
