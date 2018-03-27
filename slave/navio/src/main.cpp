@@ -1,6 +1,6 @@
 #include <memory>
 #include <iostream>
-#include <unistd.h>
+#include <exception>
 
 #include <boost/asio.hpp>
 #include <boost/bind.hpp>
@@ -52,8 +52,7 @@ public:
 
 	void recv(const boost::system::error_code& error, size_t bytes) {
 		if (error) {
-			std::cout << "UDP error" << std::endl;
-			return;
+			throw std::runtime_error("UDP error");
 		}
 
 		auto str = std::string(recv_buf.begin(), recv_buf.begin() + bytes);

@@ -20,7 +20,6 @@ namespace Sub {
 
 class Thruster {
 private:
-	std::unique_ptr<RCOutput>& pwm;
 	double thrust;
 	int port;
 
@@ -29,7 +28,7 @@ private:
 	}
 
 public:
-	Thruster(int p, std::unique_ptr<RCOutput>& pwm) : port(p), pwm(pwm) {
+	Thruster(int p, std::unique_ptr<RCOutput>& pwm) : port(p) {
 		if (!(pwm->initialize(p))) {
 			throw std::runtime_error("failed init: " + p);
 		}
@@ -43,7 +42,7 @@ public:
 		thrust = t;
 	}
 
-	void update() {
+	void update(std::unique_ptr<RCOutput>& pwm) {
 		pwm->set_duty_cycle(port, get_servo_range(thrust));
 	}
 };
@@ -69,22 +68,9 @@ private:
 
 		pwm = std::unique_ptr<RCOutput>{ new RCOutput_Navio2() };
 
-		auto make_t = [this](int p) { return std::make_pair(p, Thruster(p, pwm)); };
-
 		for (auto& p : ports) {
-			thrusters.insert(make_t(p.second));
+			thrusters.insert({ p.second, Thruster(p.second, pwm) });
 		}
-
-/*
-		thrusters.insert({ Ports::FTL, Thruster(FTL, pwm) });
-		thrusters.insert({ FTL, Thruster(FTL, pwm) });
-		thrusters.insert({ FTL, Thruster(FTL, pwm) });
-		thrusters.insert({ FTL, Thruster(FTL, pwm) });
-		thrusters.insert({ FTL, Thruster(FTL, pwm) });
-		thrusters.insert({ FTL, Thruster(FTL, pwm) });
-		thrusters.insert({ FTL, Thruster(FTL, pwm) });
-		thrusters.insert({ FTL, Thruster(FTL, pwm) });
-*/
 	}
 
 public:
@@ -102,7 +88,7 @@ public:
 
 	void update() {
 		for (auto& t : thrusters) {
-			t.second.update();
+			t.second.update(pwm);
 		}
 	}
 };
