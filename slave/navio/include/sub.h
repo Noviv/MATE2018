@@ -83,7 +83,9 @@ public:
 	void operator=(const Sub&) = delete;
 
 	void set_thrust(int p, double t) {
-		thrusters.at(p).set_thrust(t);
+		if (p != -1) {
+			thrusters.at(p).set_thrust(t);
+		}
 	}
 
 	void update() {

@@ -55,50 +55,49 @@ public:
 			throw std::runtime_error("UDP error");
 		}
 
-		auto str = std::string(recv_buf.begin(), recv_buf.begin() + bytes);
-		str = str.substr(1, str.length() - 2);
+		auto str = std::string(recv_buf.begin() + 1, recv_buf.begin() + bytes - 2);
 
 		std::vector<std::string> comps;
 		boost::split(comps, str, boost::is_any_of(","));
 
 		auto cvt = ::atof(comps[3].c_str());
 		if (cvt == cvt) {
-			sub.set_thrust(ports.at("FTL"), cvt);
+			sub.set_thrust(ports_at("FTL"), cvt);
 		}
 
 		cvt = ::atof(comps[4].c_str());
 		if (cvt == cvt) {
-			sub.set_thrust(ports.at("FBL"), cvt);
+			sub.set_thrust(ports_at("FBL"), cvt);
 		}
 
 		cvt = ::atof(comps[5].c_str());
 		if (cvt == cvt) {
-			sub.set_thrust(ports.at("FTR"), cvt);
+			sub.set_thrust(ports_at("FTR"), cvt);
 		}
 
 		cvt = ::atof(comps[6].c_str());
 		if (cvt == cvt) {
-			sub.set_thrust(ports.at("FBR"), cvt);
+			sub.set_thrust(ports_at("FBR"), cvt);
 		}
 
 		cvt = ::atof(comps[7].c_str());
 		if (cvt == cvt) {
-			sub.set_thrust(ports.at("RTL"), cvt);
+			sub.set_thrust(ports_at("RTL"), cvt);
 		}
 
 		cvt = ::atof(comps[8].c_str());
 		if (cvt == cvt) {
-			sub.set_thrust(ports.at("RBL"), cvt);
+			sub.set_thrust(ports_at("RBL"), cvt);
 		}
 
 		cvt = ::atof(comps[9].c_str());
 		if (cvt == cvt) {
-			sub.set_thrust(ports.at("RTR"), cvt);
+			sub.set_thrust(ports_at("RTR"), cvt);
 		}
 
 		cvt = ::atof(comps[10].c_str());
 		if (cvt == cvt) {
-			sub.set_thrust(ports.at("RBR"), cvt);
+			sub.set_thrust(ports_at("RBR"), cvt);
 		}
 
 		async_bind();
