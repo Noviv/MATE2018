@@ -2,17 +2,16 @@
 
 #include <sstream>
 
-XNet::XNet() {
-	sock = new boost::asio::ip::udp::socket(io_serv);
-	endp = new boost::asio::ip::udp::endpoint(
-		boost::asio::ip::address::from_string("10.42.0.58"),
-		512);
+XNet::XNet() : sock(io_serv), endp(BAI::address::from_string("10.42.0.58"), 512) {
+	sock.open(BAI::udp::v4());
+}
 
-	sock->open(boost::asio::ip::udp::v4());
+XNet::~XNet() {
+	sock.close();
 }
 
 void XNet::send(std::string data) {
-	sock->send_to(boost::asio::buffer(data, data.size()), *endp);
+	sock.send_to(boost::asio::buffer(data, data.size()), endp);
 }
 
 
@@ -33,10 +32,4 @@ void XNet::send_v(R3 d, R8 thrusts) {
 	strstream << "]";
 
 	send(strstream.str());
-}
-
-XNet::~XNet() {
-	sock->close();
-	free(sock);
-	free(endp);
 }

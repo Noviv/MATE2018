@@ -6,12 +6,14 @@
 #include "vec.h"
 #include "calc.h"
 
+#define BAI boost::asio::ip
+
 class XNet {
 private:
 	boost::system::error_code error;
 	boost::asio::io_service io_serv;
-	boost::asio::ip::udp::socket* sock;
-	boost::asio::ip::udp::endpoint* endp;
+	BAI::udp::socket sock;
+	BAI::udp::endpoint endp;
 public:
 	XNet();
 	~XNet();
