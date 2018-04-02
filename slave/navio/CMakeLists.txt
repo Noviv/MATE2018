@@ -5,6 +5,7 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
 
 find_package(Boost REQUIRED system)
+find_package(OpenCV REQUIRED)
 
 file(GLOB pigpio_SRC
 	"pigpio/pigpio.c"
@@ -41,10 +42,12 @@ add_executable(navio_main ${Navio_SRC})
 target_include_directories(navio_main PUBLIC
 	include
 	${Boost_INCLUDE_DIRS}
+	${OpenCV_INCLUDE_DIRS}
 	Navio2/C++/Navio
 )
 target_link_libraries(navio_main
 	${Boost_LIBRARIES}
+	${OpenCV_LIBS}
 	pigpio
 	NavioLib
 	-lpthread
