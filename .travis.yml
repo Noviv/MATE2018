@@ -16,7 +16,7 @@ matrix:
             - xorg
             - xorg-dev
             - libglu1-mesa-dev
-            - lib-opencv-dev
+            - libopencv-dev
       env:
         - MATRIX_EVAL="CC=gcc-5 && CXX=g++-5"
     - os: linux
