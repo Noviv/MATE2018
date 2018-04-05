@@ -11,6 +11,7 @@
 #include "Common/Util.h"
 
 #include "ports.h"
+#include "camera.h"
 
 #define SERVO_STOP 1500
 #define SERVO_MAG 600
@@ -50,8 +51,9 @@ public:
 class Sub {
 private:
 	std::unordered_map<int, Thruster> thrusters;
-
 	std::unique_ptr<RCOutput> pwm;
+
+	camera::NetCamera cam;
 
 	Sub() {
 		if (get_navio_version() != NAVIO2) {
@@ -92,6 +94,8 @@ public:
 		for (auto& t : thrusters) {
 			t.second.update(pwm);
 		}
+
+		cam.update();
 	}
 };
 

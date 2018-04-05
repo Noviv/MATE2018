@@ -1,22 +1,50 @@
-#pragma once
+#ifndef NET_H
+#define NET_H
 
 #include <string>
+#include <sstream>
 #include <boost/asio.hpp>
 
 #include "vec.h"
-#include "calc.h"
-
-#define BAI boost::asio::ip
 
 class XNet {
 private:
 	boost::system::error_code error;
 	boost::asio::io_service io_serv;
-	BAI::udp::socket sock;
-	BAI::udp::endpoint endp;
+	boost::asio::ip::udp::socket sock;
+	boost::asio::ip::udp::endpoint endp;
+
 public:
-	XNet();
-	~XNet();
-	void send(std::string);
-	void send_v(R3, R8);
+	XNet() : sock(io_serv), endp(boost::asio::ip::address::from_string(""), 512) {
+		sock.open(boost::asio::ip::udp::v4());
+	};
+
+	~XNet() {
+		sock.close();
+	}
+
+	void send(std::string data) {
+		sock.send_to(boost::asio::buffer(data, data.size()), endp);
+	}
+
+	void send_v(R3 d, R8 thrusts) {
+		std::ostringstream strstream;
+		strstream << "[";
+		strstream << d.x << ",";
+		strstream << d.y << ",";
+		strstream << d.z << ",";
+		strstream << thrusts.ftl << ",";
+		strstream << thrusts.fbl << ",";
+		strstream << thrusts.ftr << ",";
+		strstream << thrusts.fbr << ",";
+		strstream << thrusts.rtl << ",";
+		strstream << thrusts.rbl << ",";
+		strstream << thrusts.rtr << ",";
+		strstream << thrusts.rbr;
+		strstream << "]";
+
+		send(strstream.str());
+	}
 };
+
+#endif
