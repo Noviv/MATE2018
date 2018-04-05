@@ -1,4 +1,5 @@
-#pragma once
+#ifndef SUB_H
+#define SUB_H
 
 #include <array>
 #include <memory>
@@ -16,8 +17,6 @@
 #define SERVO_STOP 1500
 #define SERVO_MAG 600
 #define SERVO_FREQ 50
-
-namespace Sub {
 
 class Thruster {
 private:
@@ -53,7 +52,7 @@ private:
 	std::unordered_map<int, Thruster> thrusters;
 	std::unique_ptr<RCOutput> pwm;
 
-	camera::NetCamera cam;
+	NetCamera cam;
 
 	Sub() {
 		if (get_navio_version() != NAVIO2) {
@@ -99,4 +98,4 @@ public:
 	}
 };
 
-}
+#endif

@@ -1,8 +1,7 @@
-#pragma once
+#ifndef CAMERA_H
+#define CAMERA_H
 
 #include <opencv2/opencv.hpp>
-
-namespace camera {
 
 class NetCamera {
 private:
@@ -17,4 +16,4 @@ public:
 	}
 };
 
-}
+#endif

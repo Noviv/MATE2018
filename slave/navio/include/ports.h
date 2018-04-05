@@ -1,4 +1,5 @@
-#pragma once
+#ifndef PORTS_H
+#define PORTS_H
 
 #include <string>
 #include <unordered_map>
@@ -24,3 +25,5 @@ int ports_at(const std::string& key) {
 		return pair->second;
 	}
 }
+
+#endif
