@@ -17,8 +17,6 @@ matrix:
             - xorg-dev
             - libglu1-mesa-dev
             - libopencv-dev
-            - libglfw3
-            - libglfw3-dev
       env:
         - MATRIX_EVAL="CC=gcc-5 && CXX=g++-5"
     - os: linux
@@ -41,6 +39,7 @@ notifications:
   email: false
 
 before_install:
+  - apt-cache search glfw
   - git submodule update --init --recursive
   - eval "${MATRIX_EVAL}"
 
