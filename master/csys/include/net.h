@@ -29,7 +29,7 @@ public:
 
 	void send_v(R3 d, R8 thrusts) {
 		std::ostringstream strstream;
-		strstream << "[";
+		strstream << "8[";
 		strstream << d.x << ",";
 		strstream << d.y << ",";
 		strstream << d.z << ",";

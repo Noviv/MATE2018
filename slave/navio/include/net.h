@@ -53,7 +53,14 @@ public:
 			throw std::runtime_error("UDP error");
 		}
 
-		auto str = std::string(recv_buf.begin() + 1, recv_buf.begin() + bytes - 2);
+		auto str = std::string(recv_buf.begin(), recv_buf.begin() + bytes);
+
+		if (str[0] != '8') {
+			// some other command
+			return;
+		}
+
+		str = str.substr(1, bytes - 2);
 
 		std::vector<std::string> comps;
 		boost::split(comps, str, boost::is_any_of(","));
