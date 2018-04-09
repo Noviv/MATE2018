@@ -4,7 +4,7 @@ project(csys)
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra")
 
-find_package(Boost REQUIRED system)
+find_package(Boost REQUIRED system unit_test_framework)
 
 file(GLOB_RECURSE SRC src/*.cpp)
 

@@ -18,7 +18,7 @@ struct R3 {
 	};
 
 	R3() = default;
-    ~R3() = default;
+	~R3() = default;
 	R3(const R3& copy) = default;
 	R3(R3&& move) = default;
 
@@ -49,7 +49,7 @@ struct R3 {
 		return *this;
 	}
 
-    R3& operator+= (double const& rhs) {
+	R3& operator+= (double const& rhs) {
 		for (int i = 0; i < 3; i++) (*this)[i] += rhs;
 		return *this;
 	}
@@ -183,7 +183,7 @@ struct R8 {
 	};
 
 	R8() = default;
-    ~R8() = default;
+	~R8() = default;
 	R8(const R8& copy) = default;
 	R8(R8&& move) = default;
 
