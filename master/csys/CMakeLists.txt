@@ -10,8 +10,8 @@ file(GLOB_RECURSE SRC src/*.cpp)
 
 add_executable(csys_main ${SRC})
 target_include_directories(csys_main PUBLIC
-	include ${common_INCLUDE_DIRS} ${Boost_INCLUDE_DIRS}
+	include ${Boost_INCLUDE_DIRS}
 )
 target_link_libraries(csys_main
-	common ${Boost_LIBRARIES} -lX11 -lm
+	${Boost_LIBRARIES} -lX11 -lm
 )
