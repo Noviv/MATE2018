@@ -73,7 +73,13 @@ public:
 		}
 
 		auto str = std::string(recv_buf.begin(), recv_buf.begin() + bytes);
-		str = str.substr(1, str.length() - 2);
+
+		if (str[0] != '8') {
+			// some other command
+			return;
+		}
+
+		str = str.substr(2, bytes - 3);
 
 		std::vector<std::string> comps;
 		boost::split(comps, str, boost::is_any_of(","));

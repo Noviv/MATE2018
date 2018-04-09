@@ -15,7 +15,7 @@ private:
 	boost::asio::ip::udp::endpoint endp;
 
 public:
-	XNet() : sock(io_serv), endp(boost::asio::ip::address::from_string(""), 512) {
+	XNet() : sock(io_serv), endp(boost::asio::ip::address::from_string("127.0.0.1"), 512) {
 		sock.open(boost::asio::ip::udp::v4());
 	};
 

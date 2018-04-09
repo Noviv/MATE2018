@@ -60,7 +60,7 @@ public:
 			return;
 		}
 
-		str = str.substr(1, bytes - 2);
+		str = str.substr(2, bytes - 3);
 
 		std::vector<std::string> comps;
 		boost::split(comps, str, boost::is_any_of(","));
