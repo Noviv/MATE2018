@@ -56,6 +56,12 @@ public:
 		auto str = std::string(recv_buf.begin(), recv_buf.begin() + bytes);
 
 		if (str[0] != '8') {
+			if (str[0] == '0') {
+				sub.disarm();
+			}
+			if (str[0] == '1') {
+				sub.arm();
+			}
 			// some other command
 			return;
 		}

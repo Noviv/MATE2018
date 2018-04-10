@@ -38,6 +38,7 @@ void magellan() {
 
 	R3 pos, rot;
 	R8 thrusts;
+	bool enabled = false;
 
 	XNextEvent(display, &report);
 	switch (report.type) {
@@ -87,6 +88,11 @@ void magellan() {
 
 				case MagellanInputButtonPressEvent:
 					printf("Button %d pressed\n", MagellanEvent.MagellanButton);
+
+					if (MagellanEvent.MagellanButton == 1) {
+						net.send((int) enabled + "[]");
+						enabled = !enabled;
+					}
 					break;
 
 				case MagellanInputButtonReleaseEvent:

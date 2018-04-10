@@ -1,14 +1,21 @@
-#ifndef CAMERA_H
-#define CAMERA_H
+#ifndef NET_H
+#define NET_H
+
+#include <exception>
 
 #include <opencv2/opencv.hpp>
 #include <boost/asio.hpp>
+#include <boost/bind.hpp>
 #include <boost/serialization/split_free.hpp>
 #include <boost/serialization/vector.hpp>
 #include <boost/archive/text_iarchive.hpp>
 #include <boost/archive/text_oarchive.hpp>
 #include <boost/archive/binary_iarchive.hpp>
 #include <boost/archive/binary_oarchive.hpp>
+
+#include <cassert>
+#include <string>
+#include <vector>
 
 BOOST_SERIALIZATION_SPLIT_FREE( cv::Mat )
 
@@ -70,27 +77,57 @@ void load( cv::Mat & mat, const char * data_str )
     tia >> mat;
 }
 
-class NetCamera {
+class XNetRecv {
 private:
-	cv::VideoCapture cap;
-	cv::Mat frame;
-
-	boost::system::error_code error;
+	std::string data;
+	boost::array<char, 1024> recv_buf;
 	boost::asio::io_service io_serv;
-	boost::asio::ip::udp::socket sock;
+	boost::asio::ip::udp::socket sock{ io_serv };
 	boost::asio::ip::udp::endpoint endp;
 
-public:
-	NetCamera() : cap(0), sock(io_serv),
-		endp(boost::asio::ip::address::from_string("127.0.0.1"), 512) {
+	void async_bind() {
+		auto recv_bind = boost::bind(
+			&XNetRecv::recv,
+			this,
+			boost::asio::placeholders::error,
+			boost::asio::placeholders::bytes_transferred);
+
+		sock.async_receive_from(
+			boost::asio::buffer(recv_buf),
+			endp,
+			recv_bind);
 	}
 
-	void update() {
-		cap >> frame;
+public:
+	XNetRecv() {
+		sock.open(boost::asio::ip::udp::v4());
+		sock.bind(boost::asio::ip::udp::endpoint(
+			boost::asio::ip::address::from_string("127.0.0.1"),
+			512));
 
-		auto data = save(frame);
+		async_bind();
+	}
 
-		sock.send_to(boost::asio::buffer(data, data.size()), endp);
+	~XNetRecv() {
+		sock.close();
+	}
+
+	void poll() {
+		io_serv.poll();
+	}
+
+	void recv(const boost::system::error_code& error, size_t bytes) {
+		if (error) {
+			throw std::runtime_error("UDP error");
+		}
+
+		data = std::string(recv_buf.begin(), recv_buf.begin() + bytes);
+	}
+
+	cv::Mat get_mat() {
+		cv::Mat mat;
+		load(mat, data.c_str());
+		return mat;
 	}
 };
 

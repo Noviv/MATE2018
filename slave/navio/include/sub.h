@@ -54,6 +54,8 @@ private:
 
 	NetCamera cam;
 
+	bool armed;
+
 	Sub() {
 		if (get_navio_version() != NAVIO2) {
 			throw std::runtime_error("wrong navio");
@@ -82,6 +84,23 @@ public:
 
 	Sub(const Sub&) = delete;
 	void operator=(const Sub&) = delete;
+
+	void arm() {
+		armed = true;
+		for (auto& t : thrusters) {
+			//TODO: 2 seconds per command
+			t.second.set_thrust(1);
+			t.second.set_thrust(-1);
+			t.second.set_thrust(0);
+		}
+	}
+
+	void disarm() {
+		armed = false;
+		for (auto& t : thrusters) {
+			t.second.set_thrust(0);
+		}
+	}
 
 	void set_thrust(int p, double t) {
 		if (p != -1) {
