@@ -106,26 +106,26 @@ constexpr auto operator!=(const R<N>& lhs, const R<N>& rhs) {
 }
 
 template<unsigned N, typename T,
-	typename = typename std::enable_if_t<std::is_arithmetic<T>::value, T>>
+	typename = typename std::enable_if<std::is_arithmetic<T>::value, T>::type>
 constexpr auto operator==(const R<N>& vec, const T& s) {
 	for (auto& i : vec) if (i != s) return false;
 	return true;
 }
 
 template<unsigned N, typename T,
-	typename = typename std::enable_if_t<std::is_arithmetic<T>::value, T>>
+	typename = typename std::enable_if<std::is_arithmetic<T>::value, T>::type>
 constexpr auto operator!=(const R<N>& vec, const T& s) {
 	return !(vec == s);
 }
 
 template<unsigned N, typename T,
-	typename = typename std::enable_if_t<std::is_arithmetic<T>::value, T>>
+	typename = typename std::enable_if<std::is_arithmetic<T>::value, T>::type>
 constexpr auto operator==(const T& s, const R<N>& vec) {
 	return vec == s;
 }
 
 template<unsigned N, typename T,
-	typename = typename std::enable_if_t<std::is_arithmetic<T>::value, T>>
+	typename = typename std::enable_if<std::is_arithmetic<T>::value, T>::type>
 constexpr auto operator!=(const T& s, const R<N>& vec) {
 	return !(vec == s);
 }
