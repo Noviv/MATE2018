@@ -164,6 +164,15 @@ struct R3 {
 		os << "R3 { x: " << r3.z << ", y: " << r3.y << ", z: " << r3.z << " }";
 		return os;
 	}
+
+	std::string to_string() {
+		auto str = std::string();
+		for (auto i : this->v) {
+			str += std::to_string(i) + ",";
+		}
+		str = str.substr(0, str.size() - 1);
+		return str;
+	}
 };
 
 struct R8 {
@@ -332,5 +341,14 @@ struct R8 {
 		os << "R8 { ftl: " << r8.ftl << ", fbl: " << r8.fbl << ", ftr: " << r8.ftr << ", fbr: " << r8.fbr
 			<< ", rtl: " << r8.rtl << ", rbr: " << r8.rbr << ", rtr: " << r8.rtr << ", rbr: " << r8.rbr << " }";
 		return os;
+	}
+
+	std::string to_string() {
+		auto str = std::string();
+		for (auto i : this->v) {
+			str += std::to_string(i) + ",";
+		}
+		str = str.substr(0, str.size() - 1);
+		return str;
 	}
 };

@@ -7,8 +7,8 @@
 #include <X11/Xatom.h>
 #include <X11/keysym.h>
 
+#include "common/xnet.h"
 #include "calc.h"
-#include "net.h"
 #include "xdrvlib.h"
 
 double MagellanSensitivity = 1;
@@ -19,7 +19,7 @@ Window window;
 bool MagellanDemoEnd = false;
 GC wingc;
 
-XNet net;
+XNet net("127.0.0.1");
 
 template<class T>
 constexpr void clamp(T& d, int sens = 450, double lo = -1, double hi = 1) {
@@ -68,7 +68,7 @@ void magellan() {
 					clamp(rot);
 					thrusts = calc(pos, rot);
 					clamp(thrusts, 1);
-					net.send_v(pos, thrusts);
+					net.send("8[" + pos.to_string() + "," + thrusts.to_string()+ "]");
 
 					MagellanRemoveMotionEvents(display);
 					sprintf(MagellanBuffer,
@@ -90,7 +90,7 @@ void magellan() {
 					printf("Button %d pressed\n", MagellanEvent.MagellanButton);
 
 					if (MagellanEvent.MagellanButton == 1) {
-						net.send((int) enabled + "[]");
+						net.send(std::to_string((int) enabled));
 						enabled = !enabled;
 					}
 					break;
