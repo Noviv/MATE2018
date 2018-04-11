@@ -10,7 +10,7 @@ matrix:
           sources:
             - ubuntu-toolchain-r-test
           packages:
-            - g++-5
+            - g++-7
             - libboost-all-dev
             - libglew-dev
             - xorg
@@ -18,14 +18,14 @@ matrix:
             - libglu1-mesa-dev
             - libopencv-dev
       env:
-        - MATRIX_EVAL="CC=gcc-5 && CXX=g++-5"
+        - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
     - os: linux
       addons:
         apt:
           sources:
             - ubuntu-toolchain-r-test
           packages:
-            - clang++-3.8
+            - clang++-6
             - libboost-all-dev
             - libglew-dev
             - xorg
@@ -33,7 +33,7 @@ matrix:
             - libglu1-mesa-dev
             - libopencv-dev
       env:
-        - MATRIX_EVAL="CC=clang-3.8 && CXX=clang++-3.8"
+        - MATRIX_EVAL="CC=clang-6 && CXX=clang++-6"
 
 notifications:
   email: false
