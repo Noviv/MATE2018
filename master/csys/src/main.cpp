@@ -21,9 +21,9 @@ GC wingc;
 
 XNet net("127.0.0.1");
 
-template<class T>
-constexpr void clamp(T& d, int sens = 450, double lo = -1, double hi = 1) {
-	for (auto& v : d.v) {
+template<unsigned N>
+constexpr void clamp(R<N>& d, int sens = 450, double lo = -1, double hi = 1) {
+	for (auto& v : d) {
 		v = std::max(lo, std::min(v / sens, hi));
 	}
 }
@@ -36,8 +36,8 @@ void magellan() {
 
 	MagellanFloatEvent MagellanEvent;
 
-	R3 pos, rot;
-	R8 thrusts;
+	R<3> pos, rot;
+	R<8> thrusts;
 	bool enabled = false;
 
 	XNextEvent(display, &report);
