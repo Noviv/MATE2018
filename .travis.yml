@@ -48,12 +48,12 @@ install:
   - mkdir build
   - cd build
   - cmake -DCMAKE_C_COMPILER=$CC -DCMAKE_CXX_COMPILER=$CXX ..
-  - sudo make install
+  - sudo make install -j${nproc}
   - sudo ldconfig
 
 script:
   - cd ../..
   - mkdir build && cd build
   - cmake -DCMAKE_C_COMPILER=$CC -DCMAKE_CXX_COMPILER=$CXX ..
-  - make
+  - make -j${nproc}
   - ctest
