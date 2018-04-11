@@ -47,13 +47,13 @@ install:
   - cd glfw
   - mkdir build
   - cd build
-  - cmake -DCMAKE_C_COMPILER=$CC -DCMAKE_CXX_COMPILER=$CXX..
+  - cmake -DCMAKE_C_COMPILER=$CC -DCMAKE_CXX_COMPILER=$CXX ..
   - sudo make install
   - sudo ldconfig
 
 script:
   - cd ../..
   - mkdir build && cd build
-  - cmake ..
+  - cmake -DCMAKE_C_COMPILER=$CC -DCMAKE_CXX_COMPILER=$CXX ..
   - make
   - ctest
