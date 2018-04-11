@@ -19,21 +19,21 @@ matrix:
             - libopencv-dev
       env:
         - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
-#    - os: linux
-#      addons:
-#        apt:
-#          sources:
-#            - ubuntu-toolchain-r-test
-#          packages:
-#            - clang++-5
-#            - libboost-all-dev
-#            - libglew-dev
-#            - xorg
-#            - xorg-dev
-#            - libglu1-mesa-dev
-#            - libopencv-dev
-#      env:
-#        - MATRIX_EVAL="CC=clang-5 && CXX=clang++-5"
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - clang++-5
+            - libboost-all-dev
+            - libglew-dev
+            - xorg
+            - xorg-dev
+            - libglu1-mesa-dev
+            - libopencv-dev
+      env:
+        - MATRIX_EVAL="CC=clang-5 && CXX=clang++-5"
 
 notifications:
   email: false

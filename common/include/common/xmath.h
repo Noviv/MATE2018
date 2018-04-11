@@ -85,7 +85,7 @@ struct R {
 		return &v[N - 1];
 	}
 
-	constexpr std::string to_string() {
+	std::string to_string() {
 		auto str = std::string();
 		for (auto i : v) str += std::to_string(i) + ",";
 		str = str.substr(0, str.size() - 1);
@@ -106,26 +106,26 @@ constexpr auto operator!=(const R<N>& lhs, const R<N>& rhs) {
 }
 
 template<unsigned N, typename T,
-	typename = typename std::enable_if<std::is_arithmetic<T>::value, T>::type>
+	typename = typename std::enable_if_t<std::is_arithmetic<T>::value, T>>
 constexpr auto operator==(const R<N>& vec, const T& s) {
 	for (auto& i : vec) if (i != s) return false;
 	return true;
 }
 
 template<unsigned N, typename T,
-	typename = typename std::enable_if<std::is_arithmetic<T>::value, T>::type>
+	typename = typename std::enable_if_t<std::is_arithmetic<T>::value, T>>
 constexpr auto operator!=(const R<N>& vec, const T& s) {
 	return !(vec == s);
 }
 
 template<unsigned N, typename T,
-	typename = typename std::enable_if<std::is_arithmetic<T>::value, T>::type>
+	typename = typename std::enable_if_t<std::is_arithmetic<T>::value, T>>
 constexpr auto operator==(const T& s, const R<N>& vec) {
 	return vec == s;
 }
 
 template<unsigned N, typename T,
-	typename = typename std::enable_if<std::is_arithmetic<T>::value, T>::type>
+	typename = typename std::enable_if_t<std::is_arithmetic<T>::value, T>>
 constexpr auto operator!=(const T& s, const R<N>& vec) {
 	return !(vec == s);
 }
