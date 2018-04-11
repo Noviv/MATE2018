@@ -30,11 +30,11 @@ private:
 public:
 	Thruster(int p, std::unique_ptr<RCOutput>& pwm) : port(p) {
 		if (!(pwm->initialize(p))) {
-			throw std::runtime_error("failed init: " + p);
+			throw std::runtime_error("failed init: " + std::to_string(p));
 		}
 		pwm->set_frequency(p, SERVO_FREQ);
 		if (!(pwm->enable(p))) {
-			throw std::runtime_error("failed enable: " + p);
+			throw std::runtime_error("failed enable: " + std::to_string(p));
 		}
 	}
 
