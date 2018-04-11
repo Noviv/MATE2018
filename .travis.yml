@@ -25,7 +25,7 @@ matrix:
           sources:
             - ubuntu-toolchain-r-test
           packages:
-            - clang++-6
+            - clang++-5
             - libboost-all-dev
             - libglew-dev
             - xorg
@@ -33,7 +33,7 @@ matrix:
             - libglu1-mesa-dev
             - libopencv-dev
       env:
-        - MATRIX_EVAL="CC=clang-6 && CXX=clang++-6"
+        - MATRIX_EVAL="CC=clang-5 && CXX=clang++-5"
 
 notifications:
   email: false
