@@ -102,9 +102,8 @@ constexpr auto operator!=(const R<N>& lhs, const R<N>& rhs) {
     return !(lhs == rhs);
 }
 
-template <
-    unsigned N, typename T,
-    typename = typename std::enable_if<std::is_arithmetic<T>::value, T>::type>
+template <unsigned N, typename T, typename = typename std::enable_if<
+                                      std::is_arithmetic<T>::value, T>::type>
 constexpr auto operator==(const R<N>& vec, const T& s) {
     for (auto& i : vec)
         if (i != s)
@@ -112,23 +111,20 @@ constexpr auto operator==(const R<N>& vec, const T& s) {
     return true;
 }
 
-template <
-    unsigned N, typename T,
-    typename = typename std::enable_if<std::is_arithmetic<T>::value, T>::type>
+template <unsigned N, typename T, typename = typename std::enable_if<
+                                      std::is_arithmetic<T>::value, T>::type>
 constexpr auto operator!=(const R<N>& vec, const T& s) {
     return !(vec == s);
 }
 
-template <
-    unsigned N, typename T,
-    typename = typename std::enable_if<std::is_arithmetic<T>::value, T>::type>
+template <unsigned N, typename T, typename = typename std::enable_if<
+                                      std::is_arithmetic<T>::value, T>::type>
 constexpr auto operator==(const T& s, const R<N>& vec) {
     return vec == s;
 }
 
-template <
-    unsigned N, typename T,
-    typename = typename std::enable_if<std::is_arithmetic<T>::value, T>::type>
+template <unsigned N, typename T, typename = typename std::enable_if<
+                                      std::is_arithmetic<T>::value, T>::type>
 constexpr auto operator!=(const T& s, const R<N>& vec) {
     return !(vec == s);
 }
@@ -163,36 +159,32 @@ constexpr auto operator/(const R<N>& lhs, const R<N>& rhs) {
 }
 
 /* MATH OPERATORS - VEC SCALAR */
-template <
-    unsigned N, typename T,
-    typename = typename std::enable_if<std::is_arithmetic<T>::value, T>::type>
+template <unsigned N, typename T, typename = typename std::enable_if<
+                                      std::is_arithmetic<T>::value, T>::type>
 constexpr auto operator+(const R<N>& lhs, const T& s) {
     R<N> tmp(lhs);
     tmp += s;
     return tmp;
 }
 
-template <
-    unsigned N, typename T,
-    typename = typename std::enable_if<std::is_arithmetic<T>::value, T>::type>
+template <unsigned N, typename T, typename = typename std::enable_if<
+                                      std::is_arithmetic<T>::value, T>::type>
 constexpr auto operator-(const R<N>& lhs, const T& s) {
     R<N> tmp(lhs);
     tmp -= s;
     return tmp;
 }
 
-template <
-    unsigned N, typename T,
-    typename = typename std::enable_if<std::is_arithmetic<T>::value, T>::type>
+template <unsigned N, typename T, typename = typename std::enable_if<
+                                      std::is_arithmetic<T>::value, T>::type>
 constexpr auto operator*(const R<N>& lhs, const T& s) {
     R<N> tmp(lhs);
     tmp *= s;
     return tmp;
 }
 
-template <
-    unsigned N, typename T,
-    typename = typename std::enable_if<std::is_arithmetic<T>::value, T>::type>
+template <unsigned N, typename T, typename = typename std::enable_if<
+                                      std::is_arithmetic<T>::value, T>::type>
 constexpr auto operator/(const R<N>& lhs, const T& s) {
     R<N> tmp(lhs);
     tmp /= s;
@@ -200,18 +192,16 @@ constexpr auto operator/(const R<N>& lhs, const T& s) {
 }
 
 /* MATH OPERATORS - SCALAR VEC */
-template <
-    unsigned N, typename T,
-    typename = typename std::enable_if<std::is_arithmetic<T>::value, T>::type>
+template <unsigned N, typename T, typename = typename std::enable_if<
+                                      std::is_arithmetic<T>::value, T>::type>
 constexpr auto operator+(const T& s, const R<N>& rhs) {
     R<N> tmp(rhs);
     tmp += s;
     return tmp;
 }
 
-template <
-    unsigned N, typename T,
-    typename = typename std::enable_if<std::is_arithmetic<T>::value, T>::type>
+template <unsigned N, typename T, typename = typename std::enable_if<
+                                      std::is_arithmetic<T>::value, T>::type>
 constexpr auto operator-(const T& s, const R<N>& rhs) {
     R<N> tmp(rhs);
     for (auto& i : tmp)
@@ -219,18 +209,16 @@ constexpr auto operator-(const T& s, const R<N>& rhs) {
     return tmp;
 }
 
-template <
-    unsigned N, typename T,
-    typename = typename std::enable_if<std::is_arithmetic<T>::value, T>::type>
+template <unsigned N, typename T, typename = typename std::enable_if<
+                                      std::is_arithmetic<T>::value, T>::type>
 constexpr auto operator*(const T& s, const R<N>& rhs) {
     R<N> tmp(rhs);
     tmp *= s;
     return tmp;
 }
 
-template <
-    unsigned N, typename T,
-    typename = typename std::enable_if<std::is_arithmetic<T>::value, T>::type>
+template <unsigned N, typename T, typename = typename std::enable_if<
+                                      std::is_arithmetic<T>::value, T>::type>
 constexpr auto operator/(const T& s, const R<N>& rhs) {
     R<N> tmp(rhs);
     for (auto& i : tmp)

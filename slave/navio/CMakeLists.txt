@@ -54,3 +54,6 @@ target_link_libraries(navio_main
 	NavioLib
 	-lpthread
 )
+
+file(GLOB Navio_H include/*.hpp)
+set(navio_FORMATTABLE "${Navio_SRC};${Navio_H}" CACHE INTERNAL "navio formattable files")
