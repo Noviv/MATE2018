@@ -50,7 +50,7 @@ void load(A& ar, cv::Mat& m, const unsigned int version) {
     m.create(rows, cols, static_cast<int>(elemType));
     const size_t dataSize = m.cols * m.rows * elemSize;
     for (size_t i = 0; i < dataSize; ++i) {
-        ar & m.data[i];
+		ar & m.data[i];
 	}
 }
 
