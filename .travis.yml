@@ -10,7 +10,7 @@ matrix:
           sources:
             - ubuntu-toolchain-r-test
           packages:
-#            - clang-format
+            - clang-format-3.9
             - g++-5
             - libboost-all-dev
             - libglew-dev
@@ -19,7 +19,7 @@ matrix:
             - libglu1-mesa-dev
             - libopencv-dev
       env:
-        - MATRIX_EVAL="CC=gcc-5 && CXX=g++-5"
+        - MATRIX_EVAL="CC=gcc-5 && CXX=g++-5 && alias clang-format=clang-format-3.9"
 
 notifications:
   email: false
