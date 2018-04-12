@@ -1,13 +1,19 @@
 #include <iostream>
 
-#include "net.h"
+#include "common/xnet.hpp"
+#include "common/xcvserialize.hpp"
 
 int main() {
-	XNetRecv net;
+	cv::Mat frame;
+
+	auto cb = [&frame](const std::string& str) {
+		load(frame, str.c_str());
+	};
+
+	XNetRecv net("127.0.0.1", 512, cb);
 
 	while (1) {
 		net.poll();
-		cv::Mat mat = net.get_mat();
-		imshow("img_recv", mat);
+		imshow("img_recv", frame);
 	}
 }

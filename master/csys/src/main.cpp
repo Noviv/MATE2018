@@ -7,8 +7,8 @@
 #include <X11/Xatom.h>
 #include <X11/keysym.h>
 
-#include "common/xnet.h"
-#include "calc.h"
+#include "common/xnet.hpp"
+#include "calc.hpp"
 #include "xdrvlib.h"
 
 double MagellanSensitivity = 1;
@@ -19,7 +19,7 @@ Window window;
 bool MagellanDemoEnd = false;
 GC wingc;
 
-XNet net("127.0.0.1");
+XNet net("127.0.0.1", 512);
 
 template<unsigned N>
 constexpr void clamp(R<N>& d, int sens = 450, double lo = -1, double hi = 1) {

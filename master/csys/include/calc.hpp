@@ -4,7 +4,7 @@
 #include <cmath>
 #include <iostream>
 
-#include "common/xmath.h"
+#include "common/xmath.hpp"
 
 R<8> calc(R<3> position, R<3> rotation) {
 	// X -> left - right

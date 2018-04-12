@@ -1,2 +1,3 @@
-#include "common/xnet.h"
-#include "common/xmath.h"
+#include "common/xnet.hpp"
+#include "common/xmath.hpp"
+#include "common/xcvserialize.hpp"

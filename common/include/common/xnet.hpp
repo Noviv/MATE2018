@@ -16,8 +16,8 @@ private:
 	boost::asio::ip::udp::endpoint endp;
 
 public:
-	XNet(std::string ip) : sock(io_serv),
-	 	endp(boost::asio::ip::address::from_string(ip), 512) {
+	XNet(std::string ip, unsigned port) : sock(io_serv),
+	 	endp(boost::asio::ip::address::from_string(ip), port) {
 		sock.open(boost::asio::ip::udp::v4());
 	}
 
@@ -30,11 +30,10 @@ public:
 	}
 };
 
-template<size_t N = 1024>
 class XNetRecv {
 private:
 	std::function<void(std::string)> callback;
-	boost::array<char, N> recv_buf;
+	boost::array<char, 1024> recv_buf;
 	boost::asio::io_service io_serv;
 	boost::asio::ip::udp::socket sock{ io_serv };
 	boost::asio::ip::udp::endpoint endp;
@@ -63,12 +62,12 @@ private:
 	}
 
 public:
-	XNetRecv(std::string ip,
-		std::function<void(std::string)> cb) : callback(cb) {
+	XNetRecv(std::string ip, int port,
+		std::function<void(const std::string&)> cb) : callback(cb) {
 		sock.open(boost::asio::ip::udp::v4());
 		sock.bind(boost::asio::ip::udp::endpoint(
 			boost::asio::ip::address::from_string(ip),
-			512));
+			port));
 
 		async_bind();
 	}

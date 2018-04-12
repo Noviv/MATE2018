@@ -3,7 +3,7 @@
 #define BOOST_TEST_DYN_LINK
 #include <boost/test/unit_test.hpp>
 
-#include "common/xmath.h"
+#include "common/xmath.hpp"
 
 BOOST_AUTO_TEST_CASE(vec_pos) {
 	R<3> x{1, 1, 1};

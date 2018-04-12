@@ -11,8 +11,8 @@
 #include "Navio2/RCOutput_Navio2.h"
 #include "Common/Util.h"
 
-#include "ports.h"
-#include "camera.h"
+#include "ports.hpp"
+#include "camera.hpp"
 
 #define SERVO_STOP 1500
 #define SERVO_MAG 600

@@ -12,8 +12,12 @@ file(GLOB img_recv_SRC
 )
 add_executable(img_recv_main ${img_recv_SRC})
 target_include_directories(img_recv_main PUBLIC
-	include ${Boost_INCLUDE_DIRS} ${OpenCV_INCLUDE_DIRS}
+	${Boost_INCLUDE_DIRS}
+	${OpenCV_INCLUDE_DIRS}
+	${Common_INCLUDE_DIRS}
 )
 target_link_libraries(img_recv_main
-	${Boost_LIBRARIES} ${OpenCV_LIBS}
+	${Boost_LIBRARIES}
+	${OpenCV_LIBS}
+	${Common_LIBS}
 )

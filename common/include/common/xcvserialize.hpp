@@ -1,7 +1,5 @@
-#ifndef NET_H
-#define NET_H
-
-#include <exception>
+#ifndef XCVSERIALIZE_H
+#define XCVSERIALIZE_H
 
 #include <opencv2/opencv.hpp>
 #include <boost/asio.hpp>
@@ -76,59 +74,5 @@ void load( cv::Mat & mat, const char * data_str )
     boost::archive::text_iarchive tia( ss );
     tia >> mat;
 }
-
-class XNetRecv {
-private:
-	std::string data;
-	boost::array<char, 1024> recv_buf;
-	boost::asio::io_service io_serv;
-	boost::asio::ip::udp::socket sock{ io_serv };
-	boost::asio::ip::udp::endpoint endp;
-
-	void async_bind() {
-		auto recv_bind = boost::bind(
-			&XNetRecv::recv,
-			this,
-			boost::asio::placeholders::error,
-			boost::asio::placeholders::bytes_transferred);
-
-		sock.async_receive_from(
-			boost::asio::buffer(recv_buf),
-			endp,
-			recv_bind);
-	}
-
-public:
-	XNetRecv() {
-		sock.open(boost::asio::ip::udp::v4());
-		sock.bind(boost::asio::ip::udp::endpoint(
-			boost::asio::ip::address::from_string("127.0.0.1"),
-			512));
-
-		async_bind();
-	}
-
-	~XNetRecv() {
-		sock.close();
-	}
-
-	void poll() {
-		io_serv.poll();
-	}
-
-	void recv(const boost::system::error_code& error, size_t bytes) {
-		if (error) {
-			throw std::runtime_error("UDP error");
-		}
-
-		data = std::string(recv_buf.begin(), recv_buf.begin() + bytes);
-	}
-
-	cv::Mat get_mat() {
-		cv::Mat mat;
-		load(mat, data.c_str());
-		return mat;
-	}
-};
 
 #endif
