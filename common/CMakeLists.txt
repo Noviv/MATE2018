@@ -6,8 +6,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
 
 find_package(Boost REQUIRED system unit_test_framework)
 
-file(GLOB common_SRC src/*.cpp)
-add_library(common ${common_SRC})
+add_library(common src/touch.cpp)
 target_include_directories(common PUBLIC
 	include ${Boost_INCLUDE_DIRS}
 )
