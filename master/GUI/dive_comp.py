@@ -213,7 +213,7 @@ class TidalGUI:
 	def load(self):
 		print("Loading from file...")
 		filename = askopenfilename()
-		
+
 		if filename:
 			print("will load", filename)
 			# parse here
@@ -263,7 +263,7 @@ class SeismicGUI:
 	def load(self):
 		print("Loading from file...")
 		filename = askopenfilename()
-		
+
 		if filename:
 			print("will load", filename)
 
