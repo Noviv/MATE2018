@@ -19,13 +19,12 @@ matrix:
             - libglu1-mesa-dev
             - libopencv-dev
       env:
-        - MATRIX_EVAL="CC=gcc-5 && CXX=g++-5 && alias clang-format=clang-format-3.9"
+        - MATRIX_EVAL="CC=gcc-5 && CXX=g++-5"
 
 notifications:
   email: false
 
 before_install:
-  - apt-cache search clang-format
   - git submodule update --init --recursive
   - eval "${MATRIX_EVAL}"
 
