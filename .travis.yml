@@ -10,7 +10,7 @@ matrix:
           sources:
             - ubuntu-toolchain-r-test
           packages:
-            - clang-format
+#            - clang-format
             - g++-5
             - libboost-all-dev
             - libglew-dev
@@ -25,6 +25,7 @@ notifications:
   email: false
 
 before_install:
+  - apt-cache search clang-format
   - git submodule update --init --recursive
   - eval "${MATRIX_EVAL}"
 
