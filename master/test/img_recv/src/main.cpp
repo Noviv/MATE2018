@@ -6,14 +6,25 @@
 int main() {
     cv::Mat frame;
 
-    auto cb = [&frame](const std::string& str) { load(frame, str.c_str()); };
+    auto cb = [&frame](const std::string& str) {
+        load(frame, str.c_str());
+        imwrite("test.jpg", frame);
+        std::cout << str << std::endl;
+    };
 
     XNetRecv net("10.42.0.1", 513, cb);
 
-    while (1) {
+    namedWindow("img_recv", cv::WINDOW_AUTOSIZE);
+
+    bool running = true;
+    while (running) {
         net.poll();
-		if (!frame.empty()) {
-        	imshow("img_recv", frame);
-		}
+        if (!frame.empty()) {
+            imshow("img_recv", frame);
+        }
+        if (cv::waitKey(30) >= 0) {
+            std::cout << "fuck u" << std::endl;
+            running = false;
+        }
     }
 }
