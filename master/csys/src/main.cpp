@@ -20,6 +20,7 @@ bool MagellanDemoEnd = false;
 GC wingc;
 
 XNet net("127.0.0.1", 512);
+bool enabled = false;
 
 template <unsigned N>
 constexpr void clamp(R<N>& d, int sens = 450, double lo = -1, double hi = 1) {
@@ -38,7 +39,6 @@ void magellan() {
 
     R<3> pos, rot;
     R<8> thrusts;
-    bool enabled = false;
 
     XNextEvent(display, &report);
     switch (report.type) {
@@ -86,6 +86,7 @@ void magellan() {
 
             if (event.MagellanButton == 1) {
                 net.send(std::to_string((int)enabled));
+                std::cout << "sending enabled: " << enabled << std::endl;
                 enabled = !enabled;
             }
             break;
