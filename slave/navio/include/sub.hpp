@@ -50,7 +50,7 @@ class Sub {
     std::unordered_map<int, Thruster> thrusters;
     std::unique_ptr<RCOutput> pwm;
 
-    NetCamera cam;
+    //NetCamera cam;
 
     bool armed;
 
@@ -111,7 +111,7 @@ class Sub {
             t.second.update(pwm);
         }
 
-        cam.update();
+        //cam.update();
     }
 };
 
