@@ -12,7 +12,7 @@ class NetCamera {
     XNet net;
 
   public:
-    NetCamera() : cap(0), net("127.0.0.1", 512) {}
+    NetCamera() : cap(0), net("10.42.0.1", 512) {}
 
     void update() {
         cap >> frame;
