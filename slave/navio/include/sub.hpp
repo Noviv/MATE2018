@@ -85,8 +85,8 @@ class Sub {
     void operator=(const Sub&) = delete;
 
     void arm() {
-    std:
-        clock_t start = std::clock();
+        std::cout << "arming" << std::endl;
+        std::clock_t start = std::clock();
         double duration;
 
         armed = true;
@@ -104,6 +104,7 @@ class Sub {
     }
 
     void disarm() {
+        std::cout << "disarming" << std::endl;
         armed = false;
         for (auto& t : thrusters) {
             t.second.set_thrust(0);
