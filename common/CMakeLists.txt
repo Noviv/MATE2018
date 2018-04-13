@@ -27,7 +27,7 @@ foreach(testsrc ${test_SRC})
 	get_filename_component(testnm ${testsrc} NAME_WE)
 	add_executable(${testnm} ${testsrc})
 	target_include_directories(${testnm} PUBLIC include ${Boost_INCLUDE_DIRS})
-	target_link_libraries(${testnm} ${Boost_LIBRARIES})
+	target_link_libraries(${testnm} ${Boost_LIBRARIES} -lm -lpthread)
 	add_test(NAME ${testnm} COMMAND ${testnm})
 endforeach()
 
