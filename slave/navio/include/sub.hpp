@@ -3,6 +3,7 @@
 
 #include <algorithm>
 #include <array>
+#include <chrono>
 #include <exception>
 #include <iostream>
 #include <memory>
@@ -50,7 +51,7 @@ class Sub {
     std::unordered_map<int, Thruster> thrusters;
     std::unique_ptr<RCOutput> pwm;
 
-    //NetCamera cam;
+    // NetCamera cam;
 
     bool armed;
 
@@ -84,12 +85,21 @@ class Sub {
     void operator=(const Sub&) = delete;
 
     void arm() {
+    std:
+        clock_t start = std::clock();
+        double duration;
+
         armed = true;
         for (auto& t : thrusters) {
-            // TODO: 2 seconds per command
-            t.second.set_thrust(1);
-            t.second.set_thrust(-1);
-            t.second.set_thrust(0);
+            while ((std::clock() - start) / (double)CLOCKS_PER_SEC < 2) {
+                t.second.set_thrust(1);
+            }
+            while ((std::clock() - start) / (double)CLOCKS_PER_SEC < 4) {
+                t.second.set_thrust(-1);
+            }
+            while ((std::clock() - start) / (double)CLOCKS_PER_SEC < 6) {
+                t.second.set_thrust(0);
+            }
         }
     }
 
@@ -111,7 +121,7 @@ class Sub {
             t.second.update(pwm);
         }
 
-        //cam.update();
+        // cam.update();
     }
 };
 
