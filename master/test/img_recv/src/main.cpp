@@ -9,7 +9,6 @@ int main() {
     auto cb = [&frame](const std::string& str) {
         load(frame, str.c_str());
         imwrite("test.jpg", frame);
-        std::cout << str << std::endl;
     };
 
     XNetRecv net("10.42.0.1", 513, cb);
