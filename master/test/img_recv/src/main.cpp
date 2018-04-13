@@ -8,7 +8,7 @@ int main() {
 
     auto cb = [&frame](const std::string& str) { load(frame, str.c_str()); };
 
-    XNetRecv net("10.42.0.58", 512, cb);
+    XNetRecv net("10.42.0.58", 513, cb);
 
     while (1) {
         net.poll();
