@@ -17,6 +17,8 @@ class NetCamera {
     void update() {
         cap >> frame;
 
+	cv::resize(frame, frame, cv::Size(10, 10));
+
         auto data = save(frame);
 
         net.send(data);
