@@ -13,7 +13,9 @@ if(NOT BCMHOST)
 	add_subdirectory(master)
 endif()
 
-add_subdirectory(slave)
+if(BCMHOST)
+	add_subdirectory(slave)
+endif()
 
 find_program(formatter clang-format)
 
