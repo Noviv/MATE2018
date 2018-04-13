@@ -7,6 +7,7 @@ int main() {
     cv::Mat frame;
 
     auto cb = [&frame](const std::string& str) {
+		std::cout << str << std::endl;
         load(frame, str.c_str());
     };
 
@@ -14,15 +15,15 @@ int main() {
 
     namedWindow("img_recv", cv::WINDOW_AUTOSIZE);
 
-    bool running = true;
-    while (running) {
+    while (1) {
         net.poll();
         if (!frame.empty()) {
             imshow("img_recv", frame);
         }
-        if (cv::waitKey(30) >= 0) {
-            std::cout << "fuck u" << std::endl;
-            running = false;
+		int wk = cv::waitKey(30);
+        if (wk >= 0 && wk != 255) {
+            std::cout << wk << std::endl;
+			break;
         }
     }
 }

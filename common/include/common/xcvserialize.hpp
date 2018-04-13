@@ -65,7 +65,7 @@ void load(cv::Mat& mat, const char* data_str) {
     std::stringstream ss;
     ss << data_str;
     boost::archive::text_iarchive tia(ss);
-    // tia >> mat;
+    tia >> mat;
 }
 
 #endif
