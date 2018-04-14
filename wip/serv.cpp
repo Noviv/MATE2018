@@ -13,7 +13,7 @@ cv::VideoCapture cap(0);
 void display(int* ptr) {
 	int sokt = *ptr;
 
-	cv::Mat img(800, 1280, CV_8UC1);
+	cv::Mat img(768, 1024, CV_8UC1);
 	cv::Mat imgGray;
 	if (!img.isContinuous()) {
 		img = img.clone();
