@@ -7,6 +7,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${MATE_BINARY_DIR}/bin)
 
 add_subdirectory(common)
+add_subdirectory(wip)
 
 find_path(BCMHOST bcm_host.h PATHS /opt/vc/include)
 if(NOT BCMHOST)
