@@ -23,3 +23,6 @@ target_link_libraries(wip_img_recv
 	${OpenCV_LIBS}
 	${CMAKE_THREAD_LIBS_INIT}
 )
+
+file(GLOB wip_SRC *.cpp)
+set(wip_FORMATTABLE "${wip_SRC}" CACHE INTERNAL "wip formattable files")

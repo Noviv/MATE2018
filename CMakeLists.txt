@@ -19,7 +19,7 @@ add_subdirectory(slave)
 find_program(formatter clang-format)
 find_program(checker cppcheck)
 
-foreach(file ${common_FORMATTABLE};${slave_FORMATTABLE};${master_FORMATTABLE})
+foreach(file ${common_FORMATTABLE};${slave_FORMATTABLE};${master_FORMATTABLE};${wip_FORMATTABLE})
 	string(REPLACE ${CMAKE_CURRENT_SOURCE_DIR}/ "" file_name ${file})
 	string(REPLACE . _ file_name ${file_name})
 	string(REPLACE / _ file_name ${file_name})

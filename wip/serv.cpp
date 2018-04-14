@@ -1,82 +1,82 @@
-#include <iostream>
-#include <sys/socket.h>
 #include <arpa/inet.h>
-#include <sys/ioctl.h>
-#include <net/if.h>
-#include <unistd.h>
-#include <string.h>
 #include <errno.h>
+#include <iostream>
+#include <net/if.h>
+#include <string.h>
+#include <sys/ioctl.h>
+#include <sys/socket.h>
+#include <unistd.h>
 
 #include "opencv2/opencv.hpp"
 
 cv::VideoCapture cap(0);
 
 void display(int* ptr) {
-	int sokt = *ptr;
+    int sokt = *ptr;
 
-	cv::Mat img(480, 640, CV_8UC1);
-	cv::Mat imgGray;
-	if (!img.isContinuous()) {
-		img = img.clone();
-	}
+    cv::Mat img(480, 640, CV_8UC1);
+    cv::Mat imgGray;
+    if (!img.isContinuous()) {
+        img = img.clone();
+    }
 
-	int sz = img.total() * img.elemSize();
-	int bytes = 0;
+    int sz = img.total() * img.elemSize();
+    int bytes = 0;
 
-	while (1) {
-		cap >> img;
+    while (1) {
+        cap >> img;
 
-		cvtColor(img, imgGray, CV_BGR2GRAY);
+        cvtColor(img, imgGray, CV_BGR2GRAY);
 
-		if ((bytes = send(sokt, imgGray.data, sz, 0)) < 0) {
-			perror("send() failed");
-			break;
-		}
-	}
+        if ((bytes = send(sokt, imgGray.data, sz, 0)) < 0) {
+            perror("send() failed");
+            break;
+        }
+    }
 }
 
 int main() {
-	if (!cap.isOpened()) {
-		std::cerr << "cap not opened" << std::endl;
-		return 1;
-	}
+    if (!cap.isOpened()) {
+        std::cerr << "cap not opened" << std::endl;
+        return 1;
+    }
 
-	int lSokt;
-	int rSokt;
-	int port = 4123;
+    int lSokt;
+    int rSokt;
+    int port = 4123;
 
-	struct sockaddr_in lAddr;
-	struct sockaddr_in rAddr;
+    struct sockaddr_in lAddr;
+    struct sockaddr_in rAddr;
 
-	int addrLen = sizeof(struct sockaddr_in);
+    int addrLen = sizeof(struct sockaddr_in);
 
-	lSokt = socket(AF_INET, SOCK_STREAM, 0);
-	if (lSokt == -1) {
-		std::cerr << "lSokt == -1" << std::endl;
-	}
-	lAddr.sin_family = AF_INET;
-	lAddr.sin_addr.s_addr = INADDR_ANY;
-	lAddr.sin_port = htons(port);
+    lSokt = socket(AF_INET, SOCK_STREAM, 0);
+    if (lSokt == -1) {
+        std::cerr << "lSokt == -1" << std::endl;
+    }
+    lAddr.sin_family = AF_INET;
+    lAddr.sin_addr.s_addr = INADDR_ANY;
+    lAddr.sin_port = htons(port);
 
-	if (bind(lSokt, (struct sockaddr*) &lAddr, sizeof(lAddr)) < 0) {
-		perror("bind() failed");
-		return 1;
-	}
+    if (bind(lSokt, (struct sockaddr*)&lAddr, sizeof(lAddr)) < 0) {
+        perror("bind() failed");
+        return 1;
+    }
 
-	listen(lSokt, 3);
+    listen(lSokt, 3);
 
-	std::cout << "waiting for a connection" << std::endl;
+    std::cout << "waiting for a connection" << std::endl;
 
-	rSokt = accept(lSokt, (struct sockaddr*) &rAddr, (socklen_t*) &addrLen);
+    rSokt = accept(lSokt, (struct sockaddr*)&rAddr, (socklen_t*)&addrLen);
 
-	if (rSokt < 0) {
-		std::cerr << "rSokt < 0" << std::endl;
-		return 1;
-	}
+    if (rSokt < 0) {
+        std::cerr << "rSokt < 0" << std::endl;
+        return 1;
+    }
 
-	std::cout << "connection accepted" << std::endl;
-	display(&rSokt);
+    std::cout << "connection accepted" << std::endl;
+    display(&rSokt);
 
-	close(rSokt);
-	close(lSokt);
+    close(rSokt);
+    close(lSokt);
 }
