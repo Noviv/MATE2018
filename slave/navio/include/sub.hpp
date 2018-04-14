@@ -12,7 +12,6 @@
 #include "Navio2/PWM.h"
 #include "Navio2/RCOutput_Navio2.h"
 
-#include "camera.hpp"
 #include "ports.hpp"
 
 #define SERVO_STOP 1500
@@ -50,8 +49,6 @@ class Sub {
   private:
     std::unordered_map<int, Thruster> thrusters;
     std::unique_ptr<RCOutput> pwm;
-
-    // NetCamera cam;
 
     bool armed;
 
@@ -112,6 +109,9 @@ class Sub {
     }
 
     void set_thrust(int p, double t) {
+        if (!armed) {
+            return;
+        }
         if (p != -1) {
             thrusters.at(p).set_thrust(t);
         }
@@ -121,8 +121,6 @@ class Sub {
         for (auto& t : thrusters) {
             t.second.update(pwm);
         }
-
-        // cam.update();
     }
 };
 
