@@ -53,11 +53,12 @@ int main() {
 	if (lSokt == -1) {
 		std::cerr << "lSokt == -1" << std::endl;
 	}
+	lAddr.sin_family = AF_INET;
 	lAddr.sin_addr.s_addr = INADDR_ANY;
 	lAddr.sin_port = htons(port);
 
 	if (bind(lSokt, (struct sockaddr*) &lAddr, sizeof(lAddr)) < 0) {
-		std::cerr << "bind() failed" << std::endl;
+		perror("bind() failed");
 		return 1;
 	}
 
@@ -74,4 +75,7 @@ int main() {
 
 	std::cout << "connection accepted" << std::endl;
 	display(&rSokt);
+
+	close(rSokt);
+	close(lSokt);
 }
