@@ -20,7 +20,7 @@
 
 class Thruster {
   private:
-    double thrust;
+    double thrust = 0;
     int port;
 
     static constexpr unsigned int get_servo_range(double mag) {
