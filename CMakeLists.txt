@@ -32,6 +32,7 @@ foreach(file ${common_FORMATTABLE};${slave_FORMATTABLE};${master_FORMATTABLE};${
 		)
 	elseif(formatter)
 		add_custom_target(format_${file_name} ALL
+			WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 			COMMAND clang-format -style=file -i ${file}
 			COMMENT "Formatting ${file}..."
 			VERBATIM

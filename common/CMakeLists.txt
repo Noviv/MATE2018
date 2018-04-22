@@ -6,12 +6,13 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
 
 find_package(Boost REQUIRED system unit_test_framework)
 
-file(GLOB common_SRC src/*.cpp)
-add_library(common src/touch.cpp)
-target_include_directories(common PUBLIC
+file(GLOB common_H "include/common/*.hpp")
+add_library(common INTERFACE)
+target_sources(common INTERFACE ${common_H})
+target_include_directories(common INTERFACE
 	include ${Boost_INCLUDE_DIRS}
 )
-target_link_libraries(common
+target_link_libraries(common INTERFACE
 	${Boost_LIBRARIES}
 )
 
@@ -31,5 +32,4 @@ foreach(testsrc ${test_SRC})
 	add_test(NAME ${testnm} COMMAND ${testnm})
 endforeach()
 
-file(GLOB common_H "include/common/*.hpp")
-set(common_FORMATTABLE "${common_SRC};${common_H};${test_SRC}" CACHE INTERNAL "common formattable files")
+set(common_FORMATTABLE "${common_H};${test_SRC}" CACHE INTERNAL "common formattable files")
