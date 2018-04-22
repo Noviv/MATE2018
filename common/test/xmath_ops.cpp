@@ -150,7 +150,7 @@ BOOST_AUTO_TEST_CASE(vec_math_vec_div) {
     auto z = x / y;
     BOOST_CHECK_EQUAL(z[0], 0.25);
     BOOST_CHECK_EQUAL(z[1], 1);
-    BOOST_CHECK_EQUAL(z[2], z[2]); // NaN == NaN
+    BOOST_CHECK_EQUAL(z[2], z[2]);  // NaN == NaN
 }
 
 BOOST_AUTO_TEST_CASE(vec_math_vec_scalar_plus) {

@@ -45,12 +45,12 @@ bool MagellanInit(Display* display, Window window) {
 int MagellanErrorHandler(Display* display, XErrorEvent* Error) {
     char Buffer[128];
     switch (Error->error_code) {
-    case BadWindow:
-        break;
-    default:
-        XGetErrorText(display, Error->error_code, Buffer, sizeof(Buffer));
-        fprintf(stderr, "Magellan: Error = %s. Exit ... \n", Buffer);
-        break;
+        case BadWindow:
+            break;
+        default:
+            XGetErrorText(display, Error->error_code, Buffer, sizeof(Buffer));
+            fprintf(stderr, "Magellan: Error = %s. Exit ... \n", Buffer);
+            break;
     }
 
     return 0;
@@ -84,9 +84,14 @@ bool MagellanApplicationSensitivity(Display* display, double Sensitivity) {
         XFree(PropReturn);
 
         if (XGetWMName(display, MagellanWindow, &MagellanWindowName) != 0) {
-            if (strcmp((char*)"Magellan Window",
+            if (strcmp((char*)"Magellan "
+                              "Window",
                        (char*)MagellanWindowName.value) == 0) {
-                /* Send the application window to the Magellan X Window Driver
+                /* Send the
+                 * application
+                 * window to the
+                 * Magellan X
+                 * Window Driver
                  */
                 CommandMessage.type = ClientMessage;
                 CommandMessage.xclient.format = 16;
@@ -140,10 +145,14 @@ bool MagellanSetWindow(Display* display, Window window) {
         XFree(PropReturn);
 
         if (XGetWMName(display, MagellanWindow, &MagellanWindowName)) {
-
-            if (strcmp((char*)"Magellan Window",
+            if (strcmp((char*)"Magellan "
+                              "Window",
                        (char*)MagellanWindowName.value) == 0) {
-                /* Send the application window to the Magellan X Window Driver
+                /* Send the
+                 * application
+                 * window to the
+                 * Magellan X
+                 * Window Driver
                  */
                 CommandMessage.type = ClientMessage;
                 CommandMessage.xclient.format = 16;
@@ -174,7 +183,8 @@ void MagellanClose(Display* display) {
     MagellanExist = false;
 }
 
-bool MagellanInputEvent(Display* display, XEvent* Event,
+bool MagellanInputEvent(Display* display,
+                        XEvent* Event,
                         MagellanIntEvent* MagellanEvent) {
     if (!MagellanExist) {
         return false;
@@ -205,7 +215,8 @@ bool MagellanInputEvent(Display* display, XEvent* Event,
     return display == NULL;
 }
 
-int MagellanTranslateEvent(Display* display, XEvent* Event,
+int MagellanTranslateEvent(Display* display,
+                           XEvent* Event,
                            MagellanFloatEvent* MagellanEvent,
                            double MagellanTranslationScale,
                            double MagellanRotationScale) {

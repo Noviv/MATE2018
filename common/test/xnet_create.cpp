@@ -4,4 +4,6 @@
 
 #include "common/xnet.hpp"
 
-BOOST_AUTO_TEST_CASE(xnet_create) { BOOST_CHECK_EQUAL(0, 0); }
+BOOST_AUTO_TEST_CASE(xnet_create) {
+    BOOST_CHECK_EQUAL(0, 0);
+}

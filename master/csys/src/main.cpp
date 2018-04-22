@@ -42,62 +42,70 @@ void magellan() {
 
     XNextEvent(display, &report);
     switch (report.type) {
-    case KeyRelease:
-        break;
-
-    case KeyPress:
-        XLookupString((XKeyEvent*)&report, MagellanBuffer,
-                      sizeof(MagellanBuffer), &keysym, &compose);
-        MagellanDemoEnd = keysym == XK_Escape;
-        printf("keypress\n");
-        break;
-
-    case ClientMessage:
-        switch (MagellanTranslateEvent(display, &report, &event, 1, 1)) {
-        case MagellanInputMotionEvent:
-            pos = {-event.MagellanData[MagellanX],
-                   event.MagellanData[MagellanY],
-                   event.MagellanData[MagellanZ]};
-            clamp(pos);
-            rot = {-event.MagellanData[MagellanA],
-                   event.MagellanData[MagellanB],
-                   event.MagellanData[MagellanC]};
-            clamp(rot);
-            thrusts = calc(pos, rot);
-            clamp(thrusts, 1);
-            net.send("8[" + pos.to_string() + "," + thrusts.to_string() + "]");
-
-            MagellanRemoveMotionEvents(display);
-            sprintf(
-                MagellanBuffer,
-                "x=%+5.0f y=%+5.0f z=%+5.0f a=%+5.0f b=%+5.0f c=%+5.0f",
-                event.MagellanData[MagellanX], event.MagellanData[MagellanY],
-                event.MagellanData[MagellanZ], event.MagellanData[MagellanA],
-                event.MagellanData[MagellanB], event.MagellanData[MagellanC]);
-
-            XClearWindow(display, window);
-            XDrawString(display, window, wingc, 10, 40, MagellanBuffer,
-                        strlen(MagellanBuffer));
-            XFlush(display);
+        case KeyRelease:
             break;
 
-        case MagellanInputButtonPressEvent:
-            printf("Button %d pressed\n", event.MagellanButton);
+        case KeyPress:
+            XLookupString((XKeyEvent*)&report, MagellanBuffer,
+                          sizeof(MagellanBuffer), &keysym, &compose);
+            MagellanDemoEnd = keysym == XK_Escape;
+            printf("keypress\n");
+            break;
 
-            if (event.MagellanButton == 1) {
-                net.send(std::to_string((int)enabled));
-                std::cout << "sending enabled: " << enabled << std::endl;
-                enabled = !enabled;
+        case ClientMessage:
+            switch (MagellanTranslateEvent(display, &report, &event, 1, 1)) {
+                case MagellanInputMotionEvent:
+                    pos = {-event.MagellanData[MagellanX],
+                           event.MagellanData[MagellanY],
+                           event.MagellanData[MagellanZ]};
+                    clamp(pos);
+                    rot = {-event.MagellanData[MagellanA],
+                           event.MagellanData[MagellanB],
+                           event.MagellanData[MagellanC]};
+                    clamp(rot);
+                    thrusts = calc(pos, rot);
+                    clamp(thrusts, 1);
+                    net.send("8[" + pos.to_string() + "," +
+                             thrusts.to_string() + "]");
+
+                    MagellanRemoveMotionEvents(display);
+                    sprintf(MagellanBuffer,
+                            "x=%+5.0f y=%+5.0f "
+                            "z=%+5.0f a=%+5.0f "
+                            "b=%+5.0f c=%+5.0f",
+                            event.MagellanData[MagellanX],
+                            event.MagellanData[MagellanY],
+                            event.MagellanData[MagellanZ],
+                            event.MagellanData[MagellanA],
+                            event.MagellanData[MagellanB],
+                            event.MagellanData[MagellanC]);
+
+                    XClearWindow(display, window);
+                    XDrawString(display, window, wingc, 10, 40, MagellanBuffer,
+                                strlen(MagellanBuffer));
+                    XFlush(display);
+                    break;
+
+                case MagellanInputButtonPressEvent:
+                    printf("Button %d pressed\n", event.MagellanButton);
+
+                    if (event.MagellanButton == 1) {
+                        net.send(std::to_string((int)enabled));
+                        std::cout << "sending"
+                                     " enable"
+                                     "d: "
+                                  << enabled << std::endl;
+                        enabled = !enabled;
+                    }
+                    break;
+
+                case MagellanInputButtonReleaseEvent:
+                    break;
+
+                default:
+                    printf("weird ass message\n");
+                    break;
             }
-            break;
-
-        case MagellanInputButtonReleaseEvent:
-            break;
-
-        default:
-            printf("weird ass message\n");
-            break;
-        }
     }
 }
 

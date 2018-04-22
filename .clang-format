@@ -1,5 +1,5 @@
 ---
-BasedOnStyle: LLVM
+BasedOnStyle: Chromium
 IndentWidth: 4
 ---
 Language: Cpp
