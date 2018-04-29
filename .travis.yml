@@ -9,6 +9,7 @@ matrix:
         apt:
           sources:
             - ubuntu-toolchain-r-test
+            - ubuntu-sdk-team
           packages:
             - cppcheck
             - clang-format-3.9
@@ -19,6 +20,9 @@ matrix:
             - xorg-dev
             - libglu1-mesa-dev
             - libopencv-dev
+            - qtbase5-dev
+            - qt5-default
+            - libqt5webkit5-dev
       env:
         - MATRIX_EVAL="CC=gcc-5 && CXX=g++-5"
     - os: linux
@@ -26,6 +30,7 @@ matrix:
         apt:
           sources:
             - ubuntu-toolchain-r-test
+            - ubuntu-sdk-team
           packages:
             - cppcheck
             - clang-format-3.9
@@ -36,6 +41,9 @@ matrix:
             - xorg-dev
             - libglu1-mesa-dev
             - libopencv-dev
+            - qtbase5-dev
+            - qt5-default
+            - libqt5webkit5-dev
       env:
         - MATRIX_EVAL="CC=gcc-6 && CXX=g++-6"
 
