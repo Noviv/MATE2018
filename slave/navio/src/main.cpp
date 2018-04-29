@@ -66,7 +66,7 @@ int main() {
         }
     };
 
-    XNetRecv net("10.42.0.58", 512, func);
+    XNetRecv net("10.42.0.234", 512, func);
 
     while (true) {
         net.poll();

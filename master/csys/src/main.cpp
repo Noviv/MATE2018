@@ -19,7 +19,7 @@ Window window;
 bool MagellanDemoEnd = false;
 GC wingc;
 
-XNet net("10.42.0.58", 512);
+XNet net("10.42.0.234", 512);
 bool enabled = false;
 
 template <unsigned N>
