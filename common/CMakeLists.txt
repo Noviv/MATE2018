@@ -6,7 +6,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
 
 find_package(Boost REQUIRED system unit_test_framework)
 
-file(GLOB common_H "include/common/*.hpp")
+file(GLOB common_H "include/common/*.hpp" "include/common_wip/*.hpp")
 add_library(common INTERFACE)
 target_sources(common INTERFACE ${common_H})
 target_include_directories(common INTERFACE

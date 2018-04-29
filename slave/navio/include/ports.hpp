@@ -4,26 +4,15 @@
 #include <string>
 #include <unordered_map>
 
-const std::unordered_map<std::string, int> ports = {
-    {"FTL", 13}
-    /*
-            {"FBL", 0},
-            {"FTR", 1},
-            {"FBR", 2},
-            {"RTL", 3},
-            {"RBL", 4},
-            {"RTR", 5},
-            {"RBR", 6}
-    */
+enum Port {
+	FTL = 13,
+	FBL = -1,
+	FTR = -1,
+	FBR = -1,
+	RTL = -1,
+	RBL = -1,
+	RTR = -1,
+	RBR = -1
 };
-
-int ports_at(const std::string& key) {
-    auto pair = ports.find(key);
-    if (pair == ports.end()) {
-        return -1;
-    } else {
-        return pair->second;
-    }
-}
 
 #endif

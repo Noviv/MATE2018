@@ -67,9 +67,9 @@ class Sub {
 
         pwm = std::unique_ptr<RCOutput>{new RCOutput_Navio2()};
 
-        for (auto& p : ports) {
-            thrusters.insert({p.second, Thruster(p.second, pwm)});
-        }
+		for (int p = FTL; p <= RBR; p++) {
+            thrusters.insert({p, Thruster(p, pwm)});
+		}
     }
 
    public:
@@ -109,12 +109,10 @@ class Sub {
     }
 
     void set_thrust(int p, double t) {
-        if (!armed) {
+        if (!armed || p == -1) {
             return;
         }
-        if (p != -1) {
-            thrusters.at(p).set_thrust(t);
-        }
+        thrusters.at(p).set_thrust(t);
     }
 
     void update() {
