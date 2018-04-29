@@ -1,10 +1,10 @@
-#include "MainWindow.hpp"
+#include "qt_csuite.hpp"
 
 #include <QWidget>
 #include <QLineEdit>
 #include <QFormLayout>
 
-MainWindow::MainWindow() {
+QT_CSuite::QT_CSuite() {
 	QWidget* central = new QWidget;
 
 	QLineEdit* firstNm = new QLineEdit;
@@ -21,6 +21,6 @@ MainWindow::MainWindow() {
 	setCentralWidget(central);
 }
 
-MainWindow::~MainWindow() {
+QT_CSuite::~QT_CSuite() {
 
 }

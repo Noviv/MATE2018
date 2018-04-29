@@ -4,12 +4,12 @@
 #include <QStyle>
 #include <QDesktopWidget>
 
-#include "MainWindow.hpp"
+#include "qt_csuite.hpp"
 
 int main(int argc, char** argv) {
 	QApplication a(argc, argv);
 
-	MainWindow w;
+	QT_CSuite w;
 	w.setGeometry(
 		QStyle::alignedRect(
 			Qt::LeftToRight,

@@ -27,7 +27,7 @@ void display(int* ptr) {
     while (1) {
         cap >> img;
 
-        cvtColor(img, imgGray, CV_BGR2GRAY);
+        cvtColor(img, imgGray, cv::COLOR_BGR2GRAY);
 
         if ((bytes = send(sokt, imgGray.data, sz, 0)) < 0) {
             perror("send() failed");
