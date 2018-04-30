@@ -24,5 +24,15 @@ target_link_libraries(wip_img_recv
 	${CMAKE_THREAD_LIBS_INIT}
 )
 
+add_executable(wip_xnetmaster xnetmaster.cpp)
+target_link_libraries(wip_xnetmaster
+	${CMAKE_THREAD_LIBS_INIT}
+)
+
+add_executable(wip_xnetslave xnetslave.cpp)
+target_link_libraries(wip_xnetslave
+	${CMAKE_THREAD_LIBS_INIT}
+)
+
 file(GLOB wip_SRC *.cpp)
 set(wip_FORMATTABLE "${wip_SRC}" CACHE INTERNAL "wip formattable files")
