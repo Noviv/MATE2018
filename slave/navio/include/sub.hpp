@@ -15,7 +15,7 @@
 #include "ports.hpp"
 
 #define SERVO_STOP 1500
-#define SERVO_MAG 600
+#define SERVO_MAG 100
 #define SERVO_FREQ 50
 
 class Thruster {
@@ -67,9 +67,7 @@ class Sub {
 
         pwm = std::unique_ptr<RCOutput>{new RCOutput_Navio2()};
 
-        for (int p = FTL; p <= RBR; p++) {
-            thrusters.insert({p, Thruster(p, pwm)});
-        }
+        thrusters.insert({FTL, std::move(Thruster(FTL, pwm))});
     }
 
    public:
