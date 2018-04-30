@@ -67,7 +67,9 @@ class Sub {
 
         pwm = std::unique_ptr<RCOutput>{new RCOutput_Navio2()};
 
-        thrusters.insert({FTL, std::move(Thruster(FTL, pwm))});
+        for (int p = FTL; p <= RBR; p++) {
+            thrusters.insert({p, std::move(Thruster(p, pwm))});
+        }
     }
 
    public:
