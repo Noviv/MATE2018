@@ -10,9 +10,14 @@ set(CMAKE_AUTOMOC ON)
 find_package(Qt5Widgets REQUIRED)
 
 file(GLOB_RECURSE csuite_SRC src/*.cpp)
-include_directories(include)
 add_executable(csuite_main ${csuite_SRC})
-qt5_use_modules(csuite_main Widgets)
+qt5_use_modules(csuite_main Widgets X11Extras)
+target_include_directories(csuite_main PUBLIC
+	include
+)
+target_link_libraries(csuite_main
+	-lX11
+)
 
 file(GLOB csuite_H include/*.hpp)
 set(csuite_FORMATTABLE "${csuite_H};${csuite_SRC}" CACHE INTERNAL "csuite formattable files")
