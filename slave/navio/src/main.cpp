@@ -26,42 +26,42 @@ int main() {
 
         auto cvt = ::atof(comps[3].c_str());
         if (cvt == cvt) {
-			sub.set_thrust(FTL, cvt);
+            sub.set_thrust(FTL, cvt);
         }
 
         cvt = ::atof(comps[4].c_str());
         if (cvt == cvt) {
-			sub.set_thrust(FBL, cvt);
+            sub.set_thrust(FBL, cvt);
         }
 
         cvt = ::atof(comps[5].c_str());
         if (cvt == cvt) {
-			sub.set_thrust(FTR, cvt);
+            sub.set_thrust(FTR, cvt);
         }
 
         cvt = ::atof(comps[6].c_str());
         if (cvt == cvt) {
-			sub.set_thrust(FBR, cvt);
+            sub.set_thrust(FBR, cvt);
         }
 
         cvt = ::atof(comps[7].c_str());
         if (cvt == cvt) {
-			sub.set_thrust(RTL, cvt);
+            sub.set_thrust(RTL, cvt);
         }
 
         cvt = ::atof(comps[8].c_str());
         if (cvt == cvt) {
-			sub.set_thrust(RBL, cvt);
+            sub.set_thrust(RBL, cvt);
         }
 
         cvt = ::atof(comps[9].c_str());
         if (cvt == cvt) {
-			sub.set_thrust(RTR, cvt);
+            sub.set_thrust(RTR, cvt);
         }
 
         cvt = ::atof(comps[10].c_str());
         if (cvt == cvt) {
-			sub.set_thrust(RBR, cvt);
+            sub.set_thrust(RBR, cvt);
         }
     };
 

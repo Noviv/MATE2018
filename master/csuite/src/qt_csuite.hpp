@@ -4,11 +4,12 @@
 #include <QMainWindow>
 
 class QT_CSuite : public QMainWindow {
-	Q_OBJECT
+private:
+    Q_OBJECT
 
 public:
-	QT_CSuite();
-	virtual ~QT_CSuite();
+    QT_CSuite();
+    virtual ~QT_CSuite();
 };
 
 #endif

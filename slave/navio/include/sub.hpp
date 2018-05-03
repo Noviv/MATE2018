@@ -19,7 +19,7 @@
 #define SERVO_FREQ 50
 
 class Thruster {
-   private:
+private:
     double thrust = 0;
     int port;
 
@@ -27,7 +27,7 @@ class Thruster {
         return SERVO_STOP + mag * SERVO_MAG;
     }
 
-   public:
+public:
     Thruster(int p, std::unique_ptr<RCOutput>& pwm) : port(p) {
         if (!(pwm->initialize(p))) {
             throw std::runtime_error("failed init: " + std::to_string(p));
@@ -46,7 +46,7 @@ class Thruster {
 };
 
 class Sub {
-   private:
+private:
     std::unordered_map<int, Thruster> thrusters;
     std::unique_ptr<RCOutput> pwm;
 
@@ -72,7 +72,7 @@ class Sub {
         }
     }
 
-   public:
+public:
     static Sub& instance() {
         static Sub instance;
         return instance;

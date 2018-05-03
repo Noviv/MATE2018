@@ -16,29 +16,38 @@ endif()
 add_subdirectory(slave)
 
 find_program(formatter clang-format)
+find_program(formatter-6.0 clang-format-6.0)
+if (formatter)
+	set(FORMATTER "clang-format")
+elseif(formatter-6.0)
+	set(FORMATTER "clang-format-6.0")
+endif()
 find_program(checker cppcheck)
+if (checker)
+	set(CHECKER "cppcheck")
+endif()
 
 foreach(file ${common_FORMATTABLE};${slave_FORMATTABLE};${master_FORMATTABLE};${wip_FORMATTABLE})
 	string(REPLACE ${CMAKE_CURRENT_SOURCE_DIR}/ "" file_name ${file})
 	string(REPLACE . _ file_name ${file_name})
 	string(REPLACE / _ file_name ${file_name})
-	if (formatter AND checker)
+	if (FORMATTER AND CHECKER)
 		add_custom_target(cleanse_${file_name} ALL
 			WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-			COMMAND clang-format -style=file -i ${file} && cppcheck ${file} --enable=warning,performance,portability
+			COMMAND ${FORMATTER} -style=file -i ${file} && ${CHECKER} --enable=warning,performance,portability ${file}
 			COMMENT "Cleansing ${file}..."
 			VERBATIM
 		)
-	elseif(formatter)
+	elseif(FORMATTER)
 		add_custom_target(format_${file_name} ALL
 			WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-			COMMAND clang-format -style=file -i ${file}
+			COMMAND ${FORMATTER} -style=file -i ${file}
 			COMMENT "Formatting ${file}..."
 			VERBATIM
 		)
-	elseif(checker)
+	elseif(CHECKER)
 		add_custom_target(check_${file_name} ALL
-			COMMAND cppcheck ${file} --enable=warning,performance,portability
+			COMMAND ${CHECKER} --enable=warning,performance,portability ${file}
 			COMMENT "Checking ${file}..."
 			VERBATIM
 		)

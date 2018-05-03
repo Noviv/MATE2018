@@ -14,7 +14,7 @@
 #include <exception>
 
 class XNetMaster {
-   private:
+private:
     const std::string& ip;
 
     // serv variables
@@ -31,7 +31,7 @@ class XNetMaster {
 
     struct sockaddr_in serverAddr;
 
-   public:
+public:
     XNetMaster(const std::string& ip = "127.0.0.1",
                const int& sPort = 512,
                const int& rPort = 513)
@@ -39,12 +39,12 @@ class XNetMaster {
         socklen_t addrLen = sizeof(struct sockaddr_in);
 
         // init serv
-		std::cout << "XNetMaster init serv" << std::endl;
+        std::cout << "XNetMaster init serv" << std::endl;
 
-		lSokt = socket(AF_INET, SOCK_STREAM, 0);
-		if (lSokt < 0) {
-			throw std::runtime_error("XNetMaster lSokt == -1");
-		}
+        lSokt = socket(AF_INET, SOCK_STREAM, 0);
+        if (lSokt < 0) {
+            throw std::runtime_error("XNetMaster lSokt == -1");
+        }
 
         lAddr.sin_family = AF_INET;
         lAddr.sin_addr.s_addr = INADDR_ANY;
@@ -66,7 +66,7 @@ class XNetMaster {
         std::cout << "XNetMaster connection accepted" << std::endl;
 
         // init recv
-		std::cout << "XNetMaster init recv" << std::endl;
+        std::cout << "XNetMaster init recv" << std::endl;
 
         rSokt = socket(PF_INET, SOCK_STREAM, 0);
         if (rSokt < 0) {
@@ -77,12 +77,12 @@ class XNetMaster {
         serverAddr.sin_addr.s_addr = inet_addr(ip.c_str());
         serverAddr.sin_port = htons(rPort);
 
-		std::cout << "XNetMaster connecting" << std::endl;
+        std::cout << "XNetMaster connecting" << std::endl;
         if (connect(rSokt, (sockaddr*)&serverAddr, addrLen) < 0) {
             throw std::runtime_error("XNetMaster connect() failed");
         }
 
-		std::cout << "XNetMaster connected" << std::endl;
+        std::cout << "XNetMaster connected" << std::endl;
     }
 
     ~XNetMaster() {

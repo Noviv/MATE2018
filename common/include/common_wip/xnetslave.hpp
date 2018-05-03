@@ -14,7 +14,7 @@
 #include <exception>
 
 class XNetSlave {
-   private:
+private:
     const std::string& ip;
 
     // recv variables
@@ -31,15 +31,15 @@ class XNetSlave {
 
     struct sockaddr_in serverAddr;
 
-   public:
+public:
     XNetSlave(const std::string& ip = "127.0.0.1",
               const int& rPort = 512,
               const int& sPort = 513)
         : ip(ip), rPort(rPort), sPort(sPort) {
         socklen_t addrLen = sizeof(struct sockaddr_in);
 
-		// init recv
-		std::cout << "XNetSlave init recv" << std::endl;
+        // init recv
+        std::cout << "XNetSlave init recv" << std::endl;
 
         rSokt = socket(PF_INET, SOCK_STREAM, 0);
         if (rSokt < 0) {
@@ -50,20 +50,20 @@ class XNetSlave {
         serverAddr.sin_addr.s_addr = inet_addr(ip.c_str());
         serverAddr.sin_port = htons(rPort);
 
-		std::cout << "XNetSlave connecting" << std::endl;
+        std::cout << "XNetSlave connecting" << std::endl;
         if (connect(rSokt, (sockaddr*)&serverAddr, addrLen) < 0) {
             throw std::runtime_error("XNetSlave connect() failed");
         }
 
-		std::cout << "XNetSlave connected" << std::endl;
+        std::cout << "XNetSlave connected" << std::endl;
 
-		// init serv
-		std::cout << "XNetSlave init serv" << std::endl;
+        // init serv
+        std::cout << "XNetSlave init serv" << std::endl;
 
-		lSokt = socket(AF_INET, SOCK_STREAM, 0);
-		if (lSokt < 0) {
-			throw std::runtime_error("XNetSlave lSokt == -1");
-		}
+        lSokt = socket(AF_INET, SOCK_STREAM, 0);
+        if (lSokt < 0) {
+            throw std::runtime_error("XNetSlave lSokt == -1");
+        }
 
         lAddr.sin_family = AF_INET;
         lAddr.sin_addr.s_addr = INADDR_ANY;
@@ -88,7 +88,7 @@ class XNetSlave {
     ~XNetSlave() {
         close(rSokt);
         close(lSokt);
-		close(sSokt);
+        close(sSokt);
     }
 };
 

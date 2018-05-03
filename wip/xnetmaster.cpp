@@ -3,7 +3,7 @@
 #include <stdio.h>
 
 int main() {
-	getchar();
-	//XNetMaster xnet;
-	return 0;
+    getchar();
+    // XNetMaster xnet;
+    return 0;
 }

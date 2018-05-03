@@ -7,4 +7,5 @@ DerivePointerAlignment: false
 PointerAlignment: Left
 AlwaysBreakTemplateDeclarations: true
 NamespaceIndentation: All
+AccessModifierOffset: -4
 ---
