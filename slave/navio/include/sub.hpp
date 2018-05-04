@@ -15,7 +15,7 @@
 #include "ports.hpp"
 
 #define SERVO_STOP 1500
-#define SERVO_MAG 100
+#define SERVO_MAG 600
 #define SERVO_FREQ 50
 
 class Thruster {
