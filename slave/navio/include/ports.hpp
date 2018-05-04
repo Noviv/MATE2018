@@ -9,7 +9,7 @@ enum Port {
     FBL = -1,
     FTR = -1,
     FBR = -1,
-    RTL = -1,
+    RTL = 0,
     RBL = -1,
     RTR = -1,
     RBR = -1
