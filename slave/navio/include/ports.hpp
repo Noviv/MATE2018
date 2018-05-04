@@ -5,14 +5,14 @@
 #include <unordered_map>
 
 enum Port {
-    FTL = -1,
-    FBL = -1,
-    FTR = -1,
-    FBR = -1,
+    FTL = 5,
+    FBL = 6,
+    FTR = 2,
+    FBR = 1,
     RTL = 0,
-    RBL = -1,
-    RTR = -1,
-    RBR = -1
+    RBL = 4,
+    RTR = 3,
+    RBR = 7
 };
 
 #endif

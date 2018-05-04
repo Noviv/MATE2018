@@ -67,7 +67,9 @@ private:
 
         pwm = std::unique_ptr<RCOutput>{new RCOutput_Navio2()};
 
-        thrusters.insert({0, std::move(Thruster(0, pwm))});
+        for (auto i = 0; i < 8; i++) {
+            thrusters.insert({i, std::move(Thruster(i, pwm))});
+        }
     }
 
 public:
