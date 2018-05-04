@@ -8,6 +8,8 @@ int main() {
     auto& sub = Sub::instance();
 
     auto func = [&sub](const std::string& _str) {
+        std::cout << "navio recv: " << _str << std::endl;
+
         if (_str[0] != '8') {
             if (_str[0] == '0') {
                 sub.disarm();
