@@ -1,6 +1,3 @@
-#include <iostream>
-#include <thread>
-
 #include <QApplication>
 #include <QDesktopWidget>
 #include <QStyle>

@@ -17,7 +17,8 @@ target_include_directories(csuite_main PUBLIC
 )
 target_link_libraries(csuite_main
 	-lX11
+	-lpthread
 )
 
-file(GLOB csuite_H include/*.hpp)
+file(GLOB csuite_H src/*.hpp)
 set(csuite_FORMATTABLE "${csuite_H};${csuite_SRC}" CACHE INTERNAL "csuite formattable files")
