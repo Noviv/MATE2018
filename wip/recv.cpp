@@ -29,7 +29,7 @@ int main() {
         return 1;
     }
 
-    cv::Mat img(480, 640, CV_8UC3);
+    cv::Mat img(480, 640, CV_8UC1);
     int sz = img.total() * img.elemSize();
     uchar* iptr = img.data;
     int bytes = 0;

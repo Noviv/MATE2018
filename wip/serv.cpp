@@ -16,6 +16,7 @@ void display(int* ptr) {
     int sokt = *ptr;
 
     cv::Mat img(480, 640, CV_8UC1);
+    cv::Mat imgGray;
     if (!img.isContinuous()) {
         img = img.clone();
     }
@@ -26,7 +27,9 @@ void display(int* ptr) {
     while (1) {
         cap >> img;
 
-        if ((bytes = send(sokt, img.data, sz, 0)) < 0) {
+        cvtColor(img, imgGray, cv::COLOR_BGR2GRAY);
+
+        if ((bytes = send(sokt, imgGray.data, sz, 0)) < 0) {
             perror("send() failed");
             break;
         }
