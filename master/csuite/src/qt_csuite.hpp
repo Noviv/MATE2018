@@ -7,6 +7,7 @@
 #include <QProgressBar>
 #include <QPushButton>
 #include <QWidget>
+#include <QX11Info>
 
 class QT_CSuite : public QMainWindow {
 private:
@@ -23,7 +24,7 @@ public:
     QT_CSuite();
     virtual ~QT_CSuite();
 
-    void closeEvent(QCloseEvent*);
+    bool eventFilter(QObject*, QEvent*);
 };
 
 #endif

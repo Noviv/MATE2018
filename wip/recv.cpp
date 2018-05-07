@@ -9,7 +9,7 @@
 
 int main() {
     int sokt;
-    const char* ip = "10.42.0.58";
+    const char* ip = "10.42.0.232";
     int port = 4123;
 
     struct sockaddr_in serverAddr;
@@ -29,7 +29,7 @@ int main() {
         return 1;
     }
 
-    cv::Mat img(480, 640, CV_8UC1);
+    cv::Mat img(480, 640, CV_8UC3);
     int sz = img.total() * img.elemSize();
     uchar* iptr = img.data;
     int bytes = 0;

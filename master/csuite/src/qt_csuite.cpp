@@ -1,11 +1,16 @@
 #include "qt_csuite.hpp"
 
 #include <iostream>
-#include <thread>
 
-#include <QCloseEvent>
+#include <QEvent>
+
+#include <X11/Xlib.h>
+
+Atom motion_evt;
 
 QT_CSuite::QT_CSuite() {
+    motion_evt = XInternAtom(QX11Info::display(), "MotionEvent", true);
+
     bar.setRange(0, 100);
     bar.setValue(25);
     bar.setOrientation(Qt::Vertical);
@@ -17,17 +22,14 @@ QT_CSuite::QT_CSuite() {
     central.setLayout(&layout);
 
     setCentralWidget(&central);
-
-    std::thread t([&]() {
-        while (!button.isDown()) {
-        }
-        std::cout << "button pushed" << std::endl;
-    });
-    t.detach();
 }
 
 QT_CSuite::~QT_CSuite() {}
 
-void QT_CSuite::closeEvent(QCloseEvent* event) {
-    std::cout << "close" << std::endl;
+bool QT_CSuite::eventFilter(QObject* o, QEvent* e) {
+    std::cout << e->type() << " vs. " << motion_evt << std::endl;
+    if (e->type() == motion_evt) {
+        std::cout << "FUCK YA" << std::endl;
+    }
+    return false;  // keep handling
 }

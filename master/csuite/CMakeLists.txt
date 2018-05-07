@@ -14,11 +14,12 @@ add_executable(csuite_main ${csuite_SRC})
 qt5_use_modules(csuite_main Widgets X11Extras)
 target_include_directories(csuite_main PUBLIC
 	include
+	src
 )
 target_link_libraries(csuite_main
 	-lX11
 	-lpthread
 )
 
-file(GLOB csuite_H src/*.hpp)
+file(GLOB csuite_H src/*.hpp include/*.hpp)
 set(csuite_FORMATTABLE "${csuite_H};${csuite_SRC}" CACHE INTERNAL "csuite formattable files")
