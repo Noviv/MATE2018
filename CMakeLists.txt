@@ -5,15 +5,15 @@ enable_testing()
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${MATE_BINARY_DIR}/bin)
 
-add_subdirectory(common)
-add_subdirectory(wip)
+#add_subdirectory(common)
+#add_subdirectory(wip)
 
-find_path(BCMHOST bcm_host.h PATHS /opt/vc/include)
-if(NOT BCMHOST)
-	add_subdirectory(master)
-endif()
+#find_path(BCMHOST bcm_host.h PATHS /opt/vc/include)
+#if(NOT BCMHOST)
+#	add_subdirectory(master)
+#endif()
 
-add_subdirectory(slave)
+#add_subdirectory(slave)
 
 find_program(formatter clang-format)
 find_program(formatter-6.0 clang-format-6.0)
